@@ -10,7 +10,7 @@
   <meta name="citation_title" content="Components.js: Semantic Dependency Injection">
   <meta name="citation_author" content="Ruben Taelman" />
   
-  <meta name="citation_publication_date" content="2021/05/31" />
+  <meta name="citation_publication_date" content="2021/06/01" />
 </head>
 
 <body prefix="dctypes: http://purl.org/dc/dcmitype/ pimspace: http://www.w3.org/ns/pim/space# rsa: http://www.w3.org/ns/auth/rsa# cert: http://www.w3.org/ns/auth/cert# wgs: http://www.w3.org/2003/01/geo/wgs84_pos# biblio: http://purl.org/net/biblio# bibo: http://purl.org/ontology/bibo/ book: http://purl.org/NET/book/vocab# ov: http://open.vocab.org/terms/ doap: http://usefulinc.com/ns/doap# dbr: http://dbpedia.org/resource/ dbp: http://dbpedia.org/property/ sio: http://semanticscience.org/resource/ opmw: http://www.opmw.org/ontology/ deo: http://purl.org/spar/deo/ doco: http://purl.org/spar/doco/ cito: http://purl.org/spar/cito/ fabio: http://purl.org/spar/fabio/ solid: http://www.w3.org/ns/solid/terms# acl: http://www.w3.org/ns/auth/acl# dio: https://w3id.org/dio# lsc: http://linkedscience.org/lsc/ns#" typeof="schema:CreativeWork sioc:Post prov:Entity lsc:Research">
@@ -60,7 +60,75 @@ Donec quis lectus eget sem tempor tristique pellentesque in dolor.</p>
 <div datatype="rdf:HTML" property="schema:description">
           <h2 property="schema:name">Introduction</h2>
 
-          <p class="todo">context and motivation</p>
+          <p>Object-oriented (OO) programming is a highly popular paradigm within the domain of software engineering.
+Considering <em>objects</em> containing data and logic as primary software elements
+makes it easy for developers to understand software,
+as it makes software resemble real-world mechanisms with interacting physical objects.
+Most OO languages allow objects to be instantiated from <em>classes</em> that determine the object’s type,
+where <em>inheritance</em> can be used to let classes extend from other classes,
+and thereby inheriting their fields, methods, and type(s).
+Unfortunately, inheritance is often overused in places where <em>composition</em> would be better suited <span class="references">[<a href="#ref-1">1</a>]</span>,
+where composition of objects (containment within each other) leads to more flexibility in terms of object relationships,
+and thereby leads to more loosely coupled objects.</p>
+
+          <p>A popular technique to manage the composition of objects is called <a property="schema:citation http://purl.org/spar/cito/cites" href="https://martinfowler.com/articles/injection.html"><em>Dependency Injection</em> (DI)</a> <span class="references">[<a href="#ref-2">2</a>]</span>.
+It assumes that objects are loosely coupled,
+and that they only depend on each other via a minimal and generic interface,
+without depending on concrete implementations of such interfaces.
+In order to link these interfaces to concrete implementations,
+a generic DI framework can provide specific implementations where needed based on some external configuration.
+Since objects only communicate by strict interfaces,
+and specific implementations are derived from an external configuration,
+the specific wiring of a software application is not hard-coded anymore.
+Instead, this wiring can be altered afterwards by modifying the configuration file,
+which makes the application more flexible.</p>
+
+          <p>Configurations for existing DI frameworks
+are either defined directly within a programming language,
+or are defined declaratively within text files with a domain-specific language using syntaxes such as JSON and XML.
+The latter type of configuration files is better suited for use cases where no changes can be made to existing code –e.g., in the case of pre-compiled languages–,
+when the creators of these configuration files have no programming knowledge,
+or when configuration files are created automatically from an external tool –e.g., a visual drag-and-drop interface–.
+Such declarative configuration files typically have only local semantics,
+which means that they are usually only usable within the DI framework for which they were created, and for the current application only.
+With the power of <a property="schema:citation http://purl.org/spar/cito/cites" href="https://www.w3.org/DesignIssues/LinkedData.html">Linked Data</a> <span class="references">[<a href="#ref-3">3</a>]</span> and the <a property="schema:citation http://purl.org/spar/cito/cites" href="https://www-sop.inria.fr/acacia/cours/essi2006/Scientific%20American_%20Feature%20Article_%20The%20Semantic%20Web_%20May%202001.pdf">Semantic Web</a> <span class="references">[<a href="#ref-4">4</a>]</span> in mind,
+these configurations could move <em>beyond</em> their local scope,
+and make them globally <em>interoperable</em>, <em>addressable</em>, and <em>discoverable</em>.</p>
+
+          <p>To this end, we present <em>Components.js</em>,
+a semantic DI framework for TypeScript and JavaScript applications
+that gives global semantics to software configurations, hence surpassing existing dependency injection frameworks.
+Components.js thereby enables highly modular applications to be built that are dynamically wired based on semantic configuration files.
+The framework is <a href="https://github.com/LinkedSoftwareDependencies/Components.js" class="mandatory" data-link-text="https:/​/​github.com/​LinkedSoftwareDependencies/​Components.js">open-source</a>,
+available on <a href="https://www.npmjs.com/package/componentsjs" class="mandatory" data-link-text="https:/​/​www.npmjs.com/​package/​componentsjs">npm</a>,
+and its complete documentation can be found at <a href="https://componentsjs.readthedocs.io/" class="mandatory" data-link-text="https:/​/​componentsjs.readthedocs.io/​">https:/​/​componentsjs.readthedocs.io/</a>.
+Furthermore, it is being actively used as core technology within popular tools such as
+<a href="https://github.com/solid/community-server/" class="mandatory" data-link-text="https:/​/​github.com/​solid/​community-​server/​">Solid Community Server</a> and <a property="schema:citation http://purl.org/spar/cito/cites" href="https://comunica.github.io/Article-ISWC2018-Resource/">Comunica</a> <span class="references">[<a href="#ref-5">5</a>]</span>.
+Within Components.js,
+software configurations and modules are described as Linked Data using
+the <a property="schema:citation http://purl.org/spar/cito/citesAsAuthority" href="https://linkedsoftwaredependencies.org/articles/describing-experiments/"><em>Object-Oriented Components vocabulary</em></a> <span class="references">[<a href="#ref-6">6</a>]</span>
+and the <a property="schema:citation http://purl.org/spar/cito/citesAsAuthority" href="https://linkedsoftwaredependencies.org/articles/describing-experiments/"><em>Object Mapping vocabulary</em></a> <span class="references">[<a href="#ref-6">6</a>]</span>.
+By publishing such descriptions,
+the composition of software (and parts thereof) can be <em>unambiguously identified</em> by IRIs and 
+retrieved through <em>dereferencing</em>.
+Components.js automatically <em>instantiates</em> such software configurations, including resolving the necessary dependencies.
+As such, this (de)referenceability of software configurations by IRI is beneficial in use cases such as:</p>
+
+          <dl>
+            <dt>Experimental research</dt>
+            <dd>Providing the full provenance trail of used software configurations to produce experimental results and enable reproducibility.</dd>
+            <dt>Static program analysis</dt>
+            <dd>Discovering conflicts or compatibility issues of different classes within software using RDF tools such as SPARQL query engines and reasoners.</dd>
+            <dt>Semantic workflows</dt>
+            <dd>Automatic wiring of software using RDF tools to optimally address a specific need.</dd>
+          </dl>
+
+          <p>In this article, we introduce the Components.js framework as follows.
+In the next section (<a href="#related-work">Section 2</a>), we discuss the related work.
+Next, in <a href="#configs">Section 3</a> we explain the declarative configuration files of Components.js,
+followed by an architectural overview of the framework itself in <a href="#system">Section 4</a>.
+Then, in <a href="#usage">Section 5</a>, we mention some applications where Components.js is being used.
+Finally, we conclude in <a href="#conclusions">Section 6</a>.</p>
 
         </div>
 </section>
@@ -112,10 +180,29 @@ Donec quis lectus eget sem tempor tristique pellentesque in dolor.</p>
 
 </main>
 
-<footer></footer>
+<footer><section>
+<h2 id="references">References</h2>
+<dl class="references">
+  <dt id="ref-1">[1]</dt>
+  <dd resource="#designpatterns" typeof="schema:Article">Gamma, E., Helm, R., Johnson, R., Vlissides, J., Patterns, D.: Elements of Reusable Object-Oriented Software. Design Patterns. massachusetts: Addison-Wesley Publishing Company. (1995).</dd>
+  <dt id="ref-2">[2]</dt>
+  <dd resource="https://martinfowler.com/articles/injection.html" typeof="schema:CreativeWork">Fowler, M.: Inversion of Control Containers and the Dependency Injection pattern. <a href="https://martinfowler.com/articles/injection.html">https:/​/​martinfowler.com/articles/injection.html</a> (2004).</dd>
+  <dt id="ref-3">[3]</dt>
+  <dd resource="https://www.w3.org/DesignIssues/LinkedData.html" typeof="schema:CreativeWork">Berners-Lee, T.: Linked Data. <a href="https://www.w3.org/DesignIssues/LinkedData.html">https:/​/​www.w3.org/DesignIssues/LinkedData.html</a> (2006).</dd>
+  <dt id="ref-4">[4]</dt>
+  <dd resource="https://www-sop.inria.fr/acacia/cours/essi2006/Scientific%20American_%20Feature%20Article_%20The%20Semantic%20Web_%20May%202001.pdf" typeof="schema:Article">Berners-Lee, T., Hendler, J., Lassila, O., others: The Semantic Web. Scientific American. 284, 28–37 (2001).</dd>
+  <dt id="ref-5">[5]</dt>
+  <dd resource="https://comunica.github.io/Article-ISWC2018-Resource/" typeof="schema:Article">Taelman, R., Van Herwegen, J., Vander Sande, M., Verborgh, R.: Comunica: a Modular SPARQL Query Engine for the Web. In: Proceedings of the 17th International Semantic Web Conference (2018).</dd>
+  <dt id="ref-6">[6]</dt>
+  <dd resource="https://linkedsoftwaredependencies.org/articles/describing-experiments/" typeof="schema:Article">Van Herwegen, J., Taelman, R., Capadisli, S., Verborgh, R.: Describing configurations of software experiments as Linked Data. In: Proceedings of the 1st SemSci Workshop (2017).</dd>
+</dl>
+</section>
+</footer>
 
 </div>
 </div>
+
+
 
 </body>
 </html>
