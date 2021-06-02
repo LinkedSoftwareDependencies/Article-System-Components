@@ -10,7 +10,7 @@
   <meta name="citation_title" content="Components.js: Semantic Dependency Injection">
   <meta name="citation_author" content="Ruben Taelman" />
   
-  <meta name="citation_publication_date" content="2021/06/01" />
+  <meta name="citation_publication_date" content="2021/06/02" />
 </head>
 
 <body prefix="dctypes: http://purl.org/dc/dcmitype/ pimspace: http://www.w3.org/ns/pim/space# rsa: http://www.w3.org/ns/auth/rsa# cert: http://www.w3.org/ns/auth/cert# wgs: http://www.w3.org/2003/01/geo/wgs84_pos# biblio: http://purl.org/net/biblio# bibo: http://purl.org/ontology/bibo/ book: http://purl.org/NET/book/vocab# ov: http://open.vocab.org/terms/ doap: http://usefulinc.com/ns/doap# dbr: http://dbpedia.org/resource/ dbp: http://dbpedia.org/property/ sio: http://semanticscience.org/resource/ opmw: http://www.opmw.org/ontology/ deo: http://purl.org/spar/deo/ doco: http://purl.org/spar/doco/ cito: http://purl.org/spar/cito/ fabio: http://purl.org/spar/fabio/ solid: http://www.w3.org/ns/solid/terms# acl: http://www.w3.org/ns/auth/acl# dio: https://w3id.org/dio# lsc: http://linkedscience.org/lsc/ns#" typeof="schema:CreativeWork sioc:Post prov:Entity lsc:Research">
@@ -137,7 +137,87 @@ Finally, we conclude in <a href="#conclusions">Section 6</a>.</p>
 <div datatype="rdf:HTML" property="schema:description">
           <h2 property="schema:name">Related Work</h2>
 
-          <p class="todo">Write me</p>
+          <h3 id="related-work-di">Dependency Injection</h3>
+
+          <p><strong>Inversion of Control</strong></p>
+
+          <p><a property="schema:citation http://purl.org/spar/cito/cites" href="https://martinfowler.com/articles/injection.html">Inversion of Control (IoC)</a> <span class="references">[<a href="#ref-2">2</a>]</span> is a general principle within software engineering
+that inverts the usual flow of control within software architectures.
+This is mostly done to reduce coupling between software components, and make the overall architecture more modular and extensible.
+On the one hand, traditional procedural programming gives the developer direct control of the flow of logic, where code directly invokes other code.
+IoC on the other hand implies the use of a framework that manages this flow,
+and allows custom code –that is supplied by the developer–
+to be invoked when the frameworks deems it necessary.
+This concept is typically referred to as <em>“The Hollywood Principle: Don’t call us, we’ll call you”</em>.</p>
+
+          <p>A specific technique to achieve IoC is <a property="schema:citation http://purl.org/spar/cito/cites" href="https://martinfowler.com/articles/injection.html"><em>Dependency Injection</em> (DI)</a> <span class="references">[<a href="#ref-2">2</a>]</span>.
+As mentioned before, DI is based on the <em>composition</em> of objects to enable relationships between them (as opposed to <em>inheritance</em>).
+These composed objects are tied to each other only by a lightweight interface,
+where different implementations may be possible for each interface.
+Using a DI framework, specific implementations for such interfaces can be configured,
+after which they can be instantiated into objects,
+and are injected into each other using the DI framework’s <em>assembler</em> to complete the wiring of the software application.</p>
+
+          <p>The configuration of such a wiring of objects
+can either be done in code, or via external configuration files.
+The main motivations for configurations are the strict boundaries between configuration and logic,
+enabling non-developers to configure the code,
+and taking away the need to recompile the code for pre-compiled languages.
+However, when dependencies are defined based on some logic such as external conditions,
+then configuring via code may be better suited,
+as this can become too complex to define in declarative configuration files.</p>
+
+          <p><strong>Forms of Injection</strong></p>
+
+          <p>In practise, three main forms of DI exist through which dependencies can be injected into a an object:</p>
+
+          <dl>
+            <dt>Constructor injection</dt>
+            <dd>Dependency objects are passed via a class constructor.</dd>
+            <dt>Setter injection</dt>
+            <dd>Dependencies are passed to an object by invoking setter methods.</dd>
+            <dt>Interface injection</dt>
+            <dd>The interface of dependencies expose a method that –when invoked– injects this dependency into an object that is passed to it. Such passed objects will typically a setter method for this.</dd>
+          </dl>
+
+          <p>Constructor injection is the simplest and most popular form.
+It requires all dependencies to be wired at construction time,
+which usually leads to immutable wiring.
+Setter injection is more flexible as wiring can be changed afterwards,
+but could lead to problems where not all dependencies have been fully configured yet.
+Interface injection is more complex, and is mainly useful if bidirectional links between dependencies and dependents need to be configured.</p>
+
+          <p><strong>Advantages and Disadvantages</strong></p>
+
+          <p>To end this section, we summarize the main <a href="https://betterprogramming.pub/the-6-benefits-of-dependency-injection-7802b207ec69">advantages</a>
+and <a href="https://www.professionalqa.com/dependency-injection">disadvantages</a> of DI.</p>
+
+          <p>Advantages:</p>
+
+          <ul>
+            <li>Classes are loosely coupled, which leads to <strong>lower maintenance</strong> effort.</li>
+            <li>Loose coupling also leads to better <strong>testability</strong>, as dependencies with lightweight interfaces can easily be mocked.</li>
+            <li>Classes have a single responsibility, which leads to <strong>better understandable</strong> code.</li>
+            <li>Applications are more <strong>flexible</strong>, as they can be wired differently by changing a configuration file.</li>
+            <li>Applications are more <strong>extensible</strong>, as different interface implementations can be created, and swapped in or out easily.</li>
+            <li>Since classes are coded against interfaces of dependencies, they lead to more <strong>independent</strong> code, which is beneficial in large teams that work in parallel.</li>
+          </ul>
+
+          <p>Disadvantages:</p>
+
+          <ul>
+            <li>Defining the wiring of an application via <strong>configurations can be complex</strong>, so good defaults must be available.</li>
+            <li>Logic <strong>flow is harder to follow</strong> when debugging, which leads to the need of good documentation.</li>
+            <li>DI frameworks can lead to <strong>overhead</strong> in terms of understandability, execution time and software size.</li>
+          </ul>
+
+          <h3 id="related-work-software-description">Semantic Software Description</h3>
+
+          <p class="todo">See https://linkedsoftwaredependencies.org/articles/reproducibility/#related-work</p>
+
+          <h3 id="related-work-di-frameworks">Dependency Injection Frameworks</h3>
+
+          <p class="todo">existing frameworks, and compare with Components.js (See https://linkedsoftwaredependencies.org/articles/reproducibility/#related-work)</p>
 
         </div>
 </section>
