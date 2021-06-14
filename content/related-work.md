@@ -105,5 +105,37 @@ This allows for exhaustive descriptions of complex software systems, but is not 
 ### Dependency Injection Frameworks
 {:#related-work-di-frameworks}
 
-existing frameworks, and compare with Components.js (See https://linkedsoftwaredependencies.org/articles/reproducibility/#related-work)
-{:.todo}
+The large spectrum of existing dependency injection frameworks indicates a high demand for such systems.
+Java likely contains the largest collection of dependency injection frameworks.
+Much of this stems from the strict typing,
+which makes it difficult to create mock objects when required for testing
+if the dependencies are nested in the implementation.
+
+One of the biggest Java frameworks is [Spring](https://spring.io/),
+which amongst many things, also provides dependency injection.
+That is one of its advantages though:
+many projects already use Spring for other reasons,
+reducing the jump required to add the dependency injection framework.
+It supports two ways to do the injection.
+The first one is through an external XML configuration file
+which defines all the classes and how they are linked together.
+The other one is with annotations in the actual code
+that define how the interlinking of classes should work.
+Google's [Guice](https://github.com/google/guice) is a more lightweight alternative to Spring;
+[Dagger](https://github.com/google/dagger) was created to be even more lightweight than Guice.
+
+In JavaScript, 
+dependency injection frameworks tend to be less common because of its flexible nature.
+Still, multiple frameworks are available, such as [BottleJS](https://github.com/young-steveo/bottlejs), [Wire](https://github.com/cujojs/wire), and [Electrolyte](https://github.com/jaredhanson/electrolyte), all backed by rather small communities.
+One of the biggest ones, [InversifyJS](https://github.com/inversify/InversifyJS),
+uses annotations similar to Java frameworks to define possible injections.
+Unlike standard JavaScript,
+it requires you to define interfaces and types via TypeScript,
+thereby allowing it to make use of this extra information to correctly handle the linking.
+Like Guice, it also has a bindings file to link classes to interfaces.
+
+Components.js differs from most of the aforementioned frameworks on different aspects,
+of which the first one is unique to Components.js:
+
+- RDF-based configuration files in order to make them globally _interoperable_, _addressable_, and _discoverable_.
+- Decoupling of the dependency injection layer from the software implementation.
