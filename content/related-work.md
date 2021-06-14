@@ -75,8 +75,32 @@ Disadvantages:
 ### Semantic Software Description
 {:#related-work-software-description}
 
-See https://linkedsoftwaredependencies.org/articles/reproducibility/#related-work
-{:.todo}
+Configuration-based DI frameworks make use of some form of software description.
+Therefore, we introduce the related work around semantic software descriptions.
+
+Software can be described on several levels of granularity,
+going from a high-level package overview to a low-level description of the actual code.
+The [Software Ontology (SWO)](cite:cites malone2014software) and [Description of a Project (DOAP)](cite:cites doap) ontology focus on the high-level management of software development,
+enabling the description of tools, resources, contributors and tasks. 
+At a slightly lower level, SWO includes interfaces, algorithms, versions, and the associated provenance data, but does not reach the level of detail to describe operational code.
+
+Ontologies that describe software configuration from a research workflow perspective are [LODFlow](cite:cites Rautenberg:2015:LWM:2814864.2814882), [Workflow-Centric Research Objects](cite:cites Belhajjame2015) with the <cite><a href="https://w3id.org/ro/">Wf4Ever Research Object Model</a></cite> and the [Ontologies for Describing the Context of Scientific Experiment Processes](cite:cites Mayer2014) with the <cite><a href="http://www.timbusproject.net/portal/publications/ontologies/">TIMBUS Context Model</a></cite> to compliment the Research Objects model. 
+From a more generic perspective, there exist the [PROV Ontology](cito:citesAsAuthority PROVO), the [OPMW-PROV Ontology](cito:citesAsAuthority OPMWPROV), and the [DDI-RDF Discovery Vocabulary](cito:citesAsAuthority DDIRDF).
+However, these efforts can only cover (parts of) the connection between research and software, which is insufficient for dependency injection.
+Such descriptions are however interpretive in that any given tool is subject to having multiple descriptions by different users.
+In contrast to the human-driven descriptions, our work both enables and accelerates the generation of machine-driven Linked Data descriptions of software modules, their components, as well as their configurations to be uniformly created.
+Consequently, this makes it possible to accurately describe and instantiate software experiments that can be reused and compared with unambiguously.
+
+Much more low-level and exact is the [Core Software Ontology (CSO)](cite:cites oberle2009ontology),
+which provides a foundational vocabulary that is designed for extensibility.
+This includes the distinctive concepts to describe software as code, software as object to computational hardware, and software as a running computational activity,
+but also Interfaces, Classes, Methods, the relationships between them, and workflow information on their invocation.
+Its extension, the Core Ontology of Software Components (COSC), moves closer to the topic of this article by describing interfaces and protocols of objects.
+Similar in scope is the [Software Engineering Ontology Network (SEON)](cite:cites ruy2016seon), which consolidates multiple ontologies for the Software Engineering field.
+It includes a higher Core and Foundational layer, as well as multiple domain-specific ontologies.
+Of particular interest is their Software Ontology (SwO) that captures the different artifacts in software.
+In general, both ontologies (or suites) view software from a <q>network of communicating concepts</q> perspective.
+This allows for exhaustive descriptions of complex software systems, but is not suited for describing class instances or aspects of modular programming (e.g., package dependencies).
 
 ### Dependency Injection Frameworks
 {:#related-work-di-frameworks}
