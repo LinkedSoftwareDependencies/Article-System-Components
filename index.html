@@ -13,7 +13,7 @@
   <meta name="citation_author" content="Miel Vander Sande" />
   <meta name="citation_author" content="Ruben Verborgh" />
   
-  <meta name="citation_publication_date" content="2021/06/15" />
+  <meta name="citation_publication_date" content="2021/07/22" />
 </head>
 
 <body prefix="dctypes: http://purl.org/dc/dcmitype/ pimspace: http://www.w3.org/ns/pim/space# rsa: http://www.w3.org/ns/auth/rsa# cert: http://www.w3.org/ns/auth/cert# wgs: http://www.w3.org/2003/01/geo/wgs84_pos# biblio: http://purl.org/net/biblio# bibo: http://purl.org/ontology/bibo/ book: http://purl.org/NET/book/vocab# ov: http://open.vocab.org/terms/ doap: http://usefulinc.com/ns/doap# dbr: http://dbpedia.org/resource/ dbp: http://dbpedia.org/property/ sio: http://semanticscience.org/resource/ opmw: http://www.opmw.org/ontology/ deo: http://purl.org/spar/deo/ doco: http://purl.org/spar/doco/ cito: http://purl.org/spar/cito/ fabio: http://purl.org/spar/fabio/ solid: http://www.w3.org/ns/solid/terms# acl: http://www.w3.org/ns/auth/acl# dio: https://w3id.org/dio# lsc: http://linkedscience.org/lsc/ns#" typeof="schema:CreativeWork sioc:Post prov:Entity lsc:Research">
@@ -293,7 +293,108 @@ of which the first one is unique to Components.js:</p>
 <div datatype="rdf:HTML" property="schema:description">
           <h2 property="schema:name">Declarative Configurations</h2>
 
-          <p class="todo">Write me: components and config files; autogeneration with generator; dereferencability via LSD</p>
+          <p>Components.js depends on two levels of configuration for enabling the wiring of software components.
+The first level is the creation of <em>components</em> files,
+which are the semantic representation of component constructors,
+and can usually be automatically generated.
+The second level is the creation of <em>configuration</em> files,
+which represent the actual instantiation of components
+based on the generated components files.
+Hereafter, we explain these two levels in more detail.</p>
+
+          <h3 id="components-files">Components files</h3>
+
+          <p>Component files are used to semantically represent the constructors of software components.
+For this, we make use of two vocabularies, which will be explained hereafter.
+Next, we explain how URLs can be minted for software components, so that they become fully dereferenceable.
+Finally, we explain how these component files can be generated automatically from existing TypeScript code.</p>
+
+          <h4 id="object-oriented-components-vocabulary">Object-Oriented Components Vocabulary</h4>
+
+          <p>Components.js distinguishes between three main concepts:</p>
+
+          <dl>
+            <dt>Module</dt>
+            <dd>a software package containing zero or more components. This is equivalent to a Node module or npm package.</dd>
+            <dt>Component</dt>
+            <dd>a class that can be instantiated by creating a new instance of that type with zero or more parameter values. Parameters are defined by the class constructor.</dd>
+            <dt>Configuration</dt>
+            <dd>a semantic representation of an instantiation of a component into an object instance based on parameters.</dd>
+          </dl>
+
+          <p>These concepts are described in the programming language independent <a href="https://linkedsoftwaredependencies.org/vocabularies/object-oriented"><em>Object-Oriented Components vocabulary (OO)</em></a> <span class="references">[<a href="#ref-6">6</a>]</span>.
+This vocabulary enables software components to be instantiated based on certain parameters,
+analog to constructor arguments in object-oriented programming.
+This is interpreted in the broad sense: only <em>classes</em>, <em>objects</em> and <em>constructor parameters</em> are considered.
+An overview is given in <a href="#voc-oo-diagram">Fig. 1</a>.</p>
+
+          <figure id="voc-oo-diagram">
+<img src="img/voc-oo-diagram.svg" alt="[description diagram]" />
+<figcaption>
+              <p><span class="label">Fig. 1:</span> Classes and properties in the <a href="https://linkedsoftwaredependencies.org/vocabularies/object-oriented"><em>Object-Oriented Components vocabulary (OO)</em></a>, with as prefix <code>oo</code>.</p>
+            </figcaption>
+</figure>
+
+          <p>A module is considered a collection of components.
+Within object-oriented languages, this can correspond to for example a software library or an application.
+A component is typed as <code>oo:Component</code>, which is a <em>subclass</em> of <code>rdfs:Class</code>.
+The parameters to construct the component can therefore be defined as an <code>rdfs:Property</code> on a component.</p>
+
+          <figure id="module-oo" class="listing">
+<pre><code>{
+</code><code>  &quot;@context&quot;: [
+</code><code>    &quot;https://linkedsoftwaredependencies.org/bundles/npm/componentsjs/
+</code><code>      ^4.0.0/components/context.jsonld&quot;,
+</code><code>    { &quot;ex&quot;: &quot;http://example.org/&quot; }
+</code><code>  ],
+</code><code>  &quot;@id&quot;: &quot;ex:MyModule&quot;,
+</code><code>  &quot;@type&quot;: &quot;Module&quot;,
+</code><code>  &quot;requireName&quot;: &quot;my-module&quot;,
+</code><code>  &quot;components&quot;: [
+</code><code>    {
+</code><code>      &quot;@id&quot;: &quot;ex:MyModule/MyComponent&quot;,
+</code><code>      &quot;@type&quot;: &quot;Class&quot;,
+</code><code>      &quot;requireElement&quot;: &quot;MyComponent&quot;,
+</code><code>      &quot;parameters&quot;: [
+</code><code>        {
+</code><code>          &quot;@id&quot;: &quot;ex:MyModule/MyComponent#name&quot;,
+</code><code>          &quot;unique&quot;: true,
+</code><code>          &quot;range&quot;: &quot;xsd:string&quot;
+</code><code>        }
+</code><code>      ]
+</code><code>    }
+</code><code>  ]
+</code><code>}</code></pre>
+<figcaption>
+              <p><span class="label">Listing 1:</span> A description of a module <code>ex:MyModule</code> with a single component using the <a property="schema:citation http://purl.org/spar/cito/cites" href="https://www.w3.org/TR/json-ld/">JSON-LD</a> <span class="references">[<a href="#ref-17">17</a>]</span> serialization,
+compacted with the <code>https:/​/​linkedsoftwaredependencies.org/bundles/npm/componentsjs/^4.0.0/components/context.jsonld</code> context.</p>
+            </figcaption>
+</figure>
+
+          <p>We illustrate the usage of this vocabulary with an example in <a href="#module-oo">Listing 1</a> using the <a property="schema:citation http://purl.org/spar/cito/cites" href="https://www.w3.org/TR/json-ld/">JSON-LD</a> <span class="references">[<a href="#ref-17">17</a>]</span> serialization.
+This listing shows the definition of a new module (<code>oo:Module</code>) with compact IRI <code>ex:MyModule</code>.
+The name of the module is set with the compact IRI <code>requireName</code>, which expands to <code>doap:name</code> from the <a href="https://github.com/ewilderj/doap/wiki">Description of a Project (DOAP) vocabulary</a>.
+Furthermore, our module contains a single class component (<code>oo:Class</code>) with compact IRI <code>ex:MyModule/MyComponent</code>.
+Since this is a class component (subclass of <code>oo:Component</code>), this means that this components is instantiatable based on parameters.
+Each component can refer to its path within a module using the <code>oo:componentPath</code> predicate (compacted as <code>requireElement</code>).
+Finally, our single component has a parameter (<code>oo:Parameter</code>) with compact IRI <code>ex:MyModule/MyComponent#name</code>
+that can be set when instantiating this component.</p>
+
+          <h4 id="object-mapping-vocabulary">Object Mapping Vocabulary</h4>
+
+          <p class="todo">Write me</p>
+
+          <h4 id="dereferenceability">Dereferenceability</h4>
+
+          <p class="todo">Write me: via LSD</p>
+
+          <h4 id="generation-from-typescript">Generation from TypeScript</h4>
+
+          <p class="todo">Write me</p>
+
+          <h3 id="configuration-files">Configuration files</h3>
+
+          <p class="todo">Write me</p>
 
         </div>
 </section>
@@ -362,6 +463,8 @@ of which the first one is unique to Components.js:</p>
   <dd resource="#oberle2009ontology" typeof="schema:Chapter">Oberle, D., Grimm, S., Staab, S.: An ontology for software. In: Handbook on ontologies. pp. 383–402. Springer (2009).</dd>
   <dt id="ref-16">[16]</dt>
   <dd resource="#ruy2016seon" typeof="schema:Article">Ruy, F.B., de Almeida Falbo, R., Barcellos, M.P., Costa, S.D., Guizzardi, G.: SEON: A software engineering ontology network. In: European Knowledge Acquisition Workshop. pp. 527–542. Springer (2016).</dd>
+  <dt id="ref-17">[17]</dt>
+  <dd resource="https://www.w3.org/TR/json-ld/" typeof="schema:CreativeWork">JSON-LD 1.1: a JSON-based serialization for linked data. <a href="https://www.w3.org/TR/json-ld/">https:/​/​www.w3.org/TR/json-ld/</a></dd>
 </dl>
 </section>
 </footer>
