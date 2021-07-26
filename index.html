@@ -13,7 +13,7 @@
   <meta name="citation_author" content="Miel Vander Sande" />
   <meta name="citation_author" content="Ruben Verborgh" />
   
-  <meta name="citation_publication_date" content="2021/07/23" />
+  <meta name="citation_publication_date" content="2021/07/26" />
 </head>
 
 <body prefix="dctypes: http://purl.org/dc/dcmitype/ pimspace: http://www.w3.org/ns/pim/space# rsa: http://www.w3.org/ns/auth/rsa# cert: http://www.w3.org/ns/auth/cert# wgs: http://www.w3.org/2003/01/geo/wgs84_pos# biblio: http://purl.org/net/biblio# bibo: http://purl.org/ontology/bibo/ book: http://purl.org/NET/book/vocab# ov: http://open.vocab.org/terms/ doap: http://usefulinc.com/ns/doap# dbr: http://dbpedia.org/resource/ dbp: http://dbpedia.org/property/ sio: http://semanticscience.org/resource/ opmw: http://www.opmw.org/ontology/ deo: http://purl.org/spar/deo/ doco: http://purl.org/spar/doco/ cito: http://purl.org/spar/cito/ fabio: http://purl.org/spar/fabio/ solid: http://www.w3.org/ns/solid/terms# acl: http://www.w3.org/ns/auth/acl# dio: https://w3id.org/dio# lsc: http://linkedscience.org/lsc/ns#" typeof="schema:CreativeWork sioc:Post prov:Entity lsc:Research">
@@ -366,7 +366,7 @@ The parameters to construct the component can therefore be defined as an <code>r
 </code><code>  ]
 </code><code>}</code></pre>
 <figcaption>
-              <p><span class="label">Listing 1:</span> A description of a module <code>ex:MyModule</code> with a single component using the <a property="schema:citation http://purl.org/spar/cito/cites" href="https://www.w3.org/TR/json-ld/">JSON-LD</a> <span class="references">[<a href="#ref-17">17</a>]</span> serialization,
+              <p><span class="label">Listing 1:</span> A description of a module <code>ex:MyModule</code> with a single component using the JSON-LD serialization,
 compacted with the <code>https:/​/​linkedsoftwaredependencies.org/bundles/npm/componentsjs/^4.0.0/components/context.jsonld</code> context.</p>
             </figcaption>
 </figure>
@@ -380,9 +380,106 @@ Each component can refer to its path within a module using the <code>oo:componen
 Finally, our single component has a parameter (<code>oo:Parameter</code>) with compact IRI <code>ex:MyModule/MyComponent#name</code>
 that can be set when instantiating this component.</p>
 
+          <p>Since components and parameters are defined as RDFS vocabulary,
+we can instantiate components easily using the <code>rdf:type</code> predicate,
+and by using parameters as predicates on such new instances, as shown in <a href="#instance-oo">Listing 2</a>.
+Instead of passing literals as values to parameters, it is also possible to pass <em>other component instances</em> as values,
+thereby allowing nested component instantiations to be defined.</p>
+
+          <figure id="instance-oo" class="listing">
+<pre><code>{
+</code><code>  &quot;@context&quot;: [
+</code><code>    &quot;https://linkedsoftwaredependencies.org/bundles/npm/componentsjs/
+</code><code>      ^4.0.0/components/context.jsonld&quot;,
+</code><code>    { &quot;ex&quot;: &quot;http://example.org/&quot; }
+</code><code>  ],
+</code><code>  &quot;@type&quot;: &quot;ex:MyModule/MyComponent&quot;,
+</code><code>  &quot;ex:MyModule/MyComponent#name&quot;: &quot;Some name&quot;
+</code><code>}</code></pre>
+<figcaption>
+              <p><span class="label">Listing 2:</span> Instantiation of <code>ex:MyModule/MyComponent</code> using a value for the parameter <code>ex:MyModule/MyComponent#name</code>.</p>
+            </figcaption>
+</figure>
+
           <h4 id="object-mapping-vocabulary">Object Mapping Vocabulary</h4>
 
-          <p class="todo">Write me</p>
+          <p>As shown in the previous section, the OO vocabulary allows modules, components, and parameters to be defined,
+so that instances of components can be declared.
+However, this vocabulary only defines parameter values for component instances,
+but it does not define how these parameter values are used to invoke the constructor of this component.
+To enable this, we introduce the accompanying <a href="https://linkedsoftwaredependencies.org/vocabularies/object-mapping" class="mandatory" data-link-text="https:/​/​linkedsoftwaredependencies.org/​vocabularies/​object-​mapping"><em>Object Mapping vocabulary (OM)</em></a>.
+<a href="#voc-om-diagram">Fig. 2</a> shows an overview of all its classes and predicates.</p>
+
+          <figure id="voc-om-diagram">
+<img src="img/voc-om-diagram.svg" alt="[Object Mapping vocabulary diagram]" />
+<figcaption>
+              <p><span class="label">Fig. 2:</span> Classes and properties in the <a href="https://linkedsoftwaredependencies.org/vocabularies/object-mapping#"><em>Object Mapping</em> vocabulary</a>, with as prefix <code>om</code>.</p>
+            </figcaption>
+</figure>
+
+          <p>The OM vocabulary makes use of the <code>oo:constructorArguments</code> predicate for the domain <code>oo:Class</code>,
+and thereby builds upon the OO vocabulary via the <code>oo:constructorArguments</code> extension point to define the class constructor’s behaviour.
+Concretely, this new vocabulary defines a mapping between the component parameters as defined using the OO vocabulary,
+and the raw objects that are passed into the constructor during instantiation.</p>
+
+          <p>In essence, this vocabulary enables an (RDF list) of <code>om:ObjectMapping</code>’s to be passed to the <code>oo:constructorArguments</code> of an <code>oo:Class</code>.
+An <code>om:ObjectMapping</code> represents an object containing zero or more key-value pairs, which are represented by <code>om:ObjectMappingEntry</code>.
+<code>om:ArrayMapping</code> is a special type of <code>om:ObjectMapping</code> that represents an array, where its elements can be other <code>om:ObjectMapping</code>’s.</p>
+
+          <figure id="module-om" class="listing">
+<pre><code>{
+</code><code>  &quot;@context&quot;: [
+</code><code>    &quot;https://linkedsoftwaredependencies.org/bundles/npm/componentsjs/
+</code><code>      ^4.0.0/components/context.jsonld&quot;,
+</code><code>    { &quot;ex&quot;: &quot;http://example.org/&quot; }
+</code><code>  ],
+</code><code>  &quot;@id&quot;: &quot;ex:MyModule&quot;,
+</code><code>  &quot;@type&quot;: &quot;Module&quot;,
+</code><code>  &quot;requireName&quot;: &quot;my-module&quot;,
+</code><code>  &quot;components&quot;: [
+</code><code>    {
+</code><code>      &quot;@id&quot;: &quot;ex:MyModule/MyComponent&quot;,
+</code><code>      &quot;@type&quot;: &quot;Class&quot;,
+</code><code>      &quot;requireElement&quot;: &quot;MyComponent&quot;,
+</code><code>      &quot;parameters&quot;: [
+</code><code>        {
+</code><code>          &quot;@id&quot;: &quot;ex:MyModule/MyComponent#name&quot;,
+</code><code>          &quot;unique&quot;: true,
+</code><code>          &quot;range&quot;: &quot;xsd:string&quot;
+</code><code>        }
+</code><code>      ]
+</code><code>    }
+</code><code>  ],
+</code><code>  &quot;constructorArguments&quot;: [
+</code><code>    {
+</code><code>      &quot;fields&quot;: [
+</code><code>        {
+</code><code>          &quot;keyRaw&quot;: &quot;name&quot;,
+</code><code>          &quot;value&quot;: &quot;ex:MyModule/MyComponent#name&quot;
+</code><code>        }
+</code><code>      ]
+</code><code>    }
+</code><code>  ]
+</code><code>}</code></pre>
+<figcaption>
+              <p><span class="label">Listing 3:</span> A description of a module <code>ex:MyModule</code> with a single component having constructor arguments using the JSON-LD serialization,
+compacted with the <code>https:/​/​linkedsoftwaredependencies.org/bundles/npm/componentsjs/^4.0.0/components/context.jsonld</code> context.</p>
+            </figcaption>
+</figure>
+
+          <p>Building upon the OO example from <a href="#module-om">Listing 3</a>, we illustrate the usage of this vocabulary with an example in <a href="#module-om">Listing 3</a>, again using the JSON-LD serialization.
+The only difference with the previous example, is the addition of the <code>constructorArguments</code> block,
+which expands to <code>oo:constructorArguments</code> that is configured to always contain an RDF list.
+The constructor arguments contain a single <code>om:ObjectMapping</code>, which is implied by the presence of <code>field</code>, which expands to <code>om:field</code>.
+Since the field array contains just a single element (<code>om:ObjectMappingEntry</code>),
+it represents an object with a single key and value.
+The key is defined by <code>keyRaw</code> (expands to <code>om:fieldName</code>), which contains the constant <code>name</code>.
+The value is defined by <code>value</code> (expands to <code>om:fieldValue</code>), which refers to the <code>ex:MyModule/MyComponent#name</code> parameter.</p>
+
+          <p>The addition of an object mapping to a component requires no changes as to how a component is instantiated,
+which means that our component from <a href="#module-om">Listing 3</a> can still be instantiated in the exact same way as the one from <a href="#module-oo">Listing 1</a>.
+The only difference now, is that we are able to determine how exactly the parameter values are to be used for invoking the component constructor.
+For example, the instantiation of <a href="#instance-oo">Listing 2</a> corresponds to the following code in JavaScript: <code>new MyComponent({ name: 'Some name' })</code></p>
 
           <h4 id="dereferenceability">Dereferenceability</h4>
 
@@ -403,7 +500,8 @@ that can be set when instantiating this component.</p>
 <div datatype="rdf:HTML" property="schema:description">
           <h2 property="schema:name">Dependency Injection Framework</h2>
 
-          <p class="todo">Write me: with emphasis on quality! (unit tests and docs)</p>
+          <p class="todo">Write me: with emphasis on quality! (unit tests and docs)
+Also explain how instantiation is done (also fallback if no constructor args are passed)</p>
 
         </div>
 </section>

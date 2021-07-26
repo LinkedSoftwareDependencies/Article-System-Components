@@ -30,7 +30,6 @@
     
     \node[concept, below left=of component] (class) {oo:Class};
     \node[concept, below left=of class] (classAbstract) {oo:AbstractClass};
-    \node[concept, above=of class] (args) {rdf:List};
     
     \node[concept, above right=of component]       (string)   {xsd:string};
     \node[concept, below right=of component] (instance) {oo:Instance};
@@ -47,7 +46,6 @@
     
     \draw[->,thick,relation] (class) -- (classAbstract) node [left,midway,align=left] {rdfs:subClassOf};
     \draw[->,thick,relation] (class) -- (parameter) node [right,midway,align=right] {oo:parameter};
-    \draw[->,thick,relation,text width=17em] (class) -- (args) node [left,midway,align=left] {oo:constructorArguments};
     
     \draw[->,thick,relation] (parameter) -- (defaultValue) node [right,midway,align=right] {oo:defaultValue};
     \draw[->,thick,relation] (parameter) -- (boolean) node [left,midway,align=left] {oo:uniqueValue};

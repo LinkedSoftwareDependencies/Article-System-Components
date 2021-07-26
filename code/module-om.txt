@@ -1,0 +1,34 @@
+{
+  "@context": [
+    "https://linkedsoftwaredependencies.org/bundles/npm/componentsjs/
+      ^4.0.0/components/context.jsonld",
+    { "ex": "http://example.org/" }
+  ],
+  "@id": "ex:MyModule",
+  "@type": "Module",
+  "requireName": "my-module",
+  "components": [
+    {
+      "@id": "ex:MyModule/MyComponent",
+      "@type": "Class",
+      "requireElement": "MyComponent",
+      "parameters": [
+        {
+          "@id": "ex:MyModule/MyComponent#name",
+          "unique": true,
+          "range": "xsd:string"
+        }
+      ]
+    }
+  ],
+  "constructorArguments": [
+    {
+      "fields": [
+        {
+          "keyRaw": "name",
+          "value": "ex:MyModule/MyComponent#name"
+        }
+      ]
+    }
+  ]
+}
