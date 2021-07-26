@@ -1,0 +1,9 @@
+{
+  "@context": [
+    "https://linkedsoftwaredependencies.org/bundles/npm/componentsjs/
+      ^4.0.0/components/context.jsonld",
+    { "ex": "http://example.org/" }
+  ],
+  "@type": "ex:MyModule/MyComponent",
+  "ex:MyModule/MyComponent#name": "Some name"
+}

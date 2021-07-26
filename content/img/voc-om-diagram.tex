@@ -28,6 +28,9 @@
     \node[concept] (om)    {om:ObjectMapping};
     \node[concept, below right=of om] (am) {om:ArrayMapping};
     
+    \node[concept, above=of om] (listclass) {rdf:List};
+    \node[concept, above=of listclass] (class) {oo:Class};
+    
     \node[concept, below=of om] (ome) {om:ObjectMappingEntry};
     \node[concept, below=of am] (ame) {om:ArrayMappingElements};
     
@@ -38,6 +41,9 @@
     \node[concept, above left=of ome] (value2)    {owl:Thing};
     
     % Concept relations
+    \draw[->,thick,relation,text width=17em] (class) -- (listclass) node [right,midway,align=center] {oo:constructorArguments};
+    \draw[->,thick,relation,text width=17em] (listclass) -- (om) node [right,midway,align=center] {};
+    
     \draw[->,thick,relation,text width=7em] (om) -- (ome) node [right,midway,align=center] {om:field};
     \draw[->,thick,relation] (am) -- (om) node [right,midway,align=right] {rdfs:subClassOf};
     
