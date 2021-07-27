@@ -1,0 +1,28 @@
+{
+  "@context": [
+    "https://linkedsoftwaredependencies.org/contexts/npm.jsonld",
+    { "lsd": "https://linkedsoftwaredependencies.org/" }
+  ],
+  "@type": "doap:Version",
+  "@id": "lsd:bundles/npm/%40comunica%2Fcore/1.21.1",
+  "name": "@comunica/core",
+  "version": "1.21.1",
+  "description": "Lightweight, semantic and modular actor framework",
+  "dependencies": {
+    "@comunica/types": "lsd:bundles/npm/%40comunica%2Ftypes/%5E1.21.1",
+    "immutable": "lsd:bundles/npm/immutable/%5E3.8.2"
+  },
+  "maintainers": [
+    {
+      "email": "mailto:rubensworks@gmail.com",
+      "@id": "lsd:users/npm/rubensworks"
+    }
+  ],
+  "dcterms:license": {
+      "@id": "https://spdx.org/licenses/MIT.html",
+      "rdfs:label": "MIT"
+  },
+  "lsd:scripts/npm/test": {
+      "@id": "lsd:bundles/npm/%40comunica%2Fcore/1.21.1/scripts/test"
+  }
+}

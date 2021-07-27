@@ -483,7 +483,53 @@ For example, the instantiation of <a href="#instance-oo">Listing 2</a> correspo
 
           <h4 id="dereferenceability">Dereferenceability</h4>
 
-          <p class="todo">Write me: via LSD</p>
+          <p>In <a property="schema:citation http://purl.org/spar/cito/citesAsAuthority" href="https://linkedsoftwaredependencies.org/articles/describing-experiments/">previous work</a> <span class="references">[<a href="#ref-6">6</a>]</span>
+we introduced the <a href="https://linkedsoftwaredependencies.org/" class="mandatory" data-link-text="https:/​/​linkedsoftwaredependencies.org/​">Linked Software Dependencies (LSD) service</a>,
+which makes all resource URLs within components files fully dereferenceable.</p>
+
+          <p>Since our current focus is on enabling dependency injection for JavaScript,
+this LSD service provides Linked Data subject pages for <em>all</em> packages within the <a href="https://www.npmjs.com/" class="mandatory" data-link-text="https:/​/​www.npmjs.com/​">npm package manager</a> for JavaScript.
+For example, the URL <a href="https://linkedsoftwaredependencies.org/bundles/npm/@comunica/core/1.21.1"><code>https:/​/​linkedsoftwaredependencies.org/bundles/npm/@comunica/core/1.21.1</code></a>
+is an identifier for the <code>@comunica/core</code> package at version <code>1.21.1</code>.
+<a href="#lsd-snippet">Listing 4</a> shows a snippet of the JSON-LD contents when dereferencing this URL.</p>
+
+          <figure id="lsd-snippet" class="listing">
+<pre><code>{
+</code><code>  &quot;@context&quot;: [
+</code><code>    &quot;https://linkedsoftwaredependencies.org/contexts/npm.jsonld&quot;,
+</code><code>    { &quot;lsd&quot;: &quot;https://linkedsoftwaredependencies.org/&quot; }
+</code><code>  ],
+</code><code>  &quot;@type&quot;: &quot;doap:Version&quot;,
+</code><code>  &quot;@id&quot;: &quot;lsd:bundles/npm/%40comunica%2Fcore/1.21.1&quot;,
+</code><code>  &quot;name&quot;: &quot;@comunica/core&quot;,
+</code><code>  &quot;version&quot;: &quot;1.21.1&quot;,
+</code><code>  &quot;description&quot;: &quot;Lightweight, semantic and modular actor framework&quot;,
+</code><code>  &quot;dependencies&quot;: {
+</code><code>    &quot;@comunica/types&quot;: &quot;lsd:bundles/npm/%40comunica%2Ftypes/%5E1.21.1&quot;,
+</code><code>    &quot;immutable&quot;: &quot;lsd:bundles/npm/immutable/%5E3.8.2&quot;
+</code><code>  },
+</code><code>  &quot;maintainers&quot;: [
+</code><code>    {
+</code><code>      &quot;email&quot;: &quot;mailto:rubensworks@gmail.com&quot;,
+</code><code>      &quot;@id&quot;: &quot;lsd:users/npm/rubensworks&quot;
+</code><code>    }
+</code><code>  ],
+</code><code>  &quot;dcterms:license&quot;: {
+</code><code>      &quot;@id&quot;: &quot;https://spdx.org/licenses/MIT.html&quot;,
+</code><code>      &quot;rdfs:label&quot;: &quot;MIT&quot;
+</code><code>  },
+</code><code>  &quot;lsd:scripts/npm/test&quot;: {
+</code><code>      &quot;@id&quot;: &quot;lsd:bundles/npm/%40comunica%2Fcore/1.21.1/scripts/test&quot;
+</code><code>  }
+</code><code>}</code></pre>
+<figcaption>
+              <p><span class="label">Listing 4:</span> Part of the JSON-LD contents of []<code>https:/​/​linkedsoftwaredependencies.org/bundles/npm/@comunica/core/1.21.1</code>](https://linkedsoftwaredependencies.org/bundles/npm/@comunica/core/1.21.1).</p>
+            </figcaption>
+</figure>
+
+          <p>This LSD service allows creators of components files mint LSD-based URLs for their packages,
+which will automatically become dereferenceable as soon as these packages are published to npm.
+The LSD service thereby removes the dereferenceability responsibility from package developers that want to use dependency injection via Components.js.</p>
 
           <h4 id="generation-from-typescript">Generation from TypeScript</h4>
 
