@@ -127,8 +127,26 @@ For example, the instantiation of [](#instance-oo) corresponds to the following 
 
 #### Dereferenceability
 
-Write me: via LSD
-{:.todo}
+In [previous work](cite:citesAsAuthority van2017describing)
+we introduced the [Linked Software Dependencies (LSD) service](https://linkedsoftwaredependencies.org/){:.mandatory},
+which makes all resource URLs within components files fully dereferenceable.
+
+Since our current focus is on enabling dependency injection for JavaScript,
+this LSD service provides Linked Data subject pages for _all_ packages within the [npm package manager](https://www.npmjs.com/){:.mandatory} for JavaScript.
+For example, the URL [`https://linkedsoftwaredependencies.org/bundles/npm/@comunica/core/1.21.1`](https://linkedsoftwaredependencies.org/bundles/npm/@comunica/core/1.21.1)
+is an identifier for the `@comunica/core` package at version `1.21.1`.
+[](#lsd-snippet) shows a snippet of the JSON-LD contents when dereferencing this URL.
+
+<figure id="lsd-snippet" class="listing">
+````/code/lsd-snippet.txt````
+<figcaption markdown="block">
+Part of the JSON-LD contents of []`https://linkedsoftwaredependencies.org/bundles/npm/@comunica/core/1.21.1`](https://linkedsoftwaredependencies.org/bundles/npm/@comunica/core/1.21.1).
+</figcaption>
+</figure>
+
+This LSD service allows creators of components files mint LSD-based URLs for their packages,
+which will automatically become dereferenceable as soon as these packages are published to npm.
+The LSD service thereby removes the dereferenceability responsibility from package developers that want to use dependency injection via Components.js.
 
 #### Generation from TypeScript
 
