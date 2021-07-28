@@ -1,0 +1,11 @@
+/**
+ * This is a great class!
+ */
+export class MyClass extends OtherClass {
+  /**
+   * @param paramA - My parameter
+   */
+  constructor(paramA: boolean, paramB: number) {
+  
+  }
+}

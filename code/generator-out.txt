@@ -1,0 +1,35 @@
+{
+  "@context": [
+    "https://linkedsoftwaredependencies.org/bundles/npm/my-package/
+      ^1.0.0/components/context.jsonld"
+  ],
+  "@id": "npmd:my-package",
+  "components": [
+    {
+      "@id": "ex:MyFile#MyClass",
+      "@type": "Class",
+      "requireElement": "MyClass",
+      "extends": "ex:OtherFile#OtherClass",
+      "comment": "This is a great class!",
+      "parameters": [
+        {
+          "@id": "ex:MyFile#MyClass_paramA",
+          "range": "xsd:boolean",
+          "comment": "My parameter",
+          "unique": true,
+          "required": true
+        },
+        {
+          "@id": "ex:MyFile#MyClass_paramB",
+          "range": "xsd:integer",
+          "unique": true,
+          "required": true
+        }
+      ],
+      "constructorArguments": [
+        { "@id": "ex:MyFile#MyClass_paramA" },
+        { "@id": "ex:MyFile#MyClass_paramB" }
+      ]
+    }
+  ]
+}
