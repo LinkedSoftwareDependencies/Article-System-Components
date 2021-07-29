@@ -1,6 +1,21 @@
 ## Dependency Injection Framework
 {:#system}
 
-Write me: with emphasis on quality! (unit tests and docs)
-Also explain how instantiation is done (also fallback if no constructor args are passed)
+Building on top of the declarative configurations that were explained in previous section,
+we now discuss Components.js, which is a system that can interpret these configurations
+for enabling dependency injection within JavaScript/TypeScript projects.
+
+### API
+
+How it is used
+{:.todo}
+
+### Architecture
+
+Write me
+{:.todo}
+
+### Implementation
+
+Language, github, tests
 {:.todo}
