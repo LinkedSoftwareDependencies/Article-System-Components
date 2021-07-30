@@ -13,7 +13,7 @@
   <meta name="citation_author" content="Miel Vander Sande" />
   <meta name="citation_author" content="Ruben Verborgh" />
   
-  <meta name="citation_publication_date" content="2021/07/29" />
+  <meta name="citation_publication_date" content="2021/07/30" />
 </head>
 
 <body prefix="dctypes: http://purl.org/dc/dcmitype/ pimspace: http://www.w3.org/ns/pim/space# rsa: http://www.w3.org/ns/auth/rsa# cert: http://www.w3.org/ns/auth/cert# wgs: http://www.w3.org/2003/01/geo/wgs84_pos# biblio: http://purl.org/net/biblio# bibo: http://purl.org/ontology/bibo/ book: http://purl.org/NET/book/vocab# ov: http://open.vocab.org/terms/ doap: http://usefulinc.com/ns/doap# dbr: http://dbpedia.org/resource/ dbp: http://dbpedia.org/property/ sio: http://semanticscience.org/resource/ opmw: http://www.opmw.org/ontology/ deo: http://purl.org/spar/deo/ doco: http://purl.org/spar/doco/ cito: http://purl.org/spar/cito/ fabio: http://purl.org/spar/fabio/ solid: http://www.w3.org/ns/solid/terms# acl: http://www.w3.org/ns/auth/acl# dio: https://w3id.org/dio# lsc: http://linkedscience.org/lsc/ns#" typeof="schema:CreativeWork sioc:Post prov:Entity lsc:Research">
@@ -608,7 +608,7 @@ Components-Generator.js will generate the components file in <a href="#generator
 
           <h3 id="configuration-files">Configuration files</h3>
 
-          <p class="todo">Write me</p>
+          <p class="todo">Write me; do we even need much here?</p>
 
         </div>
 </section>
@@ -617,8 +617,158 @@ Components-Generator.js will generate the components file in <a href="#generator
 <div datatype="rdf:HTML" property="schema:description">
           <h2 property="schema:name">Dependency Injection Framework</h2>
 
-          <p class="todo">Write me: with emphasis on quality! (unit tests and docs)
-Also explain how instantiation is done (also fallback if no constructor args are passed)</p>
+          <p>Building on top of the declarative configurations that were explained in previous section,
+we now discuss Components.js, which is a system that can interpret these configurations
+for enabling dependency injection within JavaScript/TypeScript projects.
+In this section, we first explain the main architecture, followed by the most relevant implementation details.
+Next, we first explain the main API that allows developers to use this tool.</p>
+
+          <h3 id="architecture">Architecture</h3>
+
+          <p>Internally, the Components.js dependency injection tool goes through three main phases:</p>
+
+          <ul>
+            <li>Loading: Initialization of DI components, discovery of modules, and loading of configuration files.</li>
+            <li>Preprocessing: Handling of constructor arguments.</li>
+            <li>Construction: Instantiation of JavaScript classes based on configuration files.</li>
+          </ul>
+
+          <p>These three phases are handled by the <code>ComponentsManager</code>,
+which acts as the main entrypoint of the framework.
+This manager class is constructed via a static <code>build</code> method,
+via which custom options can be passed,
+such as a callback for loading modules and configuration files.</p>
+
+          <p>For the sake of clarity, all UML architecture diagrams that we include in this article
+only contain simplified representations of the actual classes.
+So there may be minor differences when comparing the diagrams with the actual source code.</p>
+
+          <figure id="architecture-main">
+<img src="img/architecture-main.svg" alt="[Components.js Architecture - Main package]" />
+<figcaption>
+              <p><span class="label">Fig. 3:</span> UML diagram of the classes within the main package,
+which contains the main entrypoint of the framework.</p>
+            </figcaption>
+</figure>
+
+          <p>Hereafter, we explain these three phases in more detail.</p>
+
+          <h4 id="loading">Loading</h4>
+
+          <p>When the <code>ComponentsManager</code> is being built,
+the loading phase will be initiated,
+which will make use of the classes within the load package.
+The most important classes within this package are shown in <a href="#architecture-load">Fig. 4</a>.</p>
+
+          <figure id="architecture-load">
+<img src="img/architecture-load.svg" alt="[Components.js Architecture - Load package]" />
+<figcaption>
+              <p><span class="label">Fig. 4:</span> UML diagram of the classes within the load package,
+which are responsible for loading components and configurations.</p>
+            </figcaption>
+</figure>
+
+          <p>The <code>ModuleStateBuilder</code> is a class that is responsible for scanning the current JavaScript project and its dependencies.
+The main objective of this class is to build a <code>IModuleState</code>, that contains information such as the paths to available components and dependencies.</p>
+
+          <p><code>ComponentRegistry</code> and <code>ConfigRegistry</code> are classes that are exposed via a callback to invokers of <code>ComponentsManager.build()</code>.
+These classes respectively enable modules and configurations to be registered,
+after they will be loaded.</p>
+
+          <h4 id="preprocessing">Preprocessing</h4>
+
+          <p>Before a configuration is instantiated during the construction phase,
+it always goes through a preprocessing phase.
+Concretely, this involves processing all parameters and constructor arguments,
+for which the most relevant classes and interfaces are shown in <a href="#architecture-preprocess">Fig. 5</a>.</p>
+
+          <figure id="architecture-preprocess">
+<img src="img/architecture-preprocess.svg" alt="[Components.js Architecture - Preprocess package]" />
+<figcaption>
+              <p><span class="label">Fig. 5:</span> UML diagram of the classes within the preprocess package,
+which are responsible for preprocessing config parameters and constructor arguments.</p>
+            </figcaption>
+</figure>
+
+          <p><code>IConfigPreprocessor</code> is an interface that represents a preprocessing algorithm for a configuration,
+and can have multiple implementations.</p>
+
+          <p><code>ConfigPreprocessorComponent</code> is a preprocessor that is able to determine what component is being instantiated within a configuration.
+It will check if the linked component exists, and it will validate all passed parameters.
+For this parameter validation, the <code>ParameterHandler</code> class is used,
+which works based on a list of <code>IParameterPropertyHandler</code>’s.
+For instance, parameter property handlers exist for validating the range of parameters,
+checking the uniqueness, handling default values, and more.</p>
+
+          <p><code>ConfigPreprocessorComponentMapped</code> is another preprocessor that builds upon <code>ConfigPreprocessorComponent</code>,
+so that it <em>additionally</em> handles constructor arguments as defined by the Object Mapping vocabulary.
+Concretely, after validating parameters, it will handle the constructor arguments recursively
+using a list of <code>IConstructorArgumentsElementMappingHandler</code>’s.
+These handlers can handle specific types of constructor arguments and parameters,
+such as the conversion of <code>om:ObjectMapping</code> to an object,
+and the conversion of <code>om:ArrayMapping</code> to an array.</p>
+
+          <p>The end-result of the preprocessing phase is a configuration that represents
+the raw constructor call of a class, together with the required arguments.</p>
+
+          <h4 id="construction">Construction</h4>
+
+          <p>The construction phase is responsible for instantiating a configuration.
+The main classes for this are shown in <a href="#architecture-construct">Fig. 6</a>.</p>
+
+          <figure id="architecture-construct">
+<img src="img/architecture-construct.svg" alt="[Components.js Architecture - Construct package]" />
+<figcaption>
+              <p><span class="label">Fig. 6:</span> UML diagram of the classes within the construct package,
+which are responsible for instantiating configs according to a certain strategy.</p>
+            </figcaption>
+</figure>
+
+          <p><code>ConfigConstructorPool</code> is the main entrypoint that is used when a user instantiates a configuration via <code>ComponentsManager.instantiate()</code>.
+Before actually instantiating a config,
+it will first check if it had been instantiated before,
+in which case it returns it from a cache.
+This may occur for nested configurations that reuse the same component in different places.
+If the config has not been instantiated before,
+it will first go through the preprocessing phase as explained in the previous section,
+after the processed config will be passed on to the <code>ConfigConstructor</code>.</p>
+
+          <p>The <code>ConfigConstructor</code> is able to convert the representation of a class constructor call into an actual constructor call to obtain an object.
+For this, the arguments of the constructor are first converted into actual objects,
+which is done via a list of <code>IArgumentConstructorHandler</code>’s.
+For example, handlers exist to handle primitive values such as strings and numbers,
+arrays, and references to other components (which requires a recursive call to <code>ConfigConstructorPool</code>).
+Once the arguments have been resolved, the constructor can be applied to obtain the final instantiated object.</p>
+
+          <p>By default, the <code>ConfigConstructor</code> assumes that configurations are instantiated via the <a href="https://nodejs.org/docs/latest/api/modules.html" class="mandatory" data-link-text="https:/​/​nodejs.org/​docs/​latest/​api/​modules.html">CommonJS JavaScript standard</a>,
+which is primarily used by the Node.js framework.
+However, Components.js has been designed to handle different kinds of instantiation,
+which can be done via different <code>IConstructionStrategy</code>’s.
+For instance, this allows the framework to be compatible with other upcoming JavaScript standards such as <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules" class="mandatory" data-link-text="https:/​/​developer.mozilla.org/​en-​US/​docs/​Web/​JavaScript/​Guide/​Modules">JavaScript modules</a>.</p>
+
+          <h3 id="implementation">Implementation</h3>
+
+          <p>Components.js has been implemented in TypeScript,
+and is available on <a href="https://github.com/LinkedSoftwareDependencies/Components.js" class="mandatory" data-link-text="https:/​/​github.com/​LinkedSoftwareDependencies/​Components.js">GitHub</a>
+under the MIT license.
+At the time of writing, the latest release is at version 4.4.1,
+which is published via the <a href="https://www.npmjs.com/package/componentsjs" class="mandatory" data-link-text="https:/​/​www.npmjs.com/​package/​componentsjs">npm package manager</a>.</p>
+
+          <p>Due to the critical nature of this framework,
+it is being tested thoroughly.
+At the time of writing, it consists of 538 unit tests,
+which reach a test coverage of 100%.</p>
+
+          <p>Components.js is being maintained by IDLab via software projects that make use of this framework.
+A sustainability of this project is available on <a href="https://github.com/LinkedSoftwareDependencies/Components.js/wiki/Sustainability-Plan" class="mandatory" data-link-text="https:/​/​github.com/​LinkedSoftwareDependencies/​Components.js/​wiki/​Sustainability-​Plan">GitHub</a>.</p>
+
+          <p>Finally, in-depth documentation is <a href="https://componentsjs.readthedocs.io/en/latest/" class="mandatory" data-link-text="https:/​/​componentsjs.readthedocs.io/​en/​latest/​">available</a>,
+which explains how to create component and configuration files,
+and how to invoke the DI tool.</p>
+
+          <h3 id="api">API</h3>
+
+          <p class="todo">How it is used</p>
 
         </div>
 </section>
@@ -627,7 +777,7 @@ Also explain how instantiation is done (also fallback if no constructor args are
 <div datatype="rdf:HTML" property="schema:description">
           <h2 property="schema:name">Usage</h2>
 
-          <p class="todo">Write me: Direct and indirect dependents (within and outside or own tools); Downloads</p>
+          <p class="todo">Write me: Direct and indirect dependents (within and outside or own tools); Downloads; Existed for four years</p>
 
         </div>
 </section>
@@ -636,7 +786,7 @@ Also explain how instantiation is done (also fallback if no constructor args are
 <div datatype="rdf:HTML" property="schema:description">
           <h2 property="schema:name">Conclusions</h2>
 
-          <p class="todo">Write me: in what cases it’s useful (and when not), and future work</p>
+          <p class="todo">Write me: in what cases it’s useful (and when not), and future work (editor)</p>
 
         </div>
 </section>
