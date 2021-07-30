@@ -1,0 +1,68 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+% Page setup
+\usepackage[a4paper,landscape,margin=2cm]{geometry}
+
+% Typography
+\usepackage[scaled]{helvet}
+\usepackage[T1]{fontenc}
+\let\familydefault\sfdefault
+
+\usepackage[usenames,svgnames]{xcolor}
+\usepackage{./tikz-uml}
+\usetikzlibrary{positioning,arrows}
+
+% Set page size to tikz figure size
+\usepackage[active,tightpage]{preview}
+\PreviewEnvironment{tikzpicture}
+\setlength\PreviewBorder{5pt}
+
+\definecolor{colorbg}  {RGB}{199,212,104}
+\definecolor{colortext}{RGB}{29,29,27}
+
+\begin{document}
+\pagestyle{empty}
+
+\begin{tikzpicture}
+
+\begin{umlpackage}{Preprocess}
+  \umlinterface[]{IConfigPreprocessor}{}{
+    + canHandle(config : Resource) : boolean\\
+    + transform(config : Resource) : Resource\\
+  }
+  \umlclass[below=1 of IConfigPreprocessor]{ConfigPreprocessorComponent}{
+    + parameterHandler : ParameterHandler\\
+  }{}  
+  \umlclass[below=1 of ConfigPreprocessorComponent]{ConfigPreprocessorComponentMapped}{
+    + mappingHandlers : IConstructorArgumentsElementMappingHandler[]\\
+  }{}
+  
+  \umlclass[right=1 of ConfigPreprocessorComponent]{ParameterHandler}{
+    + parameterPropertyHandlers : IParameterPropertyHandler[]\\
+  }{
+    + applyParameterValues(parameter : Resource, configElement : Resource) : Resource[]\\
+  }
+  \umlinterface[above=1 of ParameterHandler]{IParameterPropertyHandler}{}{
+    + canHandle(value : Resource[], parameter : Resource, configElement : Resource) : boolean\\
+    + transform(value : Resource[], parameter : Resource, configElement : Resource) : Resource[]\\
+  }
+  
+  \umlinterface[right=1 of ConfigPreprocessorComponentMapped]{IConstructorArgumentsElementMappingHandler}{}{
+    + canHandle(constructorArgs : Resource, configElement : Resource) : boolean\\
+    + transform(constructorArgs : Resource, configElement : Resource) : Resource[]\\
+  }
+  
+  \umlimpl[]{ConfigPreprocessorComponent}{IConfigPreprocessor}
+  \umlinherit[]{ConfigPreprocessorComponentMapped}{ConfigPreprocessorComponent}
+  
+  \umluniaggreg[mult=1]{ConfigPreprocessorComponent}{ParameterHandler}
+  \umluniaggreg[mult=n]{ParameterHandler}{IParameterPropertyHandler}
+  
+  \umluniaggreg[mult=n]{ConfigPreprocessorComponentMapped}{IConstructorArgumentsElementMappingHandler}
+  
+  %\umldep[arg=creates]{ComponentsManager}{IConfigPreprocessor}
+\end{umlpackage}
+
+\end{tikzpicture}
+\end{document}
