@@ -82,3 +82,6 @@ At the time of writing, Comunica does not yet make use of the Components-Generat
 as it was developed before Components-Generator.js was created.
 Therefore, all components files within Comunica are created manually,
 which shows that Components.js is flexible in this regard.
+
+Explain reproducibility use case
+{:.todo}
