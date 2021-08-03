@@ -1,0 +1,26 @@
+To the Editors of the Semantic Web Journal
+
+Dear Editors,
+
+Please find attached to this letter our submission entitled
+"Components.js: Semantic Dependency Injection"
+for the submission type of "Reports on tools and systems".
+In this article, we discuss the open-source Components.js dependency injection framework for TypeScript/JavaScript that has existed for more than four years,
+and is experiencing significant and increasing usage as core technology within other applications.
+
+In particular, we discuss the Components.js framework, and how it differs from other dependency injection framework.
+To assess the importance and impact of this system, we discuss its download and usage metrics, and analyze three real-world uses in depth.
+
+We hope this article is a good fit for this journal.
+Should you have any further questions or concerns, please do not hesitate to contact us.
+We look forward to hearing back from you and thank you in advance
+for considering the publication of this work in the Semantic Web Journal.
+
+Sincerely,
+Ruben Taelman
+on behalf of the authors
+
+imec - Ghent University - IDLab
+Technologiepark-Zwijnaarde 15
+B-9052 Gent
+Belgium
