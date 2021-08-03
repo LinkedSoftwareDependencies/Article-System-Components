@@ -42,19 +42,37 @@
 <div datatype="rdf:HTML" property="schema:description">
       <h2 property="schema:name">Abstract</h2>
       <!-- Context      -->
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      <p>A common practise within object-oriented software,
+is the use of <em>composition</em> to represent relationships between objects.
+<em>Dependency Injection (DI)</em> is a popular technique to manage such compositions,
+which loosely couples objects via minimal interfaces,
+and wires these objects together at runtime based on declarative configuration files.
+Configurations for existing DI frameworks typically only have local semantics,
+which limits their usage in other contexts.
 <!-- Need         -->
-Vestibulum finibus dignissim augue, id pellentesque est facilisis non.
+In some cases, such configurations are required outside of their local scope,
+such as for the reproducibility of experiments, static program analysis, and semantic workflows.
+As such, there is a need for globally interoperable, addressable, and discoverable configurations,
+which can be achieved by leveraging the power of Linked Data.
 <!-- Task         -->
-Donec fringilla dolor non neque iaculis blandit.
+To resolve this need, we introduce <em>Components.js</em>,
+a semantic DI framework for TypeScript and JavaScript applications
+that gives global semantics to its Linked Data-based configuration files.
 <!-- Object       -->
-Praesent aliquet eleifend iaculis.
+In this article, we report on the Components.js framework
+by explaining its architecture and configuration,
+and we discuss its impact by mentioning where and how it is being used in other applications.
 <!-- Findings     -->
-Quisque pellentesque at odio ac bibendum.
+We show that Components.js is a stable framework that has seen significant uptake during the last couple of years.
 <!-- Conclusion   -->
-Pellentesque imperdiet felis urna, quis facilisis lacus gravida non.
+We recommend it to be used within software projects that require
+high flexibility,
+configuration without code changes,
+sharing configurations with others,
+or using these configurations in other contexts such as experimentation or static program analysis.
 <!-- Perspectives -->
-Donec quis lectus eget sem tempor tristique pellentesque in dolor.</p>
+The ever-increasing complexity of the world will depend on highly flexible software to manage it,
+for which frameworks such as Components.js will be crucial foundations.</p>
 
     </div>
 </section>
@@ -171,7 +189,7 @@ The main motivations for configurations are the strict boundaries between config
 enabling non-developers to configure the code,
 and taking away the need to recompile the code for pre-compiled languages.
 However, when dependencies are defined based on some logic such as external conditions,
-then configuring via code may be better suited,
+configuration via code may be better suited,
 as this can become too complex to define in declarative configuration files.</p>
 
           <p><strong>Forms of Injection</strong></p>
@@ -270,6 +288,8 @@ Google’s <a href="https://github.com/google/guice">Guice</a> is a more lightwe
 
           <p>In JavaScript, 
 dependency injection frameworks tend to be less common because of its flexible nature.
+However, with the increasing popularity of TypeScript –which provides strict typings for JavaScript–,
+the need for dependency injection is increasing.
 Still, multiple frameworks are available, such as <a href="https://github.com/young-steveo/bottlejs">BottleJS</a>, <a href="https://github.com/cujojs/wire">Wire</a>, and <a href="https://github.com/jaredhanson/electrolyte">Electrolyte</a>, all backed by rather small communities.
 One of the biggest ones, <a href="https://github.com/inversify/InversifyJS">InversifyJS</a>,
 uses annotations similar to Java frameworks to define possible injections.
@@ -283,7 +303,7 @@ of which the first one is unique to Components.js:</p>
 
           <ul>
             <li>RDF-based configuration files in order to make them globally <em>interoperable</em>, <em>addressable</em>, and <em>discoverable</em>.</li>
-            <li>Decoupling of the dependency injection layer from the software implementation.</li>
+            <li>Decoupling of the dependency injection layer from the software implementation via separate configuration files.</li>
           </ul>
 
         </div>
@@ -295,21 +315,18 @@ of which the first one is unique to Components.js:</p>
 
           <p>Components.js depends on two levels of configuration for enabling the wiring of software components.
 The first level is the creation of <em>components</em> files,
-which are the semantic representation of component constructors,
+which are the semantic representation of component (or class) constructors,
 and can usually be automatically generated.
 The second level is the creation of <em>configuration</em> files,
 which represent the actual instantiation of components
-based on the generated components files.
-Hereafter, we explain these two levels in more detail.</p>
+based on the generated components files.</p>
 
-          <h3 id="components-files">Components files</h3>
-
-          <p>Component files are used to semantically represent the constructors of software components.
-For this, we make use of two vocabularies, which will be explained hereafter.
+          <p>In this section, we discuss the two main vocabularies that are used within these component files,
+and show how configuration files can refer to them for instantiation.
 Next, we explain how URLs can be minted for software components, so that they become fully dereferenceable.
 Finally, we explain how these component files can be generated automatically from existing TypeScript code.</p>
 
-          <h4 id="object-oriented-components-vocabulary">Object-Oriented Components Vocabulary</h4>
+          <h3 id="object-oriented-components-vocabulary">Object-Oriented Components Vocabulary</h3>
 
           <p>Components.js distinguishes between three main concepts:</p>
 
@@ -375,7 +392,7 @@ compacted with the <code>https:/​/​linkedsoftwaredependencies.org/bundles/np
 This listing shows the definition of a new module (<code>oo:Module</code>) with compact IRI <code>ex:MyModule</code>.
 The name of the module is set with the compact IRI <code>requireName</code>, which expands to <code>doap:name</code> from the <a href="https://github.com/ewilderj/doap/wiki">Description of a Project (DOAP) vocabulary</a>.
 Furthermore, our module contains a single class component (<code>oo:Class</code>) with compact IRI <code>ex:MyModule/MyComponent</code>.
-Since this is a class component (subclass of <code>oo:Component</code>), this means that this components is instantiatable based on parameters.
+Since this is a class component (subclass of <code>oo:Component</code>), this means that this component is instantiatable based on parameters.
 Each component can refer to its path within a module using the <code>oo:componentPath</code> predicate (compacted as <code>requireElement</code>).
 Finally, our single component has a parameter (<code>oo:Parameter</code>) with compact IRI <code>ex:MyModule/MyComponent#name</code>
 that can be set when instantiating this component.</p>
@@ -401,7 +418,7 @@ thereby allowing nested component instantiations to be defined.</p>
             </figcaption>
 </figure>
 
-          <h4 id="object-mapping-vocabulary">Object Mapping Vocabulary</h4>
+          <h3 id="object-mapping-vocabulary">Object Mapping Vocabulary</h3>
 
           <p>As shown in the previous section, the OO vocabulary allows modules, components, and parameters to be defined,
 so that instances of components can be declared.
@@ -481,7 +498,7 @@ which means that our component from <a href="#module-om">Listing 3</a> can stil
 The only difference now, is that we are able to determine how exactly the parameter values are to be used for invoking the component constructor.
 For example, the instantiation of <a href="#instance-oo">Listing 2</a> corresponds to the following code in JavaScript: <code>new MyComponent({ name: 'Some name' })</code></p>
 
-          <h4 id="dereferenceability">Dereferenceability</h4>
+          <h3 id="dereferenceability">Dereferenceability</h3>
 
           <p>In <a property="schema:citation http://purl.org/spar/cito/citesAsAuthority" href="https://linkedsoftwaredependencies.org/articles/describing-experiments/">previous work</a> <span class="references">[<a href="#ref-6">6</a>]</span>
 we introduced the <a href="https://linkedsoftwaredependencies.org/" class="mandatory" data-link-text="https:/​/​linkedsoftwaredependencies.org/​">Linked Software Dependencies (LSD) service</a>,
@@ -527,11 +544,11 @@ is an identifier for the <code>@comunica/core</code> package at version <code>1.
             </figcaption>
 </figure>
 
-          <p>This LSD service allows creators of components files mint LSD-based URLs for their packages,
+          <p>This LSD service allows creators of components files to mint LSD-based URLs for their packages,
 which will automatically become dereferenceable as soon as these packages are published to npm.
 The LSD service thereby removes the dereferenceability responsibility from package developers that want to use dependency injection via Components.js.</p>
 
-          <h4 id="generation-from-typescript">Generation from TypeScript</h4>
+          <h3 id="generation-from-typescript">Generation from TypeScript</h3>
 
           <p>For larger projects, the manual creation of components files for all classes in the project can require significant manual effort, and can therefore become error-prone.
 For projects that make use of a strongly-typed language, such as TypeScript,
@@ -606,10 +623,6 @@ Components-Generator.js will generate the components file in <a href="#generator
             </figcaption>
 </figure>
 
-          <h3 id="configuration-files">Configuration files</h3>
-
-          <p class="todo">Write me; do we even need much here?</p>
-
         </div>
 </section>
 
@@ -620,8 +633,7 @@ Components-Generator.js will generate the components file in <a href="#generator
           <p>Building on top of the declarative configurations that were explained in previous section,
 we now discuss Components.js, which is a system that can interpret these configurations
 for enabling dependency injection within JavaScript/TypeScript projects.
-In this section, we first explain the main architecture, followed by the most relevant implementation details.
-Next, we first explain the main API that allows developers to use this tool.</p>
+In this section, we first explain the main architecture, followed by the most relevant implementation details.</p>
 
           <h3 id="architecture">Architecture</h3>
 
@@ -634,7 +646,8 @@ Next, we first explain the main API that allows developers to use this tool.</p>
           </ul>
 
           <p>These three phases are handled by the <code>ComponentsManager</code>,
-which acts as the main entrypoint of the framework.
+which acts as the main entrypoint of the framework
+as can be seen in <a href="#architecture-main">Fig. 3</a>
 This manager class is constructed via a static <code>build</code> method,
 via which custom options can be passed,
 such as a callback for loading modules and configuration files.</p>
@@ -766,10 +779,6 @@ A sustainability of this project is available on <a href="https://github.com/Lin
 which explains how to create component and configuration files,
 and how to invoke the DI tool.</p>
 
-          <h3 id="api">API</h3>
-
-          <p class="todo">How it is used</p>
-
         </div>
 </section>
 
@@ -779,7 +788,7 @@ and how to invoke the DI tool.</p>
 
           <p>The usage of an open-source project without the use of any tracking software is a picture that is always incomplete.
 Nevertheless, we analyze the usage of Components.js in this section on two aspects:
-empirical usage via metrics, and in-use analysis of specific projects.
+empirical usage via available metrics, and in-use analysis of specific projects.
 We discuss these two aspects hereafter.</p>
 
           <h3 id="usage-metrics">Usage Metrics</h3>
@@ -857,7 +866,15 @@ as it was developed before Components-Generator.js was created.
 Therefore, all components files within Comunica are created manually,
 which shows that Components.js is flexible in this regard.</p>
 
-          <p class="todo">Explain reproducibility use case</p>
+          <p>As Comunica is a research platform for research around query execution,
+the ability to <em>reproduce</em> experiments is crucial.
+This is where the benefit of Components.js becomes especially apparent.
+It is often the case that research articles with experimental results only report on the used software,
+without mentioning the exact version and configuration that was used.
+When using a Components.js configuration file,
+the necessary semantics for accurately replicating such experiments are available as Linked Data.
+The reproducibility of <a property="schema:citation http://purl.org/spar/cito/cites" href="https://git.its.aau.dk/CLAAUDIA/teach_reproducibility/raw/commit/dbea465c0d10bca50b0cca23fd93afd0ffea08dc/litt/Wavelab%20and%20reproducible%20research.pdf">experimental results is often considered to be even more important than the research article itself</a> <span class="references">[<a href="#ref-19">19</a>]</span>,
+as the article can be considered to be merely <em>advertising of the scholarship</em>.</p>
 
         </div>
 </section>
@@ -881,18 +898,19 @@ which is for example beneficial for improving the reproducibility of software ex
             <li>Architectures that require <strong>high modularity and flexibility</strong>;</li>
             <li>Need to modify wiring of components <strong>without changing code</strong>;</li>
             <li>Need for ability to <strong>share wiring configurations</strong> with others;</li>
-            <li>Managing and including <strong>configurations across different independent projects</strong>.</li>
+            <li>Managing and including <strong>configurations across different independent projects</strong>;</li>
+            <li>Using <strong>configurations in other contexts</strong>.</li>
           </ul>
 
           <p>As with all DI frameworks, Components.js comes with the downside that for large applications,
 configurations can become complex and logic flow may be harder to follow.
-In order to mitigate these risks, we recommend a good management of configuration files,
+In order to mitigate these risks, we recommend a structured management of configuration files,
 which may involve splitting up configuration files based on your architecture’s primary subsystems,
 which is the approach followed by large projects such as Solid Community Server, Semantic Components, and Comunica.</p>
 
           <p>In future work, we do not foresee the need for any major changes or additions within the Components.js framework itself.
 However, all large projects that make use of Components.js have identified the need for better tooling to create and manage configuration files.
-For example, the Comunica project is developing a <a href="https://github.com/comunica/comunica-packager">graphical user interface</a>{.mandatory}
+For example, the Comunica project is developing a <a href="https://github.com/comunica/comunica-packager" class="mandatory" data-link-text="https:/​/​github.com/​comunica/​comunica-​packager">graphical user interface</a>
 to visually customize the wiring of the engine, which can then be exported into a reusable configuration file.
 Since Components.js configurations make use of the Linked Data principles,
 it is possible to create a generic user interface to create such configuration files for any project that makes use of Components.js.
@@ -948,6 +966,8 @@ Therefore, DI frameworks such as Components.js pave the road towards a world wit
   <dd resource="https://www.w3.org/TR/json-ld/" typeof="schema:CreativeWork">JSON-LD 1.1: a JSON-based serialization for linked data. <a href="https://www.w3.org/TR/json-ld/">https:/​/​www.w3.org/TR/json-ld/</a></dd>
   <dt id="ref-18">[18]</dt>
   <dd resource="https://solid.github.io/specification/" typeof="schema:CreativeWork">Solid Technical Reports. <a href="https://solid.github.io/specification/">https:/​/​solid.github.io/specification/</a> (2021).</dd>
+  <dt id="ref-19">[19]</dt>
+  <dd resource="https://git.its.aau.dk/CLAAUDIA/teach_reproducibility/raw/commit/dbea465c0d10bca50b0cca23fd93afd0ffea08dc/litt/Wavelab%20and%20reproducible%20research.pdf" typeof="schema:CreativeWork">Buckheit, J.B., Donoho, D.L.: WaveLab and Reproducible Research. Stanford University, <a href="https://git.its.aau.dk/CLAAUDIA/teach_reproducibility/raw/commit/dbea465c0d10bca50b0cca23fd93afd0ffea08dc/litt/Wavelab%20and%20reproducible%20research.pdf">https:/​/​git.its.aau.dk/CLAAUDIA/teach_reproducibility/raw/commit/dbea465c0d10bca50b0cca23fd93afd0ffea08dc/litt/Wavelab%20and%20reproducible%20research.pdf</a> (1995).</dd>
 </dl>
 </section>
 </footer>
