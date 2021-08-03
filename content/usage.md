@@ -83,5 +83,12 @@ as it was developed before Components-Generator.js was created.
 Therefore, all components files within Comunica are created manually,
 which shows that Components.js is flexible in this regard.
 
-Explain reproducibility use case
-{:.todo}
+As Comunica is a research platform for research around query execution,
+the ability to _reproduce_ experiments is crucial.
+This is where the benefit of Components.js becomes especially apparent.
+It is often the case that research articles with experimental results only report on the used software,
+without mentioning the exact version and configuration that was used.
+When using a Components.js configuration file,
+the necessary semantics for accurately replicating such experiments are available as Linked Data.
+The reproducibility of [experimental results is often considered to be even more important than the research article itself](cite:cites WaveLab),
+as the article can be considered to be merely _advertising of the scholarship_.
