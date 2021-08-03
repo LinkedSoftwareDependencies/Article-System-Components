@@ -3,7 +3,7 @@
 
 The usage of an open-source project without the use of any tracking software is a picture that is always incomplete.
 Nevertheless, we analyze the usage of Components.js in this section on two aspects:
-empirical usage via metrics, and in-use analysis of specific projects.
+empirical usage via available metrics, and in-use analysis of specific projects.
 We discuss these two aspects hereafter.
 
 ### Usage Metrics

@@ -20,7 +20,7 @@ We can recommend Components.js for TypeScript/JavaScript projects that have at l
 
 As with all DI frameworks, Components.js comes with the downside that for large applications,
 configurations can become complex and logic flow may be harder to follow.
-In order to mitigate these risks, we recommend a good management of configuration files,
+In order to mitigate these risks, we recommend a structured management of configuration files,
 which may involve splitting up configuration files based on your architecture's primary subsystems,
 which is the approach followed by large projects such as Solid Community Server, Semantic Components, and Comunica.
 

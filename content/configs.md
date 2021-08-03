@@ -3,7 +3,7 @@
 
 Components.js depends on two levels of configuration for enabling the wiring of software components.
 The first level is the creation of *components* files,
-which are the semantic representation of component constructors,
+which are the semantic representation of component (or class) constructors,
 and can usually be automatically generated.
 The second level is the creation of *configuration* files,
 which represent the actual instantiation of components
@@ -60,7 +60,7 @@ We illustrate the usage of this vocabulary with an example in [](#module-oo) usi
 This listing shows the definition of a new module (`oo:Module`) with compact IRI `ex:MyModule`.
 The name of the module is set with the compact IRI `requireName`, which expands to `doap:name` from the [Description of a Project (DOAP) vocabulary](https://github.com/ewilderj/doap/wiki).
 Furthermore, our module contains a single class component (`oo:Class`) with compact IRI `ex:MyModule/MyComponent`.
-Since this is a class component (subclass of `oo:Component`), this means that this components is instantiatable based on parameters.
+Since this is a class component (subclass of `oo:Component`), this means that this component is instantiatable based on parameters.
 Each component can refer to its path within a module using the `oo:componentPath` predicate (compacted as `requireElement`).
 Finally, our single component has a parameter (`oo:Parameter`) with compact IRI `ex:MyModule/MyComponent#name`
 that can be set when instantiating this component.
@@ -144,7 +144,7 @@ Part of the JSON-LD contents of [`https://linkedsoftwaredependencies.org/bundles
 </figcaption>
 </figure>
 
-This LSD service allows creators of components files mint LSD-based URLs for their packages,
+This LSD service allows creators of components files to mint LSD-based URLs for their packages,
 which will automatically become dereferenceable as soon as these packages are published to npm.
 The LSD service thereby removes the dereferenceability responsibility from package developers that want to use dependency injection via Components.js.
 

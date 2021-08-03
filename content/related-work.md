@@ -29,7 +29,7 @@ The main motivations for configurations are the strict boundaries between config
 enabling non-developers to configure the code,
 and taking away the need to recompile the code for pre-compiled languages.
 However, when dependencies are defined based on some logic such as external conditions,
-then configuring via code may be better suited,
+configuration via code may be better suited,
 as this can become too complex to define in declarative configuration files.
 
 **Forms of Injection**
@@ -126,6 +126,8 @@ Google's [Guice](https://github.com/google/guice) is a more lightweight alternat
 
 In JavaScript, 
 dependency injection frameworks tend to be less common because of its flexible nature.
+However, with the increasing popularity of TypeScript –which provides strict typings for JavaScript–,
+the need for dependency injection is increasing.
 Still, multiple frameworks are available, such as [BottleJS](https://github.com/young-steveo/bottlejs), [Wire](https://github.com/cujojs/wire), and [Electrolyte](https://github.com/jaredhanson/electrolyte), all backed by rather small communities.
 One of the biggest ones, [InversifyJS](https://github.com/inversify/InversifyJS),
 uses annotations similar to Java frameworks to define possible injections.
@@ -138,4 +140,4 @@ Components.js differs from most of the aforementioned frameworks on different as
 of which the first one is unique to Components.js:
 
 - RDF-based configuration files in order to make them globally _interoperable_, _addressable_, and _discoverable_.
-- Decoupling of the dependency injection layer from the software implementation.
+- Decoupling of the dependency injection layer from the software implementation via separate configuration files.

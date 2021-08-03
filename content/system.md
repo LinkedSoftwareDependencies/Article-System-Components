@@ -5,7 +5,6 @@ Building on top of the declarative configurations that were explained in previou
 we now discuss Components.js, which is a system that can interpret these configurations
 for enabling dependency injection within JavaScript/TypeScript projects.
 In this section, we first explain the main architecture, followed by the most relevant implementation details.
-Next, we first explain the main API that allows developers to use this tool.
 
 ### Architecture
 
@@ -16,7 +15,8 @@ Internally, the Components.js dependency injection tool goes through three main 
 * Construction: Instantiation of JavaScript classes based on configuration files.
 
 These three phases are handled by the `ComponentsManager`,
-which acts as the main entrypoint of the framework.
+which acts as the main entrypoint of the framework
+as can be seen in [](#architecture-main)
 This manager class is constructed via a static `build` method,
 via which custom options can be passed,
 such as a callback for loading modules and configuration files.
@@ -147,8 +147,3 @@ A sustainability of this project is available on [GitHub](https://github.com/Lin
 Finally, in-depth documentation is [available](https://componentsjs.readthedocs.io/en/latest/){:.mandatory},
 which explains how to create component and configuration files,
 and how to invoke the DI tool.
-
-### API
-
-How it is used
-{:.todo}
