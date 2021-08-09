@@ -5,6 +5,11 @@ is the use of _composition_ to represent relationships between objects.
 _Dependency Injection (DI)_ is a popular technique to manage such compositions,
 which loosely couples objects via minimal interfaces,
 and wires these objects together at runtime based on declarative configuration files.
+
+<div class="comment" data-author="miel">
+Are there actually DI frameworks with global semantics? If not, you can make this statement more concrete by stating that we propose global semantics for reason X and implement this using Linked Data.
+</div>
+
 Configurations for existing DI frameworks typically only have local semantics,
 which limits their usage in other contexts.
 <!-- Need         -->
