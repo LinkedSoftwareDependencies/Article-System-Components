@@ -27,7 +27,8 @@ and the actual usage is expected to be higher.
 ### In-use Analysis
 
 In the previous section, we provided an informed estimate as to _how much_ Components.js is being used.
-In this section, we provide an analysis of _in what way_ Components.js is being used in three real-world projects: Solid Community Server, Semantic Components, and Comunica.
+In this section, we provide an analysis of _in what way_ Components.js is being used in four real-world projects:
+Solid Community Server, Handlers.js, Digita Identity Proxy, and Comunica.
 
 #### Solid Community Server
 
@@ -49,18 +50,37 @@ Since the Solid Community Server makes use of TypeScript, it is able to make use
 which avoids the need to manually create components files, and thereby significantly simplifies the usage of Components.js within this project.
 At the time of writing, this server contains 246 components that can be customized via specific parameters, and wired together to form a server instance with specific capabilities.
 
-#### Semantic Components
+#### Handlers.js
 
-[Semantic Components](https://github.com/digita-ai/semcom/){:.mandatory} is a client-side project
-that enables visual components to be displayed dynamically within Solid data browsers.
-It allows data within Solid pods to be interacted with based on components that are selected dynamically based on the _shape_ of this data.
+[Handlers.js](https://github.com/digita-ai/handlersjs){:.mandatory} aims to provide a comprehensive collection of generic logic classes,
+that can be wired together via the composition pattern.
+While this project is still under development, it already provides numerous handlers and services pertaining to
+data flows, storage, logging, error handling, as well as logic about serving data over HTTP (routing, CORS, content negotiation ...).
 This project is written in TypeScript, and is being developed by [Digita](https://www.digita.ai/).
 
-Explain why it's used, and how
-{:.todo}
+In contrast to the Solid Community Server, Handlers.js is not meant to be usable by itself as standalone tool.
+Instead, it is an accompanying library that can be used by other tools.
+The components within Handlers.js are meant to capture common patterns within projects that depend on composition-based components,
+so that they can be reused by other projects that make use of DI frameworks such as Components.js.
+While Components.js is the primary DI framework this library was designed for,
+it does not strictly depend on it thanks to the loosely coupling of the Components.js DI layer and software implementations.
 
-Explain how many components
-{:.todo}
+Handlers.js also make use of the Components-Generator.js tool to convert TypeScript classes into components files.
+At the time of writing, this project exposes 40 components that range from abstract logic flows to specific ones for setting up a simple HTTP server.
+Since components within Components.js have global semantics, these components can be easily reused across projects.
+
+#### Digita Identity Proxy
+
+The Digita Identity Proxy (not public at the time of writing) is a [Solid-OIDC](https://solid.github.io/authentication-panel/solid-oidc/){:.mandatory}-compliant proxy server
+that acts as a modular, and easily configurable compatibility layer for classic [OIDC](https://openid.net/connect/){:.mandatory} Identity Providers.
+It enables Solid apps to authenticate at Solid pod servers with these existing identity services, without any necessary modification.
+This project is also written in TypeScript, and is under development by [Digita](https://www.digita.ai/).
+
+Each existing (classic) identity provider is modelled as a component that can be plugged into the proxy.
+With Components.js, these identity providers can be easily configured and plugged in via a configuration file.
+The ability to make such logic changes within an application is crucial for Digita,
+as they want to enable their clients to make changes by only modifying the configuration files,
+as their clients are sometimes non-technical people that have limited programming knowledge.
 
 #### Comunica
 
