@@ -13,7 +13,7 @@
   <meta name="citation_author" content="Miel Vander Sande" />
   <meta name="citation_author" content="Ruben Verborgh" />
   
-  <meta name="citation_publication_date" content="2021/08/04" />
+  <meta name="citation_publication_date" content="2021/08/11" />
 </head>
 
 <body prefix="dctypes: http://purl.org/dc/dcmitype/ pimspace: http://www.w3.org/ns/pim/space# rsa: http://www.w3.org/ns/auth/rsa# cert: http://www.w3.org/ns/auth/cert# wgs: http://www.w3.org/2003/01/geo/wgs84_pos# biblio: http://purl.org/net/biblio# bibo: http://purl.org/ontology/bibo/ book: http://purl.org/NET/book/vocab# ov: http://open.vocab.org/terms/ doap: http://usefulinc.com/ns/doap# dbr: http://dbpedia.org/resource/ dbp: http://dbpedia.org/property/ sio: http://semanticscience.org/resource/ opmw: http://www.opmw.org/ontology/ deo: http://purl.org/spar/deo/ doco: http://purl.org/spar/doco/ cito: http://purl.org/spar/cito/ fabio: http://purl.org/spar/fabio/ solid: http://www.w3.org/ns/solid/terms# acl: http://www.w3.org/ns/auth/acl# dio: https://w3id.org/dio# lsc: http://linkedscience.org/lsc/ns#" typeof="schema:CreativeWork sioc:Post prov:Entity lsc:Research">
@@ -812,7 +812,8 @@ and the actual usage is expected to be higher.</p>
           <h3 id="in-use-analysis">In-use Analysis</h3>
 
           <p>In the previous section, we provided an informed estimate as to <em>how much</em> Components.js is being used.
-In this section, we provide an analysis of <em>in what way</em> Components.js is being used in three real-world projects: Solid Community Server, Semantic Components, and Comunica.</p>
+In this section, we provide an analysis of <em>in what way</em> Components.js is being used in four real-world projects:
+Solid Community Server, Handlers.js, Digita Identity Proxy, and Comunica.</p>
 
           <h4 id="solid-community-server">Solid Community Server</h4>
 
@@ -834,16 +835,37 @@ and are wired via customizable Components.js configuration files.</p>
 which avoids the need to manually create components files, and thereby significantly simplifies the usage of Components.js within this project.
 At the time of writing, this server contains 246 components that can be customized via specific parameters, and wired together to form a server instance with specific capabilities.</p>
 
-          <h4 id="semantic-components">Semantic Components</h4>
+          <h4 id="handlersjs">Handlers.js</h4>
 
-          <p><a href="https://github.com/digita-ai/semcom/" class="mandatory" data-link-text="https:/​/​github.com/​digita-​ai/​semcom/​">Semantic Components</a> is a client-side project
-that enables visual components to be displayed dynamically within Solid data browsers.
-It allows data within Solid pods to be interacted with based on components that are selected dynamically based on the <em>shape</em> of this data.
+          <p><a href="https://github.com/digita-ai/handlersjs" class="mandatory" data-link-text="https:/​/​github.com/​digita-​ai/​handlersjs">Handlers.js</a> aims to provide a comprehensive collection of generic logic classes,
+that can be wired together via the composition pattern.
+While this project is still under development, it already provides numerous handlers and services pertaining to
+data flows, storage, logging, error handling, as well as logic about serving data over HTTP (routing, CORS, content negotiation …).
 This project is written in TypeScript, and is being developed by <a href="https://www.digita.ai/">Digita</a>.</p>
 
-          <p class="todo">Explain why it’s used, and how</p>
+          <p>In contrast to the Solid Community Server, Handlers.js is not meant to be usable by itself as standalone tool.
+Instead, it is an accompanying library that can be used by other tools.
+The components within Handlers.js are meant to capture common patterns within projects that depend on composition-based components,
+so that they can be reused by other projects that make use of DI frameworks such as Components.js.
+While Components.js is the primary DI framework this library was designed for,
+it does not strictly depend on it thanks to the loosely coupling of the Components.js DI layer and software implementations.</p>
 
-          <p class="todo">Explain how many components</p>
+          <p>Handlers.js also make use of the Components-Generator.js tool to convert TypeScript classes into components files.
+At the time of writing, this project exposes 40 components that range from abstract logic flows to specific ones for setting up a simple HTTP server.
+Since components within Components.js have global semantics, these components can be easily reused across projects.</p>
+
+          <h4 id="digita-identity-proxy">Digita Identity Proxy</h4>
+
+          <p>The Digita Identity Proxy (not public at the time of writing) is a <a href="https://solid.github.io/authentication-panel/solid-oidc/" class="mandatory" data-link-text="https:/​/​solid.github.io/​authentication-​panel/​solid-​oidc/​">Solid-OIDC</a>-compliant proxy server
+that acts as a modular, and easily configurable compatibility layer for classic <a href="https://openid.net/connect/" class="mandatory" data-link-text="https:/​/​openid.net/​connect/​">OIDC</a> Identity Providers.
+It enables Solid apps to authenticate at Solid pod servers with these existing identity services, without any necessary modification.
+This project is also written in TypeScript, and is under development by <a href="https://www.digita.ai/">Digita</a>.</p>
+
+          <p>Each existing (classic) identity provider is modelled as a component that can be plugged into the proxy.
+With Components.js, these identity providers can be easily configured and plugged in via a configuration file.
+The ability to make such logic changes within an application is crucial for Digita,
+as they want to enable their clients to make changes by only modifying the configuration files,
+as their clients are sometimes non-technical people that have limited programming knowledge.</p>
 
           <h4 id="comunica">Comunica</h4>
 
@@ -927,7 +949,19 @@ Therefore, DI frameworks such as Components.js pave the road towards a world wit
 
 </main>
 
-<footer><section>
+<footer>
+  <section id="acknowledgements" inlist="" rel="schema:hasPart" resource="#acknowledgements">
+<div datatype="rdf:HTML" property="schema:description">
+          <h2 property="schema:name">Acknowledgements</h2>
+
+          <p>We thank Wouter Termont for sharing his insights into the usage of Components.js within the products of Digita.
+The described research activities were funded by Ghent University and imec.
+Ruben Taelman and Ruben Verborgh are postdoctoral fellows of the Research Foundation – Flanders (FWO) (1274521N).</p>
+
+        </div>
+</section>
+
+<section>
 <h2 id="references">References</h2>
 <dl class="references">
   <dt id="ref-1">[1]</dt>
