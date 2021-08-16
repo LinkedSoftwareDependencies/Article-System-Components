@@ -76,11 +76,9 @@ that acts as a modular, and easily configurable compatibility layer for classic 
 It enables Solid apps to authenticate at Solid pod servers with these existing identity services, without any necessary modification.
 This project is also written in TypeScript, and is under development by [Digita](https://www.digita.ai/).
 
-Each existing (classic) identity provider is modelled as a component that can be plugged into the proxy.
-With Components.js, these identity providers can be easily configured and plugged in via a configuration file.
-The ability to make such logic changes within an application is crucial for Digita,
-as they want to enable their clients to make changes by only modifying the configuration files,
-as their clients are sometimes non-technical people that have limited programming knowledge.
+Several components exists that enable additional functionality of Solid-OIDC,
+which can be plugged into the proxy when the need exists.
+With Components.js, these components can be easily configured and plugged in via a configuration file.
 
 #### Comunica
 

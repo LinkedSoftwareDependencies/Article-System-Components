@@ -10,6 +10,12 @@ Using the Linked Software Dependencies service, components and configurations be
 which allows software configurations to be shared easily with others,
 which is for example beneficial for improving the reproducibility of software experiments.
 
+The previous section has shown that Components.js provides significant value in real-world applications.
+On the one hand, tools such as Solid Community Server and Comunica allow developers and researchers to rewire these applications based on their specific needs.
+On the other hand, applications by companies such as Digita depend on this flexibility for making logic changes via configuration files,
+as they want to enable their clients to make changes by only modifying the configuration files,
+since their clients are sometimes non-technical people that have limited programming knowledge.
+
 We can recommend Components.js for TypeScript/JavaScript projects that have at least a subset of the following characteristics:
 
 * Architectures that require **high modularity and flexibility**;
