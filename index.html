@@ -13,7 +13,7 @@
   <meta name="citation_author" content="Miel Vander Sande" />
   <meta name="citation_author" content="Ruben Verborgh" />
   
-  <meta name="citation_publication_date" content="2021/08/12" />
+  <meta name="citation_publication_date" content="2021/08/16" />
 </head>
 
 <body prefix="dctypes: http://purl.org/dc/dcmitype/ pimspace: http://www.w3.org/ns/pim/space# rsa: http://www.w3.org/ns/auth/rsa# cert: http://www.w3.org/ns/auth/cert# wgs: http://www.w3.org/2003/01/geo/wgs84_pos# biblio: http://purl.org/net/biblio# bibo: http://purl.org/ontology/bibo/ book: http://purl.org/NET/book/vocab# ov: http://open.vocab.org/terms/ doap: http://usefulinc.com/ns/doap# dbr: http://dbpedia.org/resource/ dbp: http://dbpedia.org/property/ sio: http://semanticscience.org/resource/ opmw: http://www.opmw.org/ontology/ deo: http://purl.org/spar/deo/ doco: http://purl.org/spar/doco/ cito: http://purl.org/spar/cito/ fabio: http://purl.org/spar/fabio/ solid: http://www.w3.org/ns/solid/terms# acl: http://www.w3.org/ns/auth/acl# dio: https://w3id.org/dio# lsc: http://linkedscience.org/lsc/ns#" typeof="schema:CreativeWork sioc:Post prov:Entity lsc:Research">
@@ -861,11 +861,9 @@ that acts as a modular, and easily configurable compatibility layer for classic 
 It enables Solid apps to authenticate at Solid pod servers with these existing identity services, without any necessary modification.
 This project is also written in TypeScript, and is under development by <a href="https://www.digita.ai/">Digita</a>.</p>
 
-          <p>Each existing (classic) identity provider is modelled as a component that can be plugged into the proxy.
-With Components.js, these identity providers can be easily configured and plugged in via a configuration file.
-The ability to make such logic changes within an application is crucial for Digita,
-as they want to enable their clients to make changes by only modifying the configuration files,
-as their clients are sometimes non-technical people that have limited programming knowledge.</p>
+          <p>Several components exists that enable additional functionality of Solid-OIDC,
+which can be plugged into the proxy when the need exists.
+With Components.js, these components can be easily configured and plugged in via a configuration file.</p>
 
           <h4 id="comunica">Comunica</h4>
 
@@ -913,6 +911,12 @@ it also brings with it the power of Linked Data and the Semantic Web for enablin
 Using the Linked Software Dependencies service, components and configurations become dereferenceable and citable,
 which allows software configurations to be shared easily with others,
 which is for example beneficial for improving the reproducibility of software experiments.</p>
+
+          <p>The previous section has shown that Components.js provides significant value in real-world applications.
+On the one hand, tools such as Solid Community Server and Comunica allow developers and researchers to rewire these applications based on their specific needs.
+On the other hand, applications by companies such as Digita depend on this flexibility for making logic changes via configuration files,
+as they want to enable their clients to make changes by only modifying the configuration files,
+since their clients are sometimes non-technical people that have limited programming knowledge.</p>
 
           <p>We can recommend Components.js for TypeScript/JavaScript projects that have at least a subset of the following characteristics:</p>
 
