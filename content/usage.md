@@ -32,7 +32,8 @@ Solid Community Server, Handlers.js, Digita Identity Proxy, and Comunica.
 
 #### Solid Community Server
 
-The [Solid Community Server](https://github.com/solid/community-server/){:.mandatory} is a server-side implementation of the [Solid specifications](cite:cites solidspec),
+The Solid Community Server ([https://github.com/solid/community-server/](https://github.com/solid/community-server/))
+is a server-side implementation of the [Solid specifications](cite:cites solidspec),
 which provides a basis for the Solid decentralization effort.
 When such a server is hosted, it allows users to create their own personal storage space (pod) and identity,
 so that this data can be used within any external Solid application.

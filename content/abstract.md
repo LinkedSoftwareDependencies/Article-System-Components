@@ -14,7 +14,7 @@ As such, there is a need for globally interoperable, addressable, and discoverab
 which can be achieved by leveraging the power of Linked Data.
 <!-- Task         -->
 To resolve this need, we introduce _Components.js_,
-a semantic DI framework for TypeScript and JavaScript applications
+an open-source semantic DI framework for TypeScript and JavaScript applications
 that gives global semantics to its Linked Data-based configuration files.
 <!-- Object       -->
 In this article, we report on the Components.js framework

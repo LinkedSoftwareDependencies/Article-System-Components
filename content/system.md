@@ -11,7 +11,7 @@ In this section, we first explain the main architecture, followed by the most re
 Internally, the Components.js dependency injection tool goes through three main phases:
 
 * Loading: Initialization of DI components, discovery of modules, and loading of configuration files.
-* Preprocessing: Handling of constructor arguments.
+* Preprocessing: Handling of constructor arguments before construction.
 * Construction: Instantiation of JavaScript classes based on configuration files.
 
 These three phases are handled by the `ComponentsManager`,
@@ -51,7 +51,7 @@ which are responsible for loading components and configurations.
 </figure>
 
 The `ModuleStateBuilder` is a class that is responsible for scanning the current JavaScript project and its dependencies.
-The main objective of this class is to build a `IModuleState`, that contains information such as the paths to available components and dependencies.
+The main objective of this class is to build an `IModuleState`, that contains information such as the paths to available components and dependencies.
 
 `ComponentRegistry` and `ConfigRegistry` are classes that are exposed via a callback to invokers of `ComponentsManager.build()`.
 These classes respectively enable modules and configurations to be registered,
@@ -122,19 +122,19 @@ For example, handlers exist to handle primitive values such as strings and numbe
 arrays, and references to other components (which requires a recursive call to `ConfigConstructorPool`).
 Once the arguments have been resolved, the constructor can be applied to obtain the final instantiated object.
 
-By default, the `ConfigConstructor` assumes that configurations are instantiated via the [CommonJS JavaScript standard](https://nodejs.org/docs/latest/api/modules.html){:.mandatory},
+By default, the `ConfigConstructor` assumes that configurations are instantiated via the [CommonJS JavaScript standard](https://nodejs.org/docs/latest/api/modules.html),
 which is primarily used by the Node.js framework.
 However, Components.js has been designed to handle different kinds of instantiation,
 which can be done via different `IConstructionStrategy`'s.
-For instance, this allows the framework to be compatible with other upcoming JavaScript standards such as [JavaScript modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules){:.mandatory}.
+For instance, this allows the framework to be compatible with other upcoming JavaScript standards such as [JavaScript modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules).
 
 ### Implementation
 
 Components.js has been implemented in TypeScript,
-and is available on [GitHub](https://github.com/LinkedSoftwareDependencies/Components.js){:.mandatory}
+and is available on GitHub ([https://github.com/LinkedSoftwareDependencies/Components.js](https://github.com/LinkedSoftwareDependencies/Components.js))
 under the MIT license.
 At the time of writing, the latest release is at version 4.4.1,
-which is published via the [npm package manager](https://www.npmjs.com/package/componentsjs){:.mandatory}.
+which is published via the npm package manager ([https://www.npmjs.com/package/componentsjs](https://www.npmjs.com/package/componentsjs)).
 
 Due to the critical nature of this framework,
 it is being tested thoroughly.
@@ -142,8 +142,8 @@ At the time of writing, it consists of 538 unit tests,
 which reach a test coverage of 100%.
 
 Components.js is being maintained by IDLab via software projects that make use of this framework.
-A sustainability of this project is available on [GitHub](https://github.com/LinkedSoftwareDependencies/Components.js/wiki/Sustainability-Plan){:.mandatory}.
+A sustainability of this project is available on GitHub ([https://github.com/LinkedSoftwareDependencies/Components.js/wiki/Sustainability-Plan](https://github.com/LinkedSoftwareDependencies/Components.js/wiki/Sustainability-Plan)).
 
-Finally, in-depth documentation is [available](https://componentsjs.readthedocs.io/en/latest/){:.mandatory},
+Finally, in-depth documentation is available ([https://componentsjs.readthedocs.io/en/latest/](https://componentsjs.readthedocs.io/en/latest/)),
 which explains how to create component and configuration files,
 and how to invoke the DI tool.

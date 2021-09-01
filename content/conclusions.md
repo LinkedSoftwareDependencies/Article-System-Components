@@ -21,16 +21,17 @@ We can recommend Components.js for TypeScript/JavaScript projects that have at l
 * Architectures that require **high modularity and flexibility**;
 * Need to modify wiring of components **without changing code**;
 * Need for ability to **share wiring configurations** with others;
-* Managing and including **configurations across different independent projects**;
+* Managing and including **configurations across different projects**;
 * Using **configurations in other contexts**.
 
 As with all DI frameworks, Components.js comes with the downside that for large applications,
 configurations can become complex and logic flow may be harder to follow.
 In order to mitigate these risks, we recommend a structured management of configuration files,
 which may involve splitting up configuration files based on your architecture's primary subsystems,
-which is the approach followed by large projects such as Solid Community Server, Semantic Components, and Comunica.
+which is the approach followed by large projects such as Solid Community Server and Comunica.
 
-In future work, we do not foresee the need for any major changes or additions within the Components.js framework itself.
+In future work, we do not foresee the need for any major changes or additions within the Components.js framework itself,
+aside from keeping up with new language features from JavaScript and TypeScript.
 However, all large projects that make use of Components.js have identified the need for better tooling to create and manage configuration files.
 For example, the Comunica project is developing a [graphical user interface](https://github.com/comunica/comunica-packager){:.mandatory}
 to visually customize the wiring of the engine, which can then be exported into a reusable configuration file.
