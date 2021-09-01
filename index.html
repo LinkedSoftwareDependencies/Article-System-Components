@@ -13,7 +13,7 @@
   <meta name="citation_author" content="Miel Vander Sande" />
   <meta name="citation_author" content="Ruben Verborgh" />
   
-  <meta name="citation_publication_date" content="2021/08/17" />
+  <meta name="citation_publication_date" content="2021/09/01" />
 </head>
 
 <body prefix="dctypes: http://purl.org/dc/dcmitype/ pimspace: http://www.w3.org/ns/pim/space# rsa: http://www.w3.org/ns/auth/rsa# cert: http://www.w3.org/ns/auth/cert# wgs: http://www.w3.org/2003/01/geo/wgs84_pos# biblio: http://purl.org/net/biblio# bibo: http://purl.org/ontology/bibo/ book: http://purl.org/NET/book/vocab# ov: http://open.vocab.org/terms/ doap: http://usefulinc.com/ns/doap# dbr: http://dbpedia.org/resource/ dbp: http://dbpedia.org/property/ sio: http://semanticscience.org/resource/ opmw: http://www.opmw.org/ontology/ deo: http://purl.org/spar/deo/ doco: http://purl.org/spar/doco/ cito: http://purl.org/spar/cito/ fabio: http://purl.org/spar/fabio/ solid: http://www.w3.org/ns/solid/terms# acl: http://www.w3.org/ns/auth/acl# dio: https://w3id.org/dio# lsc: http://linkedscience.org/lsc/ns#" typeof="schema:CreativeWork sioc:Post prov:Entity lsc:Research">
@@ -56,7 +56,7 @@ As such, there is a need for globally interoperable, addressable, and discoverab
 which can be achieved by leveraging the power of Linked Data.
 <!-- Task         -->
 To resolve this need, we introduce <em>Components.js</em>,
-a semantic DI framework for TypeScript and JavaScript applications
+an open-source semantic DI framework for TypeScript and JavaScript applications
 that gives global semantics to its Linked Data-based configuration files.
 <!-- Object       -->
 In this article, we report on the Components.js framework
@@ -124,11 +124,11 @@ and make them globally <em>interoperable</em>, <em>addressable</em>, and <em>dis
 a semantic DI framework for TypeScript and JavaScript applications
 that gives global semantics to software configurations, hence surpassing existing dependency injection frameworks.
 Components.js thereby enables highly modular applications to be built that are dynamically wired based on semantic configuration files.
-The framework is <a href="https://github.com/LinkedSoftwareDependencies/Components.js" class="mandatory" data-link-text="https:/​/​github.com/​LinkedSoftwareDependencies/​Components.js">open-source</a>,
-available on <a href="https://www.npmjs.com/package/componentsjs" class="mandatory" data-link-text="https:/​/​www.npmjs.com/​package/​componentsjs">npm</a>,
-and its complete documentation can be found at <a href="https://componentsjs.readthedocs.io/" class="mandatory" data-link-text="https:/​/​componentsjs.readthedocs.io/​">https:/​/​componentsjs.readthedocs.io/</a>.
+The framework is open-source (<a href="https://github.com/LinkedSoftwareDependencies/Components.js">https:/​/​github.com/LinkedSoftwareDependencies/Components.js</a>),
+available on npm (<a href="https://www.npmjs.com/package/componentsjs">https:/​/​www.npmjs.com/package/componentsjs</a>),
+and its complete documentation can be found at <a href="https://componentsjs.readthedocs.io/">https:/​/​componentsjs.readthedocs.io/</a>.
 Furthermore, it is being actively used as core technology within popular tools such as
-<a href="https://github.com/solid/community-server/" class="mandatory" data-link-text="https:/​/​github.com/​solid/​community-​server/​">Solid Community Server</a> and <a property="schema:citation http://purl.org/spar/cito/cites" href="https://comunica.github.io/Article-ISWC2018-Resource/">Comunica</a> <span class="references">[<a href="#ref-5">5</a>]</span>.
+the <a href="https://github.com/solid/community-server/" class="mandatory" data-link-text="https:/​/​github.com/​solid/​community-​server/​">Solid Community Server</a> and <a property="schema:citation http://purl.org/spar/cito/cites" href="https://comunica.github.io/Article-ISWC2018-Resource/">Comunica</a> <span class="references">[<a href="#ref-5">5</a>]</span>.
 Within Components.js,
 software configurations and modules are described as Linked Data using
 the <a property="schema:citation http://purl.org/spar/cito/citesAsAuthority" href="https://linkedsoftwaredependencies.org/articles/describing-experiments/"><em>Object-Oriented Components vocabulary</em></a> <span class="references">[<a href="#ref-6">6</a>]</span>
@@ -641,7 +641,7 @@ In this section, we first explain the main architecture, followed by the most re
 
           <ul>
             <li>Loading: Initialization of DI components, discovery of modules, and loading of configuration files.</li>
-            <li>Preprocessing: Handling of constructor arguments.</li>
+            <li>Preprocessing: Handling of constructor arguments before construction.</li>
             <li>Construction: Instantiation of JavaScript classes based on configuration files.</li>
           </ul>
 
@@ -682,7 +682,7 @@ which are responsible for loading components and configurations.</p>
 </figure>
 
           <p>The <code>ModuleStateBuilder</code> is a class that is responsible for scanning the current JavaScript project and its dependencies.
-The main objective of this class is to build a <code>IModuleState</code>, that contains information such as the paths to available components and dependencies.</p>
+The main objective of this class is to build an <code>IModuleState</code>, that contains information such as the paths to available components and dependencies.</p>
 
           <p><code>ComponentRegistry</code> and <code>ConfigRegistry</code> are classes that are exposed via a callback to invokers of <code>ComponentsManager.build()</code>.
 These classes respectively enable modules and configurations to be registered,
@@ -753,19 +753,19 @@ For example, handlers exist to handle primitive values such as strings and numbe
 arrays, and references to other components (which requires a recursive call to <code>ConfigConstructorPool</code>).
 Once the arguments have been resolved, the constructor can be applied to obtain the final instantiated object.</p>
 
-          <p>By default, the <code>ConfigConstructor</code> assumes that configurations are instantiated via the <a href="https://nodejs.org/docs/latest/api/modules.html" class="mandatory" data-link-text="https:/​/​nodejs.org/​docs/​latest/​api/​modules.html">CommonJS JavaScript standard</a>,
+          <p>By default, the <code>ConfigConstructor</code> assumes that configurations are instantiated via the <a href="https://nodejs.org/docs/latest/api/modules.html">CommonJS JavaScript standard</a>,
 which is primarily used by the Node.js framework.
 However, Components.js has been designed to handle different kinds of instantiation,
 which can be done via different <code>IConstructionStrategy</code>’s.
-For instance, this allows the framework to be compatible with other upcoming JavaScript standards such as <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules" class="mandatory" data-link-text="https:/​/​developer.mozilla.org/​en-​US/​docs/​Web/​JavaScript/​Guide/​Modules">JavaScript modules</a>.</p>
+For instance, this allows the framework to be compatible with other upcoming JavaScript standards such as <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules">JavaScript modules</a>.</p>
 
           <h3 id="implementation">Implementation</h3>
 
           <p>Components.js has been implemented in TypeScript,
-and is available on <a href="https://github.com/LinkedSoftwareDependencies/Components.js" class="mandatory" data-link-text="https:/​/​github.com/​LinkedSoftwareDependencies/​Components.js">GitHub</a>
+and is available on GitHub (<a href="https://github.com/LinkedSoftwareDependencies/Components.js">https:/​/​github.com/LinkedSoftwareDependencies/Components.js</a>)
 under the MIT license.
 At the time of writing, the latest release is at version 4.4.1,
-which is published via the <a href="https://www.npmjs.com/package/componentsjs" class="mandatory" data-link-text="https:/​/​www.npmjs.com/​package/​componentsjs">npm package manager</a>.</p>
+which is published via the npm package manager (<a href="https://www.npmjs.com/package/componentsjs">https:/​/​www.npmjs.com/package/componentsjs</a>).</p>
 
           <p>Due to the critical nature of this framework,
 it is being tested thoroughly.
@@ -773,9 +773,9 @@ At the time of writing, it consists of 538 unit tests,
 which reach a test coverage of 100%.</p>
 
           <p>Components.js is being maintained by IDLab via software projects that make use of this framework.
-A sustainability of this project is available on <a href="https://github.com/LinkedSoftwareDependencies/Components.js/wiki/Sustainability-Plan" class="mandatory" data-link-text="https:/​/​github.com/​LinkedSoftwareDependencies/​Components.js/​wiki/​Sustainability-​Plan">GitHub</a>.</p>
+A sustainability of this project is available on GitHub (<a href="https://github.com/LinkedSoftwareDependencies/Components.js/wiki/Sustainability-Plan">https:/​/​github.com/LinkedSoftwareDependencies/Components.js/wiki/Sustainability-Plan</a>).</p>
 
-          <p>Finally, in-depth documentation is <a href="https://componentsjs.readthedocs.io/en/latest/" class="mandatory" data-link-text="https:/​/​componentsjs.readthedocs.io/​en/​latest/​">available</a>,
+          <p>Finally, in-depth documentation is available (<a href="https://componentsjs.readthedocs.io/en/latest/">https:/​/​componentsjs.readthedocs.io/en/latest/</a>),
 which explains how to create component and configuration files,
 and how to invoke the DI tool.</p>
 
@@ -817,7 +817,8 @@ Solid Community Server, Handlers.js, Digita Identity Proxy, and Comunica.</p>
 
           <h4 id="solid-community-server">Solid Community Server</h4>
 
-          <p>The <a href="https://github.com/solid/community-server/" class="mandatory" data-link-text="https:/​/​github.com/​solid/​community-​server/​">Solid Community Server</a> is a server-side implementation of the <a property="schema:citation http://purl.org/spar/cito/cites" href="https://solid.github.io/specification/">Solid specifications</a> <span class="references">[<a href="#ref-18">18</a>]</span>,
+          <p>The Solid Community Server (<a href="https://github.com/solid/community-server/">https:/​/​github.com/solid/community-server/</a>)
+is a server-side implementation of the <a property="schema:citation http://purl.org/spar/cito/cites" href="https://solid.github.io/specification/">Solid specifications</a> <span class="references">[<a href="#ref-18">18</a>]</span>,
 which provides a basis for the Solid decentralization effort.
 When such a server is hosted, it allows users to create their own personal storage space (pod) and identity,
 so that this data can be used within any external Solid application.
@@ -924,7 +925,7 @@ since their clients are sometimes non-technical people that have limited program
             <li>Architectures that require <strong>high modularity and flexibility</strong>;</li>
             <li>Need to modify wiring of components <strong>without changing code</strong>;</li>
             <li>Need for ability to <strong>share wiring configurations</strong> with others;</li>
-            <li>Managing and including <strong>configurations across different independent projects</strong>;</li>
+            <li>Managing and including <strong>configurations across different projects</strong>;</li>
             <li>Using <strong>configurations in other contexts</strong>.</li>
           </ul>
 
@@ -932,9 +933,10 @@ since their clients are sometimes non-technical people that have limited program
 configurations can become complex and logic flow may be harder to follow.
 In order to mitigate these risks, we recommend a structured management of configuration files,
 which may involve splitting up configuration files based on your architecture’s primary subsystems,
-which is the approach followed by large projects such as Solid Community Server, Semantic Components, and Comunica.</p>
+which is the approach followed by large projects such as Solid Community Server and Comunica.</p>
 
-          <p>In future work, we do not foresee the need for any major changes or additions within the Components.js framework itself.
+          <p>In future work, we do not foresee the need for any major changes or additions within the Components.js framework itself,
+aside from keeping up with new language features from JavaScript and TypeScript.
 However, all large projects that make use of Components.js have identified the need for better tooling to create and manage configuration files.
 For example, the Comunica project is developing a <a href="https://github.com/comunica/comunica-packager" class="mandatory" data-link-text="https:/​/​github.com/​comunica/​comunica-​packager">graphical user interface</a>
 to visually customize the wiring of the engine, which can then be exported into a reusable configuration file.
@@ -960,11 +962,12 @@ Therefore, DI frameworks such as Components.js pave the road towards a world wit
 
           <p>We thank Wouter Termont for sharing his insights into the usage of Components.js within the products of Digita.
 The described research activities were funded by Ghent University and imec.
-Ruben Taelman and Ruben Verborgh are postdoctoral fellows of the Research Foundation – Flanders (FWO) (1274521N).</p>
+Ruben Taelman is a postdoctoral fellow of the Research Foundation – Flanders (FWO) (1274521N).</p>
 
         </div>
 </section>
 
+  <div class="printonly" style="height: 30px">&nbsp;</div>
 <section>
 <h2 id="references">References</h2>
 <dl class="references">
