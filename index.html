@@ -13,7 +13,7 @@
   <meta name="citation_author" content="Miel Vander Sande" />
   <meta name="citation_author" content="Ruben Verborgh" />
   
-  <meta name="citation_publication_date" content="2021/09/02" />
+  <meta name="citation_publication_date" content="2021/11/02" />
 </head>
 
 <body prefix="dctypes: http://purl.org/dc/dcmitype/ pimspace: http://www.w3.org/ns/pim/space# rsa: http://www.w3.org/ns/auth/rsa# cert: http://www.w3.org/ns/auth/cert# wgs: http://www.w3.org/2003/01/geo/wgs84_pos# biblio: http://purl.org/net/biblio# bibo: http://purl.org/ontology/bibo/ book: http://purl.org/NET/book/vocab# ov: http://open.vocab.org/terms/ doap: http://usefulinc.com/ns/doap# dbr: http://dbpedia.org/resource/ dbp: http://dbpedia.org/property/ sio: http://semanticscience.org/resource/ opmw: http://www.opmw.org/ontology/ deo: http://purl.org/spar/deo/ doco: http://purl.org/spar/doco/ cito: http://purl.org/spar/cito/ fabio: http://purl.org/spar/fabio/ solid: http://www.w3.org/ns/solid/terms# acl: http://www.w3.org/ns/auth/acl# dio: https://w3id.org/dio# lsc: http://linkedscience.org/lsc/ns#" typeof="schema:CreativeWork sioc:Post prov:Entity lsc:Research">
@@ -637,7 +637,17 @@ In this section, we first explain the main architecture, followed by the most re
 
           <h3 id="architecture">Architecture</h3>
 
-          <p>Internally, the Components.js dependency injection tool goes through three main phases:</p>
+          <p>The primary functional requirement of our architecture is the ability to perform dependency injection based on the configuration files from previous section.
+Concretely, this involves <em>parsing</em> the configuration files, <em>interpreting</em> them, and <em>instantiating</em> the necessary components.
+Next to these functional needs, we took the following non-functional requirements into account when designing the architecture:</p>
+
+          <ul>
+            <li>Usability: Developers using the framework should only be required to interact with a single entry point.</li>
+            <li>Extensibility/Maintainability: The system should be robust against different future functional requirements.</li>
+            <li>Performance: Parts of the architecture that are prone to performance issues should be cacheable.</li>
+          </ul>
+
+          <p>To meet these requirements, the Components.js dependency injection tool goes through three main phases:</p>
 
           <ul>
             <li>Loading: Initialization of DI components, discovery of modules, and loading of configuration files.</li>
@@ -647,10 +657,11 @@ In this section, we first explain the main architecture, followed by the most re
 
           <p>These three phases are handled by the <code>ComponentsManager</code>,
 which acts as the main entrypoint of the framework
-as can be seen in <a href="#architecture-main">Fig. 3</a>
+as can be seen in <a href="#architecture-main">Fig. 3</a>.
 This manager class is constructed via a static <code>build</code> method,
 via which custom options can be passed,
-such as a callback for loading modules and configuration files.</p>
+such as a callback for loading modules and configuration files.
+To meet the <em>usability</em> requirement, this is the only part that most users of the framework will interact with.</p>
 
           <p>For the sake of clarity, all UML architecture diagrams that we include in this article
 only contain simplified representations of the actual classes.
@@ -671,7 +682,12 @@ which contains the main entrypoint of the framework.</p>
           <p>When the <code>ComponentsManager</code> is being built,
 the loading phase will be initiated,
 which will make use of the classes within the load package.
-The most important classes within this package are shown in <a href="#architecture-load">Fig. 4</a>.</p>
+The most important classes within this package are shown in <a href="#architecture-load">Fig. 4</a>.
+This phase aims to contain all major I/O operations, which could be expensive on slow disks and/or in large projects.
+This allows later phases to purely work on memory.
+Furthermore, the loaded information is designed to be cacheable,
+which means that software that require repeated invocations may optimize the loading phase by caching certain parts,
+which thereby meets the <em>performance</em> requirement.</p>
 
           <figure id="architecture-load">
 <img src="img/architecture-load.svg" alt="[Components.js Architecture - Load package]" />
@@ -693,7 +709,9 @@ after they will be loaded.</p>
           <p>Before a configuration is instantiated during the construction phase,
 it always goes through a preprocessing phase.
 Concretely, this involves processing all parameters and constructor arguments,
-for which the most relevant classes and interfaces are shown in <a href="#architecture-preprocess">Fig. 5</a>.</p>
+for which the most relevant classes and interfaces are shown in <a href="#architecture-preprocess">Fig. 5</a>.
+To meet the <em>extensibility</em> and <em>maintainability</em> requirements, the architecture allows different parameters and constructor arguments handlers to be injected.
+This makes the architecture more robust against currently unforeseen functional requirements regarding the handling of parameters and constructor arguments.</p>
 
           <figure id="architecture-preprocess">
 <img src="img/architecture-preprocess.svg" alt="[Components.js Architecture - Preprocess package]" />
@@ -727,7 +745,9 @@ the raw constructor call of a class, together with the required arguments.</p>
           <h4 id="construction">Construction</h4>
 
           <p>The construction phase is responsible for instantiating a configuration.
-The main classes for this are shown in <a href="#architecture-construct">Fig. 6</a>.</p>
+The main classes for this are shown in <a href="#architecture-construct">Fig. 6</a>.
+Like before, the <em>extensibility</em> and <em>maintainability</em> requirements also apply here regarding the way in which things are constructed,
+for which we also provide the ability to inject different handlers.</p>
 
           <figure id="architecture-construct">
 <img src="img/architecture-construct.svg" alt="[Components.js Architecture - Construct package]" />
