@@ -1,0 +1,326 @@
+Dear Author,
+We have reached a decision for your paper. Please find below the details.
+
+Authors: Ruben Taelman, Joachim Van Herwegen, Miel Vander Sande, Ruben
+Verborgh
+Title: Components.js: Semantic Dependency Injection
+Submission Type: 'Tool/System Report'
+URL:
+http://www.semantic-web-journal.net/content/componentsjs-semantic-dependency-injection
+Tracking number: 2880-4094
+
+Decision Letter:
+Assigned editor: Aidan Hogan (aidhog@gmail.com)
+
+Dear authors,
+
+your paper requires minor revisions before it can be published in the
+Semantic Web journal.
+
+Please find the reviews below as well as on the paper's page on the journal
+website.
+
+The first two reviews have suggested some improvements to specific
+sub-sections, asked for clarifications, as well as other minor fixes. Review
+3 indicates some more substantial issues that will require careful
+consideration as part of the revision, including clarification regarding the
+contributions of the paper, how it compares with existing approaches, the
+impact of the tool, some claims that appear to lack justification, etc. We
+ask the authors to take all of these suggestions into account while revising
+their manuscript.
+
+The revised manuscript will be send back to all (or a selection of) reviewers
+for a second round of reviews. Please provide a letter to the reviewers
+detailing the improvements made for the resubmission.
+
+We expect your revised paper within 4 weeks, however if you require more
+time, please let us know.
+
+
+ Review #1
+Submitted by Esko Ikkala
+Recommendation: Minor Revision
+Detail Comments
+	This tool/system paper presents a dependency injection (DI) framework,
+Components.js, for TypeScript and JavaScript projects. The key contribution
+with regard to existing DI frameworks is to use Linked Data in the
+configuration files so that individual software components can be globally
+identified and referenced using IRIs.
+
+(1) Quality, importance, and impact of the described tool or system
+
+Producing tools for making software configurations more understable for
+developers as well as for non-technical people is an important topic. Another
+major aspect of using Linked Data in configurations is the reproducibility of
+computational processes. Components.js is a valuable contribution towards
+these goals. Impact is shown through usage statistics from GitHub and Node
+package manager and through four real projects that apply Components.js for
+DI.
+
+
+(2) Clarity, illustration, and readability of the describing paper
+
+The paper is well written and easy to follow. However, there are some
+presentational issues. Subsection 4.1 goes too deep into implementation
+details. Explaining the reader in great details *how* the classes of
+Components.js interact without the *why* does not bring much added value.
+Another readability issue is the embedding of URLs in text paragraphs. Also
+the font used in the figures is too small.
+
+Suggestions for improvement:
+
+- The title of subsection 4.1, "Architecture", should be taken seriously, and
+most implementation details should be replaced by e.g. more analysis on the
+capabilities and limitations of the architecture of Components.js on a higher
+abstraction level.
+
+- All URLs should be moved into footnotes or converted into proper
+references.
+
+- Increase font size in figures, it should be around the same size as in the
+captions.
+
+- Subsection 2.3, last paragraph: expand the paragraph(s) and explicate more
+clearly how Components.js differs from other DI frameworks.
+
+- Section 3: "This is equivalent to a Node module" First time Node.js is
+mentioned, explain what it is.
+
+- Subsection 4.1.3: "which is primarily used by the Node.js framework"
+Node.js is a runtime environment, I wouldn't call it a framework.
+
+- Subsection 3.3. Could you add some speculation on the long-term
+sustainability of the Linked Software Dependencies service? Minting and
+maintaining IRIs for for all future npm packages is a key issue for the whole
+idea of semantic DI for JavaScript.
+
+ Review #2
+Submitted by Pierre-Antoine Champin
+Recommendation: Minor Revision
+Detail Comments
+	This paper presents Components.js, a Javascript/TypeScript Dependency
+Injection framework using Semantic Web technology. More precisely, both
+components and compositions are described according to Linked Data
+principles, making them easy to share and reuse.
+
+The paper is well written and pleasant to read. The proposed approach is
+solid (no pun intended), and the pros and cons are adequately described.
+
+General remarks
+===============
+
+- I think the state of the art should mention Deno (https://deno.land/),
+which uses URL for loading local or remote dependencies, addressing the
+derefenceability issue (and thus promoting "configuration as code").
+
+- I am surprised that the oo: ontology does not have a notion of Interface,
+which is an important notion in DI. Or are interfaces modeled simply as
+superclasses? This should probably be explained.
+
+- it is not clear to me why you need both "parameters" and
+"constructorArguments". Why not directly declare the parameters (uniqueness,
+range) inside the "constrictorArgument"? This redundancy seems burdensome for
+the user, for no obvious reason.
+
+- at then end of §3.3, it is not clear whether
+linkedsoftwaredependencies.org aims to be 1) a centralized source of
+dereferenceable component descriptions, or 2) as a fallback for people that
+have do not have the will/ability to make their description dereferenceable.
+I assume it is the 2nd one, but this should be more explicit.
+
+- is linkedsoftwaredependencies.org running Components-Generator
+automatically on NPM TypeScript packages that miss a component description?
+If not, is it only because it would be too costly, or are there other
+obstacles in doing it?
+
+- I am not convinced that the number of downloads reported by NPM is a lower
+bound of the number of usages. Some downloads may be due to bots who create
+mirrors or do other things, that do not correspond to actual usage...
+
+Other remarks and typos
+=======================
+
+- p3 "will typically a setter": a verb is missing ("be"?)
+- p3 "Such descriptions are however interpretive" → it seems to me that you
+mean "moreover" rather than "however"
+- fig1: I believe that the subClassOf arcs are in the wrong direction
+- p4, p12: "you" and "your" are stylistically poor, in my opinion. Suggest to
+rephrase
+- p5 "rdfs:Property" → "rdf:Property"
+- p5 what does "an rdf:Property on a comment" mean? Do you mean "a property
+having that component as its domain"?
+- p6 "enables an (RDF list) of om:ObjectMapping’s" → why the parenthesis
+around "RDF list"?
+- p6 "the OO example from Listing 3" → should be "Listing 1"
+- p8 The last paragraph of 4.1.1. is not very clear. In particular, in the
+last sentence "after they will be loaded" I don't understand what "they" is
+referring to.
+- p8 and p9: orphan headings (§4.1.2 and §4.1.3)
+- p9 "after the processed config will be passed" → replace "after" by
+"then"?
+- p10 A word seems to be missing at the start of the first sentence of §5
+("The usage of an open-source project"). Suggest to insert "Describing" or
+"Analyzing".
+- p10 I don't understand the paragraph on weekly downloads. Why focus on this
+particular week? And what are the mentioned outliers? (other weeks for this
+project? other projects?... really unclear for me)
+- p10 "lower limit" → "lower bound"
+- §5.2.1 Given the number of components in the Solid Community Server, I
+would also be curious to know the total size of the configuration files
+- p13 reference [1] has a bug: "Design Patterns" in the title is considered
+as an author
+
+ Review #3
+Submitted by Daniel Garijo
+Recommendation: Minor Revision
+Detail Comments
+	This paper describes Components.js, a dependency injection framework for
+Javascript applications that uses the Linked Data principles to describes
+their configurations.
+
+The paper is well written (maybe a little specific when discussing certain
+aspects of the framework, assuming that the reader is a developer) and
+relevant for the Semantic Web Journal.
+
+On the positives aspects of the paper, this work shows that the authors have
+done substantial work to eat their own dog food and use their tooling as a
+core component of their infrastructure.
+In addition, Components.js enables the description of configuration files in
+a machine readable manner in order to capture the dependency of
+Javascript-based applications. The authors have even described 475,000+ npm
+JavaScript libraries already.
+
+There are, however, some points that need clarification or improvement in the
+paper:
+
+- The novel contributions of the paper are not clear. Is it the
+framework/tool in itself? Are the companion vocabularies also a contribution?
+The dump of LSD dependencies is also something that goes with the framework?
+The project that helps initializing component descriptions is also a
+contribution? It is difficult to understand what is proposed as novel versus
+what exists already in related literature. I think the authors should clarify
+this.
+
+- Reproducibility: The authors emphasize that their descriptions help
+reproducing experiments/applications, although there are no experiments to
+show whether this is true or not. I tend to agree that having the
+configurations would help enormously when comparing components, and trying to
+re-run them in the future. However, there are several alternatives that
+describe components and computational environments in much depth than the one
+presented here. For example, Nix
+(https://www.nmattia.com/posts/2018-03-21-nix-reproducible-setup-linux-macos.html,
+https://nixos.org/manual/nix/stable/) is a community based initiative to
+reproduce full environments from scratch that is gaining an increasing amount
+of followers. Then you have Docker containers that capture and encapsulate
+everything needed to run an application, but may be difficult to combine as
+the authors propose in the paper for dependency injection. Having some
+comparison distinguishing this work from existing approaches will help
+readers to understand why this approach is not reinventing the wheel.
+
+- Related work: The authors list a series of existing ontologies and claim
+that they cannot be completely reused in this domain. However, it is unclear
+to me whether they can be reused partially or not (and why); and which ones
+have been used (I see e.g., doap is used). The following paper:
+https://arxiv.org/abs/2002.09440 may be useful, as they describe functions
+and their parameters and outputs in a KG.
+    - Additionally, I believe CWL (common workflow language) proposes a YAML
+description to describe inputs, invocation and parameters of a component to
+execute (I was reminded of this when reading the module dependencies in
+listing 1).
+    - I would like to understand better why the authors ended up creating
+their own framework instead of reusing an existing DI framework. This is
+different from how it differs from existing frameworks.
+
+- derreferenceability: While I appreciate having derreferenceable entities as
+someone with semantic web background, I am not sure if it really adds a lot
+of value in this context. As a developer I would always try to download the
+configuration of a component, which already encapsulates all the descriptions
+needed to run it. What do I gain from querying e.g., the parameters using
+LOD? Is this something that a developer would do to understand how to use a
+configuration without having to download it every time? Having some examples
+in the paper would really help here.
+
+- Impact: one of the limitations that I see is that despite the relative
+"long" life of the project (4 years) there is no significant community
+contributing to its development, besides the main authors. The authors report
+on some projects and usages, but it is not clear 1) Whether these are tests
+or fully engaged projects using the tool; 2) Whether there are researchers or
+industry external to the authors' circle that are using and contributing to
+the project. It's nice to see a statement on sustainability, but I wonder
+what would happen if the main two creators of the project (two PhD students
+collaborating with postdoctoral researcher) move to other institutions.
+  - There are also examples of projects using the tool, which is great, butI
+have not seen examples on whether the community is using Components.js for
+their own purposes. It would be nice to discuss if there are projects of that
+nature.
+  - Another potential issue for impact is the need for separate componentsto
+deploy and maintain. If I understood correctly, you need the LSD service to
+take care of the derreferenceability, then the Components.js framework for
+dependency injection, then the Component-Generator in case a developer wants
+to support their descriptions. All that on the dependency on npm to deploy
+the package. Have the authors done (or plan to do) a survey among potential
+adopters to see whether they would comply to all these requirements? For
+example, I have always found resistance from developers when using external
+services out of their control (e.g., for content negotiation)
+
+- Paper claims versus results: In the introduction, the authors claim that
+Components.js can be used for obtaining provenance trails, for discovering
+conflicts and for automatically creating semantic workflows. However, none of
+these claims seem to be backed by any evidence or examples.
+- How does this framework allow for more flexibility than other existing
+frameworks? It's not reported.
+
+- Resources: Tags have been created in GitHub but code is not available as
+Zenodo releases. Dumps of data were stored in the authors' servers, which
+does not guarantee long term preservation (as Zenodo does)
+
+Minor issues:
+
+- Many frameworks are not referenced: Spring, Guice, Dagger... And also
+companies like Inrupt and imec.
+
+- It would help showing real examples, rather than "ex:myModule" in the
+paper. It brings more credibility to this work, and there are plenty of
+examples from the LSD dump.
+
+- ObjectMapping vocab does not have examples/human readable doc, which makes
+it a little difficult to browse.
+
+- UML diagrams are non readable at regular size (printed version).
+
+- For OPMW-PROV please cite the workshop paper:
+@inproceedings{garijo2011new,
+	title        = {A new approach for publishing workflows: abstractions,
+standards, and linked data},
+	author       = {Garijo, Daniel and Gil, Yolanda},
+	year         = 2011,
+	booktitle    = {Proceedings of the 6th workshop on Workflows in support of
+large-scale science},
+	pages        = {47--56},
+	doi          = {10.1145/2110497.2110504},
+	organization = {ACM}
+}
+
+
+Sincerely,
+Aidan Hogan
+
+
+# SWJ in a Nutshell #
+
+The Semantic Web journal is an open and transparent journal. The full
+manuscripts, metadata, names of the reviewers (if they do not op-out), their
+reviews, names of the assigned editors, and manuscript decisions are public
+and will be made accessible within a Linked Data-based knowledge graph as
+well as secondary data products such as document embeddings via machine
+learning techniques. Rejected manuscripts can be depublished on request from
+the journal's webpage. Nonetheless, they may have already been indexed and
+copied by third parties such as search engines outside of our control.
+Volunteered community reviews are welcome. Different paper categories have
+explicitly stated review criteria that have to be addressed by authors and
+reviewers. According to our 2-strike rule, a paper has to receive at least a
+minor revision decision after the second round of reviews, otherwise it will
+be rejected.
+
+Author information: http://www.semantic-web-journal.net/authors
+Reviewer information: http://www.semantic-web-journal.net/reviewers
