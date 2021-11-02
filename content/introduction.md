@@ -40,11 +40,11 @@ To this end, we present _Components.js_,
 a semantic DI framework for TypeScript and JavaScript applications
 that gives global semantics to software configurations, hence surpassing existing dependency injection frameworks.
 Components.js thereby enables highly modular applications to be built that are dynamically wired based on semantic configuration files.
-The framework is open-source ([https://github.com/LinkedSoftwareDependencies/Components.js](https://github.com/LinkedSoftwareDependencies/Components.js)),
-available on npm ([https://www.npmjs.com/package/componentsjs](https://www.npmjs.com/package/componentsjs)),
-and its complete documentation can be found at [https://componentsjs.readthedocs.io/](https://componentsjs.readthedocs.io/).
+The framework is [open-source](cite:cites link:github:componentsjs),
+is available on [npm](cite:cites link:npm:componentsjs),
+and has extensive [documentation](cite:cites link:docs:componentsjs).
 Furthermore, it is being actively used as core technology within popular tools such as
-the [Solid Community Server](https://github.com/solid/community-server/){:.mandatory} and [Comunica](cite:cites comunica).
+the [Solid Community Server](cite:cites link:github:css) and [Comunica](cite:cites comunica).
 Within Components.js,
 software configurations and modules are described as Linked Data using
 the [_Object-Oriented Components vocabulary_](cite:citesAsAuthority van2017describing)

@@ -8,18 +8,18 @@ We discuss these two aspects hereafter.
 
 ### Usage Metrics
 
-As the source code of Components.js is hosted on [GitHub](https://github.com/LinkedSoftwareDependencies/Components.js){:.mandatory},
+As the source code of Components.js is hosted on [GitHub](cite:cites link:github:componentsjs),
 it is possible to inspect the usage of this project within other projects hosted on GitHub.
 As of August 2 2021, there are 9 GitHub projects that depend on Components.js directly, and 268 that depend on it indirectly via transitive dependencies.
 This shows that Components.js is primarily used as a core library to support larger projects that have a broad usage.
 
-The [npm package manager](https://www.npmjs.com/package/componentsjs){:.mandatory} from which Components.js can be installed offers us additional insights.
+The [npm package manager](cite:cites link:npm:componentsjs) from which Components.js can be installed offers us additional insights.
 For the week of July 26 2021 until August 1 2021 there were 5.351 downloads, which is an average number when comparing it to previous weeks.
 However, there are outliers that have weekly downloads peak up to around 200.000 downloads.
 
 While these GitHub and npm metrics give us _some_ insight into the usage of Components.js,
 they are incomplete, as projects may be hosted on other source code platforms such as GitLab, Bitbucket, or even private instances.
-Furthermore, direct downloads from npm are also incomplete, as downstream users may use bundling tools such as [Webpack](https://webpack.js.org/)
+Furthermore, direct downloads from npm are also incomplete, as downstream users may use bundling tools such as [Webpack](cite:cites link:web:webpack)
 to incorporate the Components.js source code directly within their library, which makes downloads of that library not go via the the Components.js npm package anymore.
 Therefore, we conclude that the metrics reported here are merely a lower limit,
 and the actual usage is expected to be higher.
@@ -32,12 +32,12 @@ Solid Community Server, Handlers.js, Digita Identity Proxy, and Comunica.
 
 #### Solid Community Server
 
-The Solid Community Server ([https://github.com/solid/community-server/](https://github.com/solid/community-server/))
+The [Solid Community Server](cite:cites link:github:css)
 is a server-side implementation of the [Solid specifications](cite:cites solidspec),
 which provides a basis for the Solid decentralization effort.
 When such a server is hosted, it allows users to create their own personal storage space (pod) and identity,
 so that this data can be used within any external Solid application.
-This server is written in TypeScript, and is being developed by [Inrupt](https://inrupt.com/) and [imec](https://www.imec-int.com/en),
+This server is written in TypeScript, and is being developed by [Inrupt](cite:cites link:web:inrupt) and [imec](cite:cites link:web:imec),
 which includes authors of this article.
 
 This server makes use of dependency injection because a primary goal of the server is to be as flexible as possible,
@@ -53,11 +53,11 @@ At the time of writing, this server contains 246 components that can be customiz
 
 #### Handlers.js
 
-[Handlers.js](https://github.com/digita-ai/handlersjs){:.mandatory} aims to provide a comprehensive collection of generic logic classes,
+[Handlers.js](cite:cites link:github:handlersjs) aims to provide a comprehensive collection of generic logic classes,
 that can be wired together via the composition pattern.
 While this project is still under development, it already provides numerous handlers and services pertaining to
 data flows, storage, logging, error handling, as well as logic about serving data over HTTP (routing, CORS, content negotiation ...).
-This project is written in TypeScript, and is being developed by [Digita](https://www.digita.ai/).
+This project is written in TypeScript, and is being developed by [Digita](cite:cites link:web:digita).
 
 In contrast to the Solid Community Server, Handlers.js is not meant to be usable by itself as standalone tool.
 Instead, it is an accompanying library that can be used by other tools.
@@ -72,10 +72,10 @@ Since components within Components.js have global semantics, these components ca
 
 #### Digita Identity Proxy
 
-The Digita Identity Proxy (not public at the time of writing) is a [Solid-OIDC](https://solid.github.io/authentication-panel/solid-oidc/){:.mandatory}-compliant proxy server
-that acts as a modular, and easily configurable compatibility layer for classic [OIDC](https://openid.net/connect/){:.mandatory} Identity Providers.
+The Digita Identity Proxy (not public at the time of writing) is a [Solid-OIDC](cite:cites link:web:solidoidc)-compliant proxy server
+that acts as a modular, and easily configurable compatibility layer for classic [OIDC](cite:cites link:web:oidc) Identity Providers.
 It enables Solid apps to authenticate at Solid pod servers with these existing identity services, without any necessary modification.
-This project is also written in TypeScript, and is under development by [Digita](https://www.digita.ai/).
+This project is also written in TypeScript, and is under development by [Digita](cite:cites link:web:digita).
 
 Several components exists that enable additional functionality of Solid-OIDC,
 which can be plugged into the proxy when the need exists.

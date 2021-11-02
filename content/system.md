@@ -149,10 +149,10 @@ For instance, this allows the framework to be compatible with other upcoming Jav
 ### Implementation
 
 Components.js has been implemented in TypeScript,
-and is available on GitHub ([https://github.com/LinkedSoftwareDependencies/Components.js](https://github.com/LinkedSoftwareDependencies/Components.js))
+and is available on [GitHub](cite:cites link:github:componentsjs)
 under the MIT license.
 At the time of writing, the latest release is at version 4.4.1,
-which is published via the npm package manager ([https://www.npmjs.com/package/componentsjs](https://www.npmjs.com/package/componentsjs)).
+which is published via the [npm package manager](cite:cites link:npm:componentsjs).
 
 Due to the critical nature of this framework,
 it is being tested thoroughly.
@@ -160,8 +160,8 @@ At the time of writing, it consists of 538 unit tests,
 which reach a test coverage of 100%.
 
 Components.js is being maintained by IDLab via software projects that make use of this framework.
-A sustainability of this project is available on GitHub ([https://github.com/LinkedSoftwareDependencies/Components.js/wiki/Sustainability-Plan](https://github.com/LinkedSoftwareDependencies/Components.js/wiki/Sustainability-Plan)).
+A sustainability of this project is available on [GitHub](cite:cites link:web:componentsjssustainability).
 
-Finally, in-depth documentation is available ([https://componentsjs.readthedocs.io/en/latest/](https://componentsjs.readthedocs.io/en/latest/)),
+Finally, in-depth [documentation](cite:cites link:docs:componentsjs) is available,
 which explains how to create component and configuration files,
 and how to invoke the DI tool.

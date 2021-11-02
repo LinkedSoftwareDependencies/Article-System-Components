@@ -33,7 +33,7 @@ which is the approach followed by large projects such as Solid Community Server 
 In future work, we do not foresee the need for any major changes or additions within the Components.js framework itself,
 aside from keeping up with new language features from JavaScript and TypeScript.
 However, all large projects that make use of Components.js have identified the need for better tooling to create and manage configuration files.
-For example, the Comunica project is developing a [graphical user interface](https://github.com/comunica/comunica-packager){:.mandatory}
+For example, the Comunica project is developing a [graphical user interface](cite:cites link:docs:comunicapackager)
 to visually customize the wiring of the engine, which can then be exported into a reusable configuration file.
 Since Components.js configurations make use of the Linked Data principles,
 it is possible to create a generic user interface to create such configuration files for any project that makes use of Components.js.

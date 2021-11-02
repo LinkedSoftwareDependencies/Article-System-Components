@@ -55,7 +55,7 @@ compacted with the `https://linkedsoftwaredependencies.org/bundles/npm/component
 
 We illustrate the usage of this vocabulary with an example in [](#module-oo) using the [JSON-LD](cite:cites jsonld) serialization.
 This listing shows the definition of a new module (`oo:Module`) with compact IRI `ex:MyModule`.
-The name of the module is set with the compact IRI `requireName`, which expands to `doap:name` from the [Description of a Project (DOAP) vocabulary](https://github.com/ewilderj/doap/wiki).
+The name of the module is set with the compact IRI `requireName`, which expands to `doap:name` from the [Description of a Project (DOAP) vocabulary](cite:cites link:web:doap).
 Furthermore, our module contains a single class component (`oo:Class`) with compact IRI `ex:MyModule/MyComponent`.
 Since this is a class component (subclass of `oo:Component`), this means that this component is instantiatable based on parameters.
 Each component can refer to its path within a module using the `oo:componentPath` predicate (compacted as `requireElement`).
@@ -81,13 +81,13 @@ As shown in the previous section, the OO vocabulary allows modules, components, 
 so that instances of components can be declared.
 However, this vocabulary only defines parameter values for component instances,
 but it does not define how these parameter values are used to invoke the constructor of this component.
-To enable this, we introduce the accompanying [_Object Mapping vocabulary (OM)_](https://linkedsoftwaredependencies.org/vocabularies/object-mapping){:.mandatory}.
+To enable this, we introduce the accompanying [_Object Mapping vocabulary (OM)_](cite:cites link:web:om).
 [](#voc-om-diagram) shows an overview of all its classes and predicates.
 
 <figure id="voc-om-diagram">
 <img src="img/voc-om-diagram.svg" alt="[Object Mapping vocabulary diagram]">
 <figcaption markdown="block">
-Classes and properties in the [_Object Mapping_ vocabulary](https://linkedsoftwaredependencies.org/vocabularies/object-mapping#), with as prefix `om`.
+Classes and properties in the [_Object Mapping_ vocabulary](cite:cites link:web:om), with as prefix `om`.
 </figcaption>
 </figure>
 
@@ -125,11 +125,11 @@ For example, the instantiation of [](#instance-oo) corresponds to the following 
 ### Dereferenceability
 
 In [previous work](cite:citesAsAuthority van2017describing)
-we introduced the [Linked Software Dependencies (LSD) service](https://linkedsoftwaredependencies.org/){:.mandatory},
+we introduced the [Linked Software Dependencies (LSD) service](cite:cites link:web:lsd),
 which makes all resource URLs within components files fully dereferenceable.
 
 Since our current focus is on enabling dependency injection for JavaScript,
-this LSD service provides Linked Data subject pages for _all_ packages within the [npm package manager](https://www.npmjs.com/){:.mandatory} for JavaScript.
+this LSD service provides Linked Data subject pages for _all_ packages within the [npm package manager](cite:cites link:web:npm) for JavaScript.
 For example, the URL [`https://linkedsoftwaredependencies.org/bundles/npm/@comunica/core/1.21.1`](https://linkedsoftwaredependencies.org/bundles/npm/@comunica/core/1.21.1)
 is an identifier for the `@comunica/core` package at version `1.21.1`.
 [](#lsd-snippet) shows a snippet of the JSON-LD contents when dereferencing this URL.
@@ -150,7 +150,7 @@ The LSD service thereby removes the dereferenceability responsibility from packa
 For larger projects, the manual creation of components files for all classes in the project can require significant manual effort, and can therefore become error-prone.
 For projects that make use of a strongly-typed language, such as TypeScript,
 all required information to create such components files is in fact already available implicitly via the source code files.
-In order to minimize manual effort for such projects, we provide the open-source tool [_Components-Generator.js_](https://github.com/LinkedSoftwareDependencies/Components-Generator.js/){:.mandatory} for TypeScript projects.
+In order to minimize manual effort for such projects, we provide the open-source tool [_Components-Generator.js_](cite:cites link:docs:componentsjsgenerator) for TypeScript projects.
 
 Concretely, this tool can be installed into any TypeScript project.
 When its command-line script is invoked, it scans all exported TypeScript classes within this project,
