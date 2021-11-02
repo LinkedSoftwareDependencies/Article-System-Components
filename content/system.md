@@ -8,7 +8,15 @@ In this section, we first explain the main architecture, followed by the most re
 
 ### Architecture
 
-Internally, the Components.js dependency injection tool goes through three main phases:
+The primary functional requirement of our architecture is the ability to perform dependency injection based on the configuration files from previous section.
+Concretely, this involves _parsing_ the configuration files, _interpreting_ them, and _instantiating_ the necessary components.
+Next to these functional needs, we took the following non-functional requirements into account when designing the architecture:
+
+* Usability: Developers using the framework should only be required to interact with a single entry point.
+* Extensibility/Maintainability: The system should be robust against different future functional requirements.
+* Performance: Parts of the architecture that are prone to performance issues should be cacheable.
+
+To meet these requirements, the Components.js dependency injection tool goes through three main phases:
 
 * Loading: Initialization of DI components, discovery of modules, and loading of configuration files.
 * Preprocessing: Handling of constructor arguments before construction.
@@ -16,10 +24,11 @@ Internally, the Components.js dependency injection tool goes through three main 
 
 These three phases are handled by the `ComponentsManager`,
 which acts as the main entrypoint of the framework
-as can be seen in [](#architecture-main)
+as can be seen in [](#architecture-main).
 This manager class is constructed via a static `build` method,
 via which custom options can be passed,
 such as a callback for loading modules and configuration files.
+To meet the _usability_ requirement, this is the only part that most users of the framework will interact with.
 
 For the sake of clarity, all UML architecture diagrams that we include in this article
 only contain simplified representations of the actual classes.
@@ -41,6 +50,11 @@ When the `ComponentsManager` is being built,
 the loading phase will be initiated,
 which will make use of the classes within the load package.
 The most important classes within this package are shown in [](#architecture-load).
+This phase aims to contain all major I/O operations, which could be expensive on slow disks and/or in large projects.
+This allows later phases to purely work on memory.
+Furthermore, the loaded information is designed to be cacheable,
+which means that software that require repeated invocations may optimize the loading phase by caching certain parts,
+which thereby meets the _performance_ requirement.
 
 <figure id="architecture-load">
 <img src="img/architecture-load.svg" alt="[Components.js Architecture - Load package]">
@@ -63,6 +77,8 @@ Before a configuration is instantiated during the construction phase,
 it always goes through a preprocessing phase.
 Concretely, this involves processing all parameters and constructor arguments,
 for which the most relevant classes and interfaces are shown in [](#architecture-preprocess).
+To meet the _extensibility_ and _maintainability_ requirements, the architecture allows different parameters and constructor arguments handlers to be injected.
+This makes the architecture more robust against currently unforeseen functional requirements regarding the handling of parameters and constructor arguments.
 
 <figure id="architecture-preprocess">
 <img src="img/architecture-preprocess.svg" alt="[Components.js Architecture - Preprocess package]">
@@ -97,6 +113,8 @@ the raw constructor call of a class, together with the required arguments.
 
 The construction phase is responsible for instantiating a configuration.
 The main classes for this are shown in [](#architecture-construct).
+Like before, the _extensibility_ and _maintainability_ requirements also apply here regarding the way in which things are constructed,
+for which we also provide the ability to inject different handlers.
 
 <figure id="architecture-construct">
 <img src="img/architecture-construct.svg" alt="[Components.js Architecture - Construct package]">
