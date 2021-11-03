@@ -21,8 +21,8 @@ While these GitHub and npm metrics give us _some_ insight into the usage of Comp
 they are incomplete, as projects may be hosted on other source code platforms such as GitLab, Bitbucket, or even private instances.
 Furthermore, direct downloads from npm are also incomplete, as downstream users may use bundling tools such as [Webpack](cite:cites link:web:webpack)
 to incorporate the Components.js source code directly within their library, which makes downloads of that library not go via the the Components.js npm package anymore.
-Therefore, we conclude that the metrics reported here are merely a lower limit,
-and the actual usage is expected to be higher.
+On the other hand, automated downloads by bots (e.g. for mirror services) may artificially increase the download number, without actually representing real usage.
+Therefore, we conclude that the metrics reported here are merely an estimate.
 
 ### In-use Analysis
 
