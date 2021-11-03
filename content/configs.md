@@ -145,6 +145,12 @@ This LSD service allows creators of components files to mint LSD-based URLs for 
 which will automatically become dereferenceable as soon as these packages are published to npm.
 The LSD service thereby removes the dereferenceability responsibility from package developers that want to use dependency injection via Components.js.
 
+The long-term sustainability of the LSD service and its minted URLs is guaranteed by Ghent University,
+[which places a strong emphasis](https://www.ugent.be/en/research/datamanagement) on ensuring that data is preserved in the long term.
+In the unlikely event that the LSD service would experience downtime,
+all applications that make use of Components.js will still remain functional,
+because the Components.js framework does not rely directly on the dereferenceability of these URLs.
+
 ### Generation from TypeScript
 
 For larger projects, the manual creation of components files for all classes in the project can require significant manual effort, and can therefore become error-prone.
