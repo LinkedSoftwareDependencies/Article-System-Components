@@ -146,3 +146,24 @@ Third, regarding the form of dependency injection, Components.js makes use of **
 just like all other discussed frameworks.
 Only the Spring also provides the option to make use of the other forms of injection,
 but constructor injection is the most popular option.
+
+### JavaScript Runtime Environments
+{:#related-work-js-runtime-environments}
+
+The most popular runtime environment for JavaScript is [Node.js](cite:cites link:web:node),
+which allows JavaScript code to be executed outside of a Web browser.
+Node.js is based on the highly performant [V8 engine](cite:cites link:web:v8) that is also used within the Chrome browser. 
+Even though Node.js can not directly execute TypeScript code,
+TypeScript code can be transpiled to JavaScript so that it can be executed in Node.js.
+Node.js makes use of the [npm](cite:cites link:web:npm) package manager for distributing and installing third-party packages (over 1.3 million at the time of writing).
+Using a `package.json` file, all dependencies of a module can be defined together with their version range, which are resolved from npm at install time.
+
+[Deno](cite:cites link:web:deno) is a relatively new runtime environment for JavaScript that aims to become a modern replacement for Node.js.
+It is also based on the V8 engine, but it allows both JavaScript _and_ TypeScript to be executed without prior transpilation.
+Furthermore, it allows external modules to be fetched based on URLs that can include version ranges, instead of being tightly linked to package names within the npm registry.
+
+For the remainder of this article, we will assume the usage of the Node.js runtime.
+This is because Components.js precedes the introduction of Deno,
+and Node.js is still predominantly used at the time of writing.
+Nevertheless, since Deno's philosophy regarding dereferenceable modules is very compatible with the dereferencebility of Components.js configurations,
+we will consider support for it in the future.
