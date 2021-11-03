@@ -39,6 +39,9 @@ Since Components.js configurations make use of the Linked Data principles,
 it is possible to create a generic user interface to create such configuration files for any project that makes use of Components.js.
 Furthermore, since components and configuration files are largely programming language-independent,
 it is possible to create equivalent implementations of Components.js for other OO languages such as Java and C#.
+Another venue that deserves investigation is the task of automatically letting the Linked Software Dependencies service
+execute the Components-Generator.js on all TypeScript projects that do not provide component files yet,
+which could open up a huge domain on injectable components.
 
 In general, Components.js gives us the necessary foundation for building next-level applications that depend on high flexiblity, such as smart agents.
 These applications are crucial for environments such as Linked Data and the Semantic Web,
