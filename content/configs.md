@@ -147,9 +147,10 @@ Part of the JSON-LD contents of [`https://linkedsoftwaredependencies.org/bundles
 </figcaption>
 </figure>
 
-This LSD service allows creators of components files to mint LSD-based URLs for their packages,
+This LSD service allows creators of components files to automatically mint LSD-based URLs for their packages,
 which will automatically become dereferenceable as soon as these packages are published to npm.
-The LSD service thereby removes the dereferenceability responsibility from package developers that want to use dependency injection via Components.js.
+The LSD service thereby removes the dereferenceability responsibility from package developers that want to use dependency injection via Components.js,
+but do not have the will or ability to make their component files dereferenceable themselves.
 
 The long-term sustainability of the LSD service and its minted URLs is guaranteed by Ghent University,
 [which places a strong emphasis](https://www.ugent.be/en/research/datamanagement) on ensuring that data is preserved in the long term.
