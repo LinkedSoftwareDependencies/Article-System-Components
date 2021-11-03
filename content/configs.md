@@ -45,6 +45,12 @@ Within object-oriented languages, this can correspond to for example a software 
 A component is typed as `oo:Component`, which is a _subclass_ of `rdfs:Class`.
 The parameters to construct the component can therefore be defined as an `rdfs:Property` on a component.
 
+Note that the vocabulary does not contain an _interface_ class,
+because this notion does not exist in JavaScript,
+and it can exist in TypeScript code but, only before transpilation to JavaScript.
+Instead, we only define `oo:AbstractClass`,
+as both abstract classes and interfaces can be considered equivalent at the level of dependency injection.
+
 <figure id="module-oo" class="listing">
 ````/code/module-oo.txt````
 <figcaption markdown="block">
