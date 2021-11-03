@@ -110,7 +110,7 @@ arrays, and references to other components (which requires a recursive call to `
 Once the arguments have been resolved, the constructor can be applied to obtain the final instantiated object.
 
 By default, the `ConfigConstructor` assumes that configurations are instantiated via the [CommonJS JavaScript standard](https://nodejs.org/docs/latest/api/modules.html),
-which is primarily used by the Node.js framework.
+which is primarily used by the Node.js runtime environment.
 However, Components.js has been designed to handle different kinds of instantiation,
 which can be done via different `IConstructionStrategy`'s.
 For instance, this allows the framework to be compatible with other upcoming JavaScript standards such as [JavaScript modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules).

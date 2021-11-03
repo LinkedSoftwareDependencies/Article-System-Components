@@ -19,7 +19,7 @@ Finally, we explain how these component files can be generated automatically fro
 Components.js distinguishes between three main concepts:
 
 Module
-: a software package containing zero or more components. This is equivalent to a Node module or npm package.
+: a software package containing zero or more components. For example, this is equivalent to a module within the [Node.js](cite:cites link:web:node) runtime environment for JavaScript.
 
 Component
 : a class that can be instantiated by creating a new instance of that type with zero or more parameter values. Parameters are defined by the class constructor.
