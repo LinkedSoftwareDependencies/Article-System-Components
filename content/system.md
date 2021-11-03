@@ -7,6 +7,7 @@ for enabling dependency injection within JavaScript/TypeScript projects.
 In this section, we first explain the main architecture, followed by the most relevant implementation details.
 
 ### Architecture
+{:#system-architecture}
 
 The primary functional requirement of our architecture is the ability to perform dependency injection based on the configuration files from previous section.
 Concretely, this involves _parsing_ the configuration files, _interpreting_ them, and _instantiating_ the necessary components.
@@ -24,7 +25,7 @@ To meet these requirements, the Components.js dependency injection tool goes thr
 
 These three phases are handled by the `ComponentsManager`,
 which acts as the main entrypoint of the framework
-as can be seen in [](#architecture-main).
+as can be seen in [](#architecture-main) in the appendix.
 This manager class is constructed via a static `build` method,
 via which custom options can be passed,
 such as a callback for loading modules and configuration files.
@@ -34,14 +35,6 @@ For the sake of clarity, all UML architecture diagrams that we include in this a
 only contain simplified representations of the actual classes.
 So there may be minor differences when comparing the diagrams with the actual source code.
 
-<figure id="architecture-main">
-<img src="img/architecture-main.svg" alt="[Components.js Architecture - Main package]">
-<figcaption markdown="block">
-UML diagram of the classes within the main package,
-which contains the main entrypoint of the framework.
-</figcaption>
-</figure>
-
 Hereafter, we explain these three phases in more detail.
 
 #### Loading
@@ -49,20 +42,12 @@ Hereafter, we explain these three phases in more detail.
 When the `ComponentsManager` is being built,
 the loading phase will be initiated,
 which will make use of the classes within the load package.
-The most important classes within this package are shown in [](#architecture-load).
+The most important classes within this package are shown in [](#architecture-load) in the appendix.
 This phase aims to contain all major I/O operations, which could be expensive on slow disks and/or in large projects.
 This allows later phases to purely work on memory.
 Furthermore, the loaded information is designed to be cacheable,
 which means that software that require repeated invocations may optimize the loading phase by caching certain parts,
 which thereby meets the _performance_ requirement.
-
-<figure id="architecture-load">
-<img src="img/architecture-load.svg" alt="[Components.js Architecture - Load package]">
-<figcaption markdown="block">
-UML diagram of the classes within the load package,
-which are responsible for loading components and configurations.
-</figcaption>
-</figure>
 
 The `ModuleStateBuilder` is a class that is responsible for scanning the current JavaScript project and its dependencies.
 The main objective of this class is to build an `IModuleState`, that contains information such as the paths to available components and dependencies.
@@ -76,17 +61,9 @@ after they will be loaded.
 Before a configuration is instantiated during the construction phase,
 it always goes through a preprocessing phase.
 Concretely, this involves processing all parameters and constructor arguments,
-for which the most relevant classes and interfaces are shown in [](#architecture-preprocess).
+for which the most relevant classes and interfaces are shown in [](#architecture-preprocess) in the appendix.
 To meet the _extensibility_ and _maintainability_ requirements, the architecture allows different parameters and constructor arguments handlers to be injected.
 This makes the architecture more robust against currently unforeseen functional requirements regarding the handling of parameters and constructor arguments.
-
-<figure id="architecture-preprocess">
-<img src="img/architecture-preprocess.svg" alt="[Components.js Architecture - Preprocess package]">
-<figcaption markdown="block">
-UML diagram of the classes within the preprocess package,
-which are responsible for preprocessing config parameters and constructor arguments.
-</figcaption>
-</figure>
 
 `IConfigPreprocessor` is an interface that represents a preprocessing algorithm for a configuration,
 and can have multiple implementations.
@@ -112,17 +89,9 @@ the raw constructor call of a class, together with the required arguments.
 #### Construction
 
 The construction phase is responsible for instantiating a configuration.
-The main classes for this are shown in [](#architecture-construct).
+The main classes for this are shown in [](#architecture-construct) in the appendix.
 Like before, the _extensibility_ and _maintainability_ requirements also apply here regarding the way in which things are constructed,
 for which we also provide the ability to inject different handlers.
-
-<figure id="architecture-construct">
-<img src="img/architecture-construct.svg" alt="[Components.js Architecture - Construct package]">
-<figcaption markdown="block">
-UML diagram of the classes within the construct package,
-which are responsible for instantiating configs according to a certain strategy.
-</figcaption>
-</figure>
 
 `ConfigConstructorPool` is the main entrypoint that is used when a user instantiates a configuration via `ComponentsManager.instantiate()`.
 Before actually instantiating a config,
