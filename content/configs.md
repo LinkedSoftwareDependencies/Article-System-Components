@@ -43,7 +43,7 @@ Classes and properties in the [_Object-Oriented Components vocabulary (OO)_](htt
 A module is considered a collection of components.
 Within object-oriented languages, this can correspond to for example a software library or an application.
 A component is typed as `oo:Component`, which is a _subclass_ of `rdfs:Class`.
-The parameters to construct the component can therefore be defined as an `rdfs:Property` on a component.
+The parameters to construct the component can therefore be defined as a property having that component as its domain.
 
 Note that the vocabulary does not contain an _interface_ class,
 because this notion does not exist in JavaScript,
@@ -102,7 +102,7 @@ and thereby builds upon the OO vocabulary via the `oo:constructorArguments` exte
 Concretely, this new vocabulary defines a mapping between the component parameters as defined using the OO vocabulary,
 and the raw objects that are passed into the constructor during instantiation.
 
-In essence, this vocabulary enables an (RDF list) of `om:ObjectMapping`'s to be passed to the `oo:constructorArguments` of an `oo:Class`.
+In essence, this vocabulary enables an (RDF) list of `om:ObjectMapping`'s to be passed to the `oo:constructorArguments` of an `oo:Class`.
 An `om:ObjectMapping` represents an object containing zero or more key-value pairs, which are represented by `om:ObjectMappingEntry`.
 `om:ArrayMapping` is a special type of `om:ObjectMapping` that represents an array, where its elements can be other `om:ObjectMapping`'s.
 
@@ -114,7 +114,7 @@ compacted with the `https://linkedsoftwaredependencies.org/bundles/npm/component
 </figcaption>
 </figure>
 
-Building upon the OO example from [](#module-om), we illustrate the usage of this vocabulary with an example in [](#module-om), again using the JSON-LD serialization.
+Building upon the OO example from [](#module-oo), we illustrate the usage of this vocabulary with an example in [](#module-om), again using the JSON-LD serialization.
 The only difference with the previous example, is the addition of the `constructorArguments` block,
 which expands to `oo:constructorArguments` that is configured to always contain an RDF list.
 The constructor arguments contain a single `om:ObjectMapping`, which is implied by the presence of `field`, which expands to `om:field`.

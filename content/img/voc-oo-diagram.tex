@@ -40,15 +40,15 @@
     
     % Concept relations
     \draw[->,thick,relation,text width=10em] (module) -- (component) node [left=0.5,midway,align=center] {oo:component};
-    \draw[->,thick,relation] (component) -- (class) node [right=0,midway,align=right] {rdfs:subClassOf};
-    \draw[->,thick,relation] (component) -- (instance) node [right=0,midway,align=right] {rdfs:subClassOf};
-    \draw[->,thick,relation,text width=14em] (component) -- (string) node [right=0.5,midway,align=right] {oo:componentPath};
+    \draw[->,thick,relation] (class) -- (component) node [right=-0.5,midway,align=right] {rdfs:subClassOf};
+    \draw[->,thick,relation] (instance) -- (component) node [right=-0.5,midway,align=right] {rdfs:subClassOf};
+    \draw[->,thick,relation,text width=14em] (component) -- (string) node [right=0.7,midway,align=right] {oo:componentPath};
     
-    \draw[->,thick,relation] (class) -- (classAbstract) node [left=-1,midway,align=left] {rdfs:subClassOf};
-    \draw[->,thick,relation] (class) -- (parameter) node [right=0,midway,align=right] {oo:parameter};
+    \draw[->,thick,relation] (classAbstract) -- (class) node [left=-1,midway,align=left] {rdfs:subClassOf};
+    \draw[->,thick,relation] (class) -- (parameter) node [right=-0.5,midway,align=right] {oo:parameter};
     
-    \draw[->,thick,relation] (parameter) -- (defaultValue) node [right,midway,align=right] {oo:defaultValue};
-    \draw[->,thick,relation] (parameter) -- (boolean) node [left,midway,align=left] {oo:uniqueValue};
+    \draw[->,thick,relation] (parameter) -- (defaultValue) node [right=-0.5,midway,align=right] {oo:defaultValue};
+    \draw[->,thick,relation] (parameter) -- (boolean) node [left=-0.5,midway,align=left] {oo:uniqueValue};
 
 \end{tikzpicture}
 \end{document}

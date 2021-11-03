@@ -54,7 +54,7 @@ The main objective of this class is to build an `IModuleState`, that contains in
 
 `ComponentRegistry` and `ConfigRegistry` are classes that are exposed via a callback to invokers of `ComponentsManager.build()`.
 These classes respectively enable modules and configurations to be registered,
-after they will be loaded.
+after those modules and configurations will be loaded.
 
 #### Preprocessing
 
@@ -100,7 +100,7 @@ in which case it returns it from a cache.
 This may occur for nested configurations that reuse the same component in different places.
 If the config has not been instantiated before,
 it will first go through the preprocessing phase as explained in the previous section,
-after the processed config will be passed on to the `ConfigConstructor`.
+and then the processed config will be passed on to the `ConfigConstructor`.
 
 The `ConfigConstructor` is able to convert the representation of a class constructor call into an actual constructor call to obtain an object.
 For this, the arguments of the constructor are first converted into actual objects,

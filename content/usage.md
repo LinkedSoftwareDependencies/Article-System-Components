@@ -1,7 +1,7 @@
 ## Usage
 {:#usage}
 
-The usage of an open-source project without the use of any tracking software is a picture that is always incomplete.
+A measure of the usage of an open-source project without the use of any tracking software is a picture that is always incomplete.
 Nevertheless, we analyze the usage of Components.js in this section on two aspects:
 empirical usage via available metrics, and in-use analysis of specific projects.
 We discuss these two aspects hereafter.
@@ -14,8 +14,8 @@ As of August 2 2021, there are 9 GitHub projects that depend on Components.js di
 This shows that Components.js is primarily used as a core library to support larger projects that have a broad usage.
 
 The [npm package manager](cite:cites link:npm:componentsjs) from which Components.js can be installed offers us additional insights.
-For the week of July 26 2021 until August 1 2021 there were 5.351 downloads, which is an average number when comparing it to previous weeks.
-However, there are outliers that have weekly downloads peak up to around 200.000 downloads.
+For the week of July 26 2021 until August 1 2021 (the last completed week before writing this section) there were 5.351 downloads, which is an average number when comparing it to previous weeks.
+However, there are outliers for which Components.js has weekly downloads peak up to around 200.000 downloads.
 
 While these GitHub and npm metrics give us _some_ insight into the usage of Components.js,
 they are incomplete, as projects may be hosted on other source code platforms such as GitLab, Bitbucket, or even private instances.
