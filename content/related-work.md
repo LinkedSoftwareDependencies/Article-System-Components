@@ -136,8 +136,13 @@ it requires you to define interfaces and types via TypeScript,
 thereby allowing it to make use of this extra information to correctly handle the linking.
 Like Guice, it also has a bindings file to link classes to interfaces.
 
-Components.js differs from most of the aforementioned frameworks on different aspects,
-of which the first one is unique to Components.js:
-
-- RDF-based configuration files in order to make them globally _interoperable_, _addressable_, and _discoverable_.
-- Decoupling of the dependency injection layer from the software implementation via separate configuration files.
+Components.js differs from the aforementioned frameworks on different aspects.
+First, Components.js decouples the dependency injection layer from the software implementation via **separate configuration files**,
+while the other JavaScript DI frameworks use code-based configuration and thereby have a stronger coupling of these layers.
+Is is thereby more similar to the Java-based DI frameworks that tend to rely more on external configuration files.
+Second, Components.js is the only framework that makes use of **RDF-based configuration files**,
+which makes these configurations globally _interoperable_, _addressable_, and _discoverable_.
+Third, regarding the form of dependency injection, Components.js makes use of **constructor injection**,
+just like all other discussed frameworks.
+Only the Spring also provides the option to make use of the other forms of injection,
+but constructor injection is the most popular option.
