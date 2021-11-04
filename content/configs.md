@@ -151,6 +151,9 @@ This LSD service allows creators of components files to automatically mint LSD-b
 which will automatically become dereferenceable as soon as these packages are published to npm.
 The LSD service thereby removes the dereferenceability responsibility from package developers that want to use dependency injection via Components.js,
 but do not have the will or ability to make their component files dereferenceable themselves.
+The LSD service is not required for the functioning of the Components.js framework,
+so developers are not obligated to publish their package to npm or mint their own URLs if they do not have this desire.
+But since publishing packages to npm in a common practise within the JavaScript community, we consider this a low barrier to entry.
 
 This dereferenceability is beneficial for enabling querying execution within and across component files.
 For example, it enables using the follow-your-nose principle to analyze class inheritance chains of certain modules.
