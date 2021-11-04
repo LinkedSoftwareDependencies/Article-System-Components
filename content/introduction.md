@@ -56,7 +56,7 @@ Components.js automatically _instantiates_ such software configurations, includi
 As such, this (de)referenceability of software configurations by IRI is beneficial in use cases such as:
 
 Experimental research
-: Providing the full provenance trail of used software configurations to produce experimental results and enable reproducibility.
+: Providing the full provenance trail of used software configurations to produce experimental results for improving reproducibility.
 
 Static program analysis
 : Discovering conflicts or compatibility issues of different classes within software using RDF tools such as SPARQL query engines and reasoners.
@@ -71,6 +71,12 @@ Concretely, the contributions of this work are:
 * the Components-Generator.js tool for generating component descriptions for TypeScript projects;
 * the Object-Oriented Components and Object Mapping vocabularies; and
 * the Linked Software Dependencies (LSD) service that makes npm packages dereferenceable.
+
+While Components.js can aid in the reproduction of experiments as one possible use case,
+we consider full reproducibility of experiments out of scope for this work.
+Instead, to enable full replication of experiments,
+we refer to tools such as [NixOS](cite:cites link:web:nix) that can describe full experimental environments,
+where Components.js can offer more granular software configuration descriptions.
 
 In this article, we introduce the Components.js framework as follows.
 In the next section ([](#related-work)), we discuss the related work.
