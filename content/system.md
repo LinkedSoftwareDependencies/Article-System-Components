@@ -129,6 +129,8 @@ At the time of writing, it consists of 538 unit tests,
 which reach a test coverage of 100%.
 
 Components.js is being maintained by IDLab via software projects that make use of this framework.
+Furthermore, Components.js is part of the [Comunica Association](cite:cites link:web:comunicaassociation),
+which is a non-profit organization that aims to ensure the long-term sustainability of certain open-source projects.
 A sustainability of this project is available on [GitHub](cite:cites link:web:componentsjssustainability).
 
 Finally, in-depth [documentation](cite:cites link:docs:componentsjs) is available,
