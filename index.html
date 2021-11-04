@@ -132,21 +132,37 @@ the <a property="schema:citation http://purl.org/spar/cito/cites" href="https://
 Within Components.js,
 software configurations and modules are described as Linked Data using
 the <a property="schema:citation http://purl.org/spar/cito/citesAsAuthority" href="https://linkedsoftwaredependencies.org/articles/describing-experiments/"><em>Object-Oriented Components vocabulary</em></a> <span class="references">[<a href="#ref-10">10</a>]</span>
-and the <a property="schema:citation http://purl.org/spar/cito/citesAsAuthority" href="https://linkedsoftwaredependencies.org/articles/describing-experiments/"><em>Object Mapping vocabulary</em></a> <span class="references">[<a href="#ref-10">10</a>]</span>.
+and the <a property="schema:citation http://purl.org/spar/cito/cites" href="https://linkedsoftwaredependencies.org/vocabularies/object-mapping"><em>Object Mapping vocabulary</em></a> <span class="references">[<a href="#ref-11">11</a>]</span>.
 By publishing such descriptions,
 the composition of software (and parts thereof) can be <em>unambiguously identified</em> by IRIs and 
 retrieved through <em>dereferencing</em>.
 Components.js automatically <em>instantiates</em> such software configurations, including resolving the necessary dependencies.
-As such, this (de)referenceability of software configurations by IRI is beneficial in use cases such as:</p>
+As such, this (de)referenceability of software configurations by IRI could be beneficial in use cases such as:</p>
 
           <dl>
             <dt>Experimental research</dt>
-            <dd>Providing the full provenance trail of used software configurations to produce experimental results and enable reproducibility.</dd>
+            <dd>Providing the full provenance trail of used software configurations to produce experimental results for improving reproducibility.</dd>
             <dt>Static program analysis</dt>
             <dd>Discovering conflicts or compatibility issues of different classes within software using RDF tools such as SPARQL query engines and reasoners.</dd>
             <dt>Semantic workflows</dt>
             <dd>Automatic wiring of software using RDF tools to optimally address a specific need.</dd>
           </dl>
+
+          <p>We consider this article an extension of our previous work involving <a property="schema:citation http://purl.org/spar/cito/citesAsAuthority" href="https://linkedsoftwaredependencies.org/articles/describing-experiments/">describing software as Linked Data</a> <span class="references">[<a href="#ref-10">10</a>]</span>.
+Concretely, the contributions of this work are:</p>
+
+          <ul>
+            <li>the Components.js dependency injection framework and its architecture;</li>
+            <li>the Components-Generator.js tool for generating component descriptions for TypeScript projects;</li>
+            <li>the Object-Oriented Components and Object Mapping vocabularies; and</li>
+            <li>the Linked Software Dependencies (LSD) service that makes npm packages dereferenceable.</li>
+          </ul>
+
+          <p>While Components.js can aid in the reproduction of experiments as one possible use case,
+we consider full reproducibility of experiments out of scope for this work.
+Instead, to enable full replication of experiments,
+we refer to tools such as <a property="schema:citation http://purl.org/spar/cito/cites" href="https://nixos.org/">NixOS</a> <span class="references">[<a href="#ref-12">12</a>]</span> that can describe full experimental environments,
+where Components.js can offer more granular software configuration descriptions.</p>
 
           <p>In this article, we introduce the Components.js framework as follows.
 In the next section (<a href="#related-work">Section 2</a>), we discuss the related work.
@@ -243,27 +259,31 @@ Therefore, we introduce the related work around semantic software descriptions.<
 
           <p>Software can be described on several levels of granularity,
 going from a high-level package overview to a low-level description of the actual code.
-The Software Ontology (SWO) <span class="references">[<a href="#ref-11">11</a>]</span> and <a property="schema:citation http://purl.org/spar/cito/cites" href="http://usefulinc.com/ns/doap">Description of a Project (DOAP)</a> <span class="references">[<a href="#ref-12">12</a>]</span> ontology focus on the high-level management of software development,
+The Software Ontology (SWO) <span class="references">[<a href="#ref-13">13</a>]</span> and <a property="schema:citation http://purl.org/spar/cito/cites" href="http://usefulinc.com/ns/doap">Description of a Project (DOAP)</a> <span class="references">[<a href="#ref-14">14</a>]</span> ontology focus on the high-level management of software development,
 enabling the description of tools, resources, contributors and tasks. 
 At a slightly lower level, SWO includes interfaces, algorithms, versions, and the associated provenance data, but does not reach the level of detail to describe operational code.</p>
 
-          <p>Ontologies that describe software configuration from a research workflow perspective are <span property="schema:citation http://purl.org/spar/cito/cites" resource="https://dx.doi.org/10.1145/2814864.2814882"><a href="http://svn.aksw.org/papers/2015/SEMANTICS_LDWPO/public.pdf">LODFlow</a></span> <span class="references">[<a href="#ref-13">13</a>]</span>, <span property="schema:citation http://purl.org/spar/cito/cites" resource="https://dx.doi.org/10.1016/j.websem.2015.01.003"><a href="https://doi.org/10.1016/j.websem.2015.01.003">Workflow-Centric Research Objects</a></span> <span class="references">[<a href="#ref-14">14</a>]</span> with the <cite><a href="https://w3id.org/ro/">Wf4Ever Research Object Model</a></cite> and the <span property="schema:citation http://purl.org/spar/cito/cites" resource="https://dx.doi.org/10.1109/escience.2014.47"><a href="http://www.ifs.tuwien.ac.at/%7Emayer/publications/pdf/may_escience14.pdf">Ontologies for Describing the Context of Scientific Experiment Processes</a></span> <span class="references">[<a href="#ref-15">15</a>]</span> with the <cite><a href="http://www.timbusproject.net/portal/publications/ontologies/">TIMBUS Context Model</a></cite> to compliment the Research Objects model. 
-From a more generic perspective, there exist the <a property="schema:citation http://purl.org/spar/cito/citesAsAuthority" href="https://www.w3.org/TR/prov-o/">PROV Ontology</a> <span class="references">[<a href="#ref-16">16</a>]</span>, the <a property="schema:citation http://purl.org/spar/cito/citesAsAuthority" href="http://www.opmw.org/model/OPMW/">OPMW-PROV Ontology</a> <span class="references">[<a href="#ref-17">17</a>]</span>, and the <a property="schema:citation http://purl.org/spar/cito/citesAsAuthority" href="http://rdf-vocabulary.ddialliance.org/discovery.html">DDI-RDF Discovery Vocabulary</a> <span class="references">[<a href="#ref-18">18</a>]</span>.
+          <p>Ontologies that describe software configuration from a research workflow perspective are <span property="schema:citation http://purl.org/spar/cito/cites" resource="https://dx.doi.org/10.1145/2814864.2814882"><a href="http://svn.aksw.org/papers/2015/SEMANTICS_LDWPO/public.pdf">LODFlow</a></span> <span class="references">[<a href="#ref-15">15</a>]</span>, <span property="schema:citation http://purl.org/spar/cito/cites" resource="https://dx.doi.org/10.1016/j.websem.2015.01.003"><a href="https://doi.org/10.1016/j.websem.2015.01.003">Workflow-Centric Research Objects</a></span> <span class="references">[<a href="#ref-16">16</a>]</span> with the <cite><a href="https://w3id.org/ro/">Wf4Ever Research Object Model</a></cite> and the <span property="schema:citation http://purl.org/spar/cito/cites" resource="https://dx.doi.org/10.1109/escience.2014.47"><a href="http://www.ifs.tuwien.ac.at/%7Emayer/publications/pdf/may_escience14.pdf">Ontologies for Describing the Context of Scientific Experiment Processes</a></span> <span class="references">[<a href="#ref-17">17</a>]</span> with the <cite><a href="http://www.timbusproject.net/portal/publications/ontologies/">TIMBUS Context Model</a></cite> to compliment the Research Objects model. 
+From a more generic perspective, there exist the <a property="schema:citation http://purl.org/spar/cito/citesAsAuthority" href="https://www.w3.org/TR/prov-o/">PROV Ontology</a> <span class="references">[<a href="#ref-18">18</a>]</span>, the OPMW-PROV Ontology <span class="references">[<a href="#ref-19">19</a>]</span>, and the <a property="schema:citation http://purl.org/spar/cito/citesAsAuthority" href="http://rdf-vocabulary.ddialliance.org/discovery.html">DDI-RDF Discovery Vocabulary</a> <span class="references">[<a href="#ref-20">20</a>]</span>.
 However, these efforts can only cover (parts of) the connection between research and software, which is insufficient for dependency injection.
 Such descriptions are moreover interpretive in that any given tool is subject to having multiple descriptions by different users.
 In contrast to the human-driven descriptions, our work both enables and accelerates the generation of machine-driven Linked Data descriptions of software modules, their components, as well as their configurations to be uniformly created.
 Consequently, this makes it possible to accurately describe and instantiate software experiments that can be reused and compared with unambiguously.</p>
 
-          <p>Much more low-level and exact is the Core Software Ontology (CSO) <span class="references">[<a href="#ref-19">19</a>]</span>,
+          <p>Much more low-level and exact is the Core Software Ontology (CSO) <span class="references">[<a href="#ref-21">21</a>]</span>,
 which provides a foundational vocabulary that is designed for extensibility.
 This includes the distinctive concepts to describe software as code, software as object to computational hardware, and software as a running computational activity,
 but also Interfaces, Classes, Methods, the relationships between them, and workflow information on their invocation.
 Its extension, the Core Ontology of Software Components (COSC), moves closer to the topic of this article by describing interfaces and protocols of objects.
-Similar in scope is the Software Engineering Ontology Network (SEON) <span class="references">[<a href="#ref-20">20</a>]</span>, which consolidates multiple ontologies for the Software Engineering field.
+Similar in scope is the Software Engineering Ontology Network (SEON) <span class="references">[<a href="#ref-22">22</a>]</span>, which consolidates multiple ontologies for the Software Engineering field.
 It includes a higher Core and Foundational layer, as well as multiple domain-specific ontologies.
 Of particular interest is their Software Ontology (SwO) that captures the different artifacts in software.
-In general, both ontologies (or suites) view software from a <q>network of communicating concepts</q> perspective.
-This allows for exhaustive descriptions of complex software systems, but is not suited for describing class instances or aspects of modular programming (e.g., package dependencies).</p>
+More recently, the GraphGen4Code toolkit <span class="references">[<a href="#ref-23">23</a>]</span> has been introduced,
+which provides an ontology to capture code semantics to represent classes, functions and methods.
+In general, these ontologies (or suites) view software from a <q>network of communicating concepts</q> perspective.
+This allows for exhaustive descriptions of complex software systems, but is not suited for describing class instances or aspects of modular programming (e.g., package dependencies).
+As such, the vocabularies that we introduced do not make use of these existing ontologies,
+but they do make use of parts of them where possible.</p>
 
           <h3 id="related-work-di-frameworks">Dependency Injection Frameworks</h3>
 
@@ -273,7 +293,7 @@ Much of this stems from the strict typing,
 which makes it difficult to create mock objects when required for testing
 if the dependencies are nested in the implementation.</p>
 
-          <p>One of the biggest Java frameworks is <a href="https://spring.io/">Spring</a>,
+          <p>One of the biggest Java frameworks is <a property="schema:citation http://purl.org/spar/cito/cites" href="https://spring.io/">Spring</a> <span class="references">[<a href="#ref-24">24</a>]</span>,
 which amongst many things, also provides dependency injection.
 That is one of its advantages though:
 many projects already use Spring for other reasons,
@@ -283,15 +303,15 @@ The first one is through an external XML configuration file
 which defines all the classes and how they are linked together.
 The other one is with annotations in the actual code
 that define how the interlinking of classes should work.
-Google’s <a href="https://github.com/google/guice">Guice</a> is a more lightweight alternative to Spring;
-<a href="https://github.com/google/dagger">Dagger</a> was created to be even more lightweight than Guice.</p>
+Google’s <a property="schema:citation http://purl.org/spar/cito/cites" href="https://github.com/google/guice">Guice</a> <span class="references">[<a href="#ref-25">25</a>]</span> is a more lightweight alternative to Spring;
+<a property="schema:citation http://purl.org/spar/cito/cites" href="https://github.com/google/dagger">Dagger</a> <span class="references">[<a href="#ref-26">26</a>]</span> was created to be even more lightweight than Guice.</p>
 
           <p>In JavaScript, 
 dependency injection frameworks tend to be less common because of its flexible nature.
 However, with the increasing popularity of TypeScript –which provides strict typings for JavaScript–,
 the need for dependency injection is increasing.
-Still, multiple frameworks are available, such as <a href="https://github.com/young-steveo/bottlejs">BottleJS</a>, <a href="https://github.com/cujojs/wire">Wire</a>, and <a href="https://github.com/jaredhanson/electrolyte">Electrolyte</a>, all backed by rather small communities.
-One of the biggest ones, <a href="https://github.com/inversify/InversifyJS">InversifyJS</a>,
+Still, multiple frameworks are available, such as <a property="schema:citation http://purl.org/spar/cito/cites" href="https://github.com/young-steveo/bottlejs">BottleJS</a> <span class="references">[<a href="#ref-27">27</a>]</span>, <a property="schema:citation http://purl.org/spar/cito/cites" href="https://github.com/cujojs/wire">Wire</a> <span class="references">[<a href="#ref-28">28</a>]</span>, and <a property="schema:citation http://purl.org/spar/cito/cites" href="https://github.com/jaredhanson/electrolyte">Electrolyte</a> <span class="references">[<a href="#ref-29">29</a>]</span>, all backed by rather small communities.
+One of the biggest ones, <a property="schema:citation http://purl.org/spar/cito/cites" href="https://github.com/inversify/InversifyJS">InversifyJS</a> <span class="references">[<a href="#ref-30">30</a>]</span>,
 uses annotations similar to Java frameworks to define possible injections.
 Unlike standard JavaScript,
 it requires the developer to define interfaces and types via TypeScript,
@@ -302,6 +322,7 @@ Like Guice, it also has a bindings file to link classes to interfaces.</p>
 First, Components.js decouples the dependency injection layer from the software implementation via <strong>separate configuration files</strong>,
 while the other JavaScript DI frameworks use code-based configuration and thereby have a stronger coupling of these layers.
 Is is thereby more similar to the Java-based DI frameworks that tend to rely more on external configuration files.
+This is the primary reason why we opted to create a new framework, instead of extending an existing one.
 Second, Components.js is the only framework that makes use of <strong>RDF-based configuration files</strong>,
 which makes these configurations globally <em>interoperable</em>, <em>addressable</em>, and <em>discoverable</em>.
 Third, regarding the form of dependency injection, Components.js makes use of <strong>constructor injection</strong>,
@@ -311,15 +332,15 @@ but constructor injection is the most popular option.</p>
 
           <h3 id="related-work-js-runtime-environments">JavaScript Runtime Environments</h3>
 
-          <p>The most popular runtime environment for JavaScript is <a property="schema:citation http://purl.org/spar/cito/cites" href="https://nodejs.org/en/">Node.js</a> <span class="references">[<a href="#ref-21">21</a>]</span>,
+          <p>The most popular runtime environment for JavaScript is <a property="schema:citation http://purl.org/spar/cito/cites" href="https://nodejs.org/en/">Node.js</a> <span class="references">[<a href="#ref-31">31</a>]</span>,
 which allows JavaScript code to be executed outside of a Web browser.
-Node.js is based on the highly performant <a property="schema:citation http://purl.org/spar/cito/cites" href="https://deno.land/">V8 engine</a> <span class="references">[<a href="#ref-22">22</a>]</span> that is also used within the Chrome browser. 
+Node.js is based on the highly performant <a property="schema:citation http://purl.org/spar/cito/cites" href="https://v8.dev/">V8 engine</a> <span class="references">[<a href="#ref-32">32</a>]</span> that is also used within the Chrome browser. 
 Even though Node.js can not directly execute TypeScript code,
 TypeScript code can be transpiled to JavaScript so that it can be executed in Node.js.
-Node.js makes use of the <a property="schema:citation http://purl.org/spar/cito/cites" href="https://www.npmjs.com/">npm</a> <span class="references">[<a href="#ref-23">23</a>]</span> package manager for distributing and installing third-party packages (over 1.3 million at the time of writing).
+Node.js makes use of the <a property="schema:citation http://purl.org/spar/cito/cites" href="https://www.npmjs.com/">npm</a> <span class="references">[<a href="#ref-33">33</a>]</span> package manager for distributing and installing third-party packages (over 1.3 million at the time of writing).
 Using a <code>package.json</code> file, all dependencies of a module can be defined together with their version range, which are resolved from npm at install time.</p>
 
-          <p><a property="schema:citation http://purl.org/spar/cito/cites" href="https://deno.land/">Deno</a> <span class="references">[<a href="#ref-24">24</a>]</span> is a relatively new runtime environment for JavaScript that aims to become a modern replacement for Node.js.
+          <p><a property="schema:citation http://purl.org/spar/cito/cites" href="https://deno.land/">Deno</a> <span class="references">[<a href="#ref-34">34</a>]</span> is a relatively new runtime environment for JavaScript that aims to become a modern replacement for Node.js.
 It is also based on the V8 engine, but it allows both JavaScript <em>and</em> TypeScript to be executed without prior transpilation.
 Furthermore, it allows external modules to be fetched based on URLs that can include version ranges, instead of being tightly linked to package names within the npm registry.</p>
 
@@ -417,9 +438,9 @@ compacted with the <code>https:/​/​linkedsoftwaredependencies.org/bundles/np
             </figcaption>
 </figure>
 
-          <p>We illustrate the usage of this vocabulary with an example in <a href="#module-oo">Listing 1</a> using the <a property="schema:citation http://purl.org/spar/cito/cites" href="https://www.w3.org/TR/json-ld/">JSON-LD</a> <span class="references">[<a href="#ref-25">25</a>]</span> serialization.
+          <p>We illustrate the usage of this vocabulary with an example in <a href="#module-oo">Listing 1</a> using the <a property="schema:citation http://purl.org/spar/cito/cites" href="https://www.w3.org/TR/json-ld/">JSON-LD</a> <span class="references">[<a href="#ref-35">35</a>]</span> serialization.
 This listing shows the definition of a new module (<code>oo:Module</code>) with compact IRI <code>ex:MyModule</code>.
-The name of the module is set with the compact IRI <code>requireName</code>, which expands to <code>doap:name</code> from the <a property="schema:citation http://purl.org/spar/cito/cites" href="https://github.com/ewilderj/doap/wiki">Description of a Project (DOAP) vocabulary</a> <span class="references">[<a href="#ref-26">26</a>]</span>.
+The name of the module is set with the compact IRI <code>requireName</code>, which expands to <code>doap:name</code> from the <a property="schema:citation http://purl.org/spar/cito/cites" href="https://github.com/ewilderj/doap/wiki">Description of a Project (DOAP) vocabulary</a> <span class="references">[<a href="#ref-36">36</a>]</span>.
 Furthermore, our module contains a single class component (<code>oo:Class</code>) with compact IRI <code>ex:MyModule/MyComponent</code>.
 Since this is a class component (subclass of <code>oo:Component</code>), this means that this component is instantiatable based on parameters.
 Each component can refer to its path within a module using the <code>oo:componentPath</code> predicate (compacted as <code>requireElement</code>).
@@ -453,13 +474,13 @@ thereby allowing nested component instantiations to be defined.</p>
 so that instances of components can be declared.
 However, this vocabulary only defines parameter values for component instances,
 but it does not define how these parameter values are used to invoke the constructor of this component.
-To enable this, we introduce the accompanying <a property="schema:citation http://purl.org/spar/cito/cites" href="https://linkedsoftwaredependencies.org/vocabularies/object-mapping"><em>Object Mapping vocabulary (OM)</em></a> <span class="references">[<a href="#ref-27">27</a>]</span>.
+To enable this, we introduce the accompanying <a property="schema:citation http://purl.org/spar/cito/cites" href="https://linkedsoftwaredependencies.org/vocabularies/object-mapping"><em>Object Mapping vocabulary (OM)</em></a> <span class="references">[<a href="#ref-11">11</a>]</span>.
 <a href="#voc-om-diagram">Fig. 2</a> shows an overview of all its classes and predicates.</p>
 
           <figure id="voc-om-diagram">
 <img src="img/voc-om-diagram.svg" alt="[Object Mapping vocabulary diagram]" />
 <figcaption>
-              <p><span class="label">Fig. 2:</span> Classes and properties in the <a property="schema:citation http://purl.org/spar/cito/cites" href="https://linkedsoftwaredependencies.org/vocabularies/object-mapping"><em>Object Mapping</em> vocabulary</a> <span class="references">[<a href="#ref-27">27</a>]</span>, with as prefix <code>om</code>.</p>
+              <p><span class="label">Fig. 2:</span> Classes and properties in the <a property="schema:citation http://purl.org/spar/cito/cites" href="https://linkedsoftwaredependencies.org/vocabularies/object-mapping"><em>Object Mapping</em> vocabulary</a> <span class="references">[<a href="#ref-11">11</a>]</span>, with as prefix <code>om</code>.</p>
             </figcaption>
 </figure>
 
@@ -530,11 +551,11 @@ For example, the instantiation of <a href="#instance-oo">Listing 2</a> correspo
           <h3 id="dereferenceability">Dereferenceability</h3>
 
           <p>In <a property="schema:citation http://purl.org/spar/cito/citesAsAuthority" href="https://linkedsoftwaredependencies.org/articles/describing-experiments/">previous work</a> <span class="references">[<a href="#ref-10">10</a>]</span>
-we introduced the <a property="schema:citation http://purl.org/spar/cito/cites" href="https://linkedsoftwaredependencies.org/">Linked Software Dependencies (LSD) service</a> <span class="references">[<a href="#ref-28">28</a>]</span>,
+we introduced the <a property="schema:citation http://purl.org/spar/cito/cites" href="https://linkedsoftwaredependencies.org/">Linked Software Dependencies (LSD) service</a> <span class="references">[<a href="#ref-37">37</a>]</span>,
 which makes all resource URLs within components files fully dereferenceable.</p>
 
           <p>Since our current focus is on enabling dependency injection for JavaScript,
-this LSD service provides Linked Data subject pages for <em>all</em> packages within the <a property="schema:citation http://purl.org/spar/cito/cites" href="https://www.npmjs.com/">npm package manager</a> <span class="references">[<a href="#ref-23">23</a>]</span> for JavaScript.
+this LSD service provides Linked Data subject pages for <em>all</em> packages within the <a property="schema:citation http://purl.org/spar/cito/cites" href="https://www.npmjs.com/">npm package manager</a> <span class="references">[<a href="#ref-33">33</a>]</span> for JavaScript.
 For example, the URL <a href="https://linkedsoftwaredependencies.org/bundles/npm/@comunica/core/1.21.1"><code>https:/​/​linkedsoftwaredependencies.org/bundles/npm/@comunica/core/1.21.1</code></a>
 is an identifier for the <code>@comunica/core</code> package at version <code>1.21.1</code>.
 <a href="#lsd-snippet">Listing 4</a> shows a snippet of the JSON-LD contents when dereferencing this URL.</p>
@@ -576,7 +597,15 @@ is an identifier for the <code>@comunica/core</code> package at version <code>1.
           <p>This LSD service allows creators of components files to automatically mint LSD-based URLs for their packages,
 which will automatically become dereferenceable as soon as these packages are published to npm.
 The LSD service thereby removes the dereferenceability responsibility from package developers that want to use dependency injection via Components.js,
-but do not have the will or ability to make their component files dereferenceable themselves.</p>
+but do not have the will or ability to make their component files dereferenceable themselves.
+The LSD service is not required for the functioning of the Components.js framework,
+so developers are not obligated to publish their package to npm or mint their own URLs if they do not have this desire.
+But since publishing packages to npm in a common practise within the JavaScript community, we consider this a low barrier to entry.</p>
+
+          <p>This dereferenceability is beneficial for enabling querying execution within and across component files.
+For example, it enables using the follow-your-nose principle to analyze class inheritance chains of certain modules.
+Another example in the domain of reproducibility is the ability to analyze which config parameters had the largest influence on the performance of a system,
+assuming that the experimental results have also been linked to the semantic configuration.</p>
 
           <p>The long-term sustainability of the LSD service and its minted URLs is guaranteed by Ghent University,
 <a href="https://www.ugent.be/en/research/datamanagement">which places a strong emphasis</a> on ensuring that data is preserved in the long term.
@@ -589,7 +618,8 @@ because the Components.js framework does not rely directly on the dereferenceabi
           <p>For larger projects, the manual creation of components files for all classes in the project can require significant manual effort, and can therefore become error-prone.
 For projects that make use of a strongly-typed language, such as TypeScript,
 all required information to create such components files is in fact already available implicitly via the source code files.
-In order to minimize manual effort for such projects, we provide the open-source tool <a property="schema:citation http://purl.org/spar/cito/cites" href="https://github.com/LinkedSoftwareDependencies/Components-Generator.js/"><em>Components-Generator.js</em></a> <span class="references">[<a href="#ref-29">29</a>]</span> for TypeScript projects.</p>
+In order to minimize manual effort for such projects, we provide the open-source tool <a property="schema:citation http://purl.org/spar/cito/cites" href="https://github.com/LinkedSoftwareDependencies/Components-Generator.js/"><em>Components-Generator.js</em></a> <span class="references">[<a href="#ref-38">38</a>]</span>
+(<span property="schema:citation http://purl.org/spar/cito/cites" resource="https://dx.doi.org/10.5281/zenodo.5644902"><a href="https://doi.org/10.5281/zenodo.5644902">Zenodo</a></span> <span class="references">[<a href="#ref-39">39</a>]</span>) for TypeScript projects.</p>
 
           <p>Concretely, this tool can be installed into any TypeScript project.
 When its command-line script is invoked, it scans all exported TypeScript classes within this project,
@@ -786,7 +816,7 @@ For instance, this allows the framework to be compatible with other upcoming Jav
           <h3 id="implementation">Implementation</h3>
 
           <p>Components.js has been implemented in TypeScript,
-and is available on <a property="schema:citation http://purl.org/spar/cito/cites" href="https://github.com/LinkedSoftwareDependencies/Components.js">GitHub</a> <span class="references">[<a href="#ref-5">5</a>]</span>
+and is available on <a property="schema:citation http://purl.org/spar/cito/cites" href="https://github.com/LinkedSoftwareDependencies/Components.js">GitHub</a> <span class="references">[<a href="#ref-5">5</a>]</span> and <span property="schema:citation http://purl.org/spar/cito/cites" resource="https://dx.doi.org/10.5281/zenodo.1243988"><a href="https://doi.org/10.5281/zenodo.1243988">Zenodo</a></span> <span class="references">[<a href="#ref-40">40</a>]</span>
 under the MIT license.
 At the time of writing, the latest release is at version 4.4.1,
 which is published via the <a property="schema:citation http://purl.org/spar/cito/cites" href="https://www.npmjs.com/package/componentsjs">npm package manager</a> <span class="references">[<a href="#ref-6">6</a>]</span>.</p>
@@ -797,7 +827,9 @@ At the time of writing, it consists of 538 unit tests,
 which reach a test coverage of 100%.</p>
 
           <p>Components.js is being maintained by IDLab via software projects that make use of this framework.
-A sustainability of this project is available on <a property="schema:citation http://purl.org/spar/cito/cites" href="https://github.com/LinkedSoftwareDependencies/Components.js/wiki/Sustainability-Plan">GitHub</a> <span class="references">[<a href="#ref-30">30</a>]</span>.</p>
+Furthermore, Components.js is part of the <a property="schema:citation http://purl.org/spar/cito/cites" href="https://comunica.dev/association/">Comunica Association</a> <span class="references">[<a href="#ref-41">41</a>]</span>,
+which is a non-profit organization that aims to ensure the long-term sustainability of certain open-source projects.
+A sustainability of this project is available on <a property="schema:citation http://purl.org/spar/cito/cites" href="https://github.com/LinkedSoftwareDependencies/Components.js/wiki/Sustainability-Plan">GitHub</a> <span class="references">[<a href="#ref-42">42</a>]</span>.</p>
 
           <p>Finally, in-depth <a property="schema:citation http://purl.org/spar/cito/cites" href="https://componentsjs.readthedocs.io/">documentation</a> <span class="references">[<a href="#ref-7">7</a>]</span> is available,
 which explains how to create component and configuration files,
@@ -828,7 +860,7 @@ However, there are outliers for which Components.js has weekly downloads peak up
 
           <p>While these GitHub and npm metrics give us <em>some</em> insight into the usage of Components.js,
 they are incomplete, as projects may be hosted on other source code platforms such as GitLab, Bitbucket, or even private instances.
-Furthermore, direct downloads from npm are also incomplete, as downstream users may use bundling tools such as <a property="schema:citation http://purl.org/spar/cito/cites" href="https://webpack.js.org/">Webpack</a> <span class="references">[<a href="#ref-31">31</a>]</span>
+Furthermore, direct downloads from npm are also incomplete, as downstream users may use bundling tools such as <a property="schema:citation http://purl.org/spar/cito/cites" href="https://webpack.js.org/">Webpack</a> <span class="references">[<a href="#ref-43">43</a>]</span>
 to incorporate the Components.js source code directly within their library, which makes downloads of that library not go via the the Components.js npm package anymore.
 On the other hand, automated downloads by bots (e.g. for mirror services) may artificially increase the download number, without actually representing real usage.
 Therefore, we conclude that the metrics reported here are merely an estimate.</p>
@@ -842,11 +874,11 @@ Solid Community Server, Handlers.js, Digita Identity Proxy, and Comunica.</p>
           <h4 id="solid-community-server">Solid Community Server</h4>
 
           <p>The <a property="schema:citation http://purl.org/spar/cito/cites" href="https://github.com/solid/community-server/">Solid Community Server</a> <span class="references">[<a href="#ref-8">8</a>]</span>
-is a server-side implementation of the <a property="schema:citation http://purl.org/spar/cito/cites" href="https://solid.github.io/specification/">Solid specifications</a> <span class="references">[<a href="#ref-32">32</a>]</span>,
+is a server-side implementation of the <a property="schema:citation http://purl.org/spar/cito/cites" href="https://solid.github.io/specification/">Solid specifications</a> <span class="references">[<a href="#ref-44">44</a>]</span>,
 which provides a basis for the Solid decentralization effort.
 When such a server is hosted, it allows users to create their own personal storage space (pod) and identity,
 so that this data can be used within any external Solid application.
-This server is written in TypeScript, and is being developed by <a property="schema:citation http://purl.org/spar/cito/cites" href="https://inrupt.com/">Inrupt</a> <span class="references">[<a href="#ref-33">33</a>]</span> and <a property="schema:citation http://purl.org/spar/cito/cites" href="https://www.imec-int.com/en">imec</a> <span class="references">[<a href="#ref-34">34</a>]</span>,
+This server is written in TypeScript, and is being developed by <a property="schema:citation http://purl.org/spar/cito/cites" href="https://inrupt.com/">Inrupt</a> <span class="references">[<a href="#ref-45">45</a>]</span> and <a property="schema:citation http://purl.org/spar/cito/cites" href="https://www.imec-int.com/en">imec</a> <span class="references">[<a href="#ref-46">46</a>]</span>,
 which includes authors of this article.</p>
 
           <p>This server makes use of dependency injection because a primary goal of the server is to be as flexible as possible,
@@ -862,11 +894,11 @@ At the time of writing, this server contains 246 components that can be customiz
 
           <h4 id="handlersjs">Handlers.js</h4>
 
-          <p><a property="schema:citation http://purl.org/spar/cito/cites" href="https://github.com/digita-ai/handlersjs">Handlers.js</a> <span class="references">[<a href="#ref-35">35</a>]</span> aims to provide a comprehensive collection of generic logic classes,
+          <p><a property="schema:citation http://purl.org/spar/cito/cites" href="https://github.com/digita-ai/handlersjs">Handlers.js</a> <span class="references">[<a href="#ref-47">47</a>]</span> aims to provide a comprehensive collection of generic logic classes,
 that can be wired together via the composition pattern.
 While this project is still under development, it already provides numerous handlers and services pertaining to
 data flows, storage, logging, error handling, as well as logic about serving data over HTTP (routing, CORS, content negotiation …).
-This project is written in TypeScript, and is being developed by <a property="schema:citation http://purl.org/spar/cito/cites" href="https://www.digita.ai/">Digita</a> <span class="references">[<a href="#ref-36">36</a>]</span>.</p>
+This project is written in TypeScript, and is being developed by <a property="schema:citation http://purl.org/spar/cito/cites" href="https://www.digita.ai/">Digita</a> <span class="references">[<a href="#ref-48">48</a>]</span>.</p>
 
           <p>In contrast to the Solid Community Server, Handlers.js is not meant to be usable by itself as standalone tool.
 Instead, it is an accompanying library that can be used by other tools.
@@ -881,16 +913,16 @@ Since components within Components.js have global semantics, these components ca
 
           <h4 id="digita-identity-proxy">Digita Identity Proxy</h4>
 
-          <p>The Digita Identity Proxy (not public at the time of writing) is a <a property="schema:citation http://purl.org/spar/cito/cites" href="https://solid.github.io/authentication-panel/solid-oidc/">Solid-OIDC</a> <span class="references">[<a href="#ref-37">37</a>]</span>-compliant proxy server
-that acts as a modular, and easily configurable compatibility layer for classic <a property="schema:citation http://purl.org/spar/cito/cites" href="https://openid.net/connect/">OIDC</a> <span class="references">[<a href="#ref-38">38</a>]</span> Identity Providers.
+          <p>The Digita Identity Proxy (not public at the time of writing) is a <a property="schema:citation http://purl.org/spar/cito/cites" href="https://solid.github.io/authentication-panel/solid-oidc/">Solid-OIDC</a> <span class="references">[<a href="#ref-49">49</a>]</span>-compliant proxy server
+that acts as a modular, and easily configurable compatibility layer for classic <a property="schema:citation http://purl.org/spar/cito/cites" href="https://openid.net/connect/">OIDC</a> <span class="references">[<a href="#ref-50">50</a>]</span> Identity Providers.
 It enables Solid apps to authenticate at Solid pod servers with these existing identity services, without any necessary modification.
-This project is also written in TypeScript, and is under development by <a property="schema:citation http://purl.org/spar/cito/cites" href="https://www.digita.ai/">Digita</a> <span class="references">[<a href="#ref-36">36</a>]</span>.</p>
+This project is also written in TypeScript, and is under development by <a property="schema:citation http://purl.org/spar/cito/cites" href="https://www.digita.ai/">Digita</a> <span class="references">[<a href="#ref-48">48</a>]</span>.</p>
 
           <p>Several components exists that enable additional functionality of Solid-OIDC,
 which can be plugged into the proxy when the need exists.
 With Components.js, these components can be easily configured and plugged in via a configuration file.</p>
 
-          <h4 id="comunica">Comunica</h4>
+          <h4 id="usage-comunica">Comunica</h4>
 
           <p><a property="schema:citation http://purl.org/spar/cito/cites" href="https://comunica.github.io/Article-ISWC2018-Resource/">Comunica</a> <span class="references">[<a href="#ref-9">9</a>]</span> is another project that makes use of Components.js at its core.
 Comunica is a highly modular SPARQL query engine
@@ -918,8 +950,10 @@ It is often the case that research articles with experimental results only repor
 without mentioning the exact version and configuration that was used.
 When using a Components.js configuration file,
 the necessary semantics for accurately replicating such experiments are available as Linked Data.
-The reproducibility of <a property="schema:citation http://purl.org/spar/cito/cites" href="https://git.its.aau.dk/CLAAUDIA/teach_reproducibility/raw/commit/dbea465c0d10bca50b0cca23fd93afd0ffea08dc/litt/Wavelab%20and%20reproducible%20research.pdf">experimental results is often considered to be even more important than the research article itself</a> <span class="references">[<a href="#ref-39">39</a>]</span>,
-as the article can be considered to be merely <em>advertising of the scholarship</em>.</p>
+The reproducibility of <a property="schema:citation http://purl.org/spar/cito/cites" href="https://git.its.aau.dk/CLAAUDIA/teach_reproducibility/raw/commit/dbea465c0d10bca50b0cca23fd93afd0ffea08dc/litt/Wavelab%20and%20reproducible%20research.pdf">experimental results is often considered to be even more important than the research article itself</a> <span class="references">[<a href="#ref-51">51</a>]</span>,
+as the article can be considered to be merely <em>advertising of the scholarship</em>.
+For example, the <a property="schema:citation http://purl.org/spar/cito/cites" href="https://comunica.github.io/Article-ISWC2018-Resource/">Comunica research article</a> <span class="references">[<a href="#ref-9">9</a>]</span> contains an <a href="https://comunica.github.io/Article-ISWC2018-Resource/#evaluation-workflow" class="mandatory" data-link-text="https:/​/​comunica.github.io/​Article-​ISWC2018-​Resource/​#evaluation-​workflow">experiment workflow</a>
+that is backed by the used Components.js configuration files.</p>
 
         </div>
 </section>
@@ -959,10 +993,16 @@ In order to mitigate these risks, we recommend a structured management of config
 which may involve splitting up configuration files based on an architecture’s primary subsystems,
 which is the approach followed by large projects such as Solid Community Server and Comunica.</p>
 
+          <p>The dereferenceability of software configurations by IRI is also an important benefit of the Components.js framework.
+In the introduction, we mentioned that this dereferenceability could be beneficial for
+experimental research, static program analysis, and semantic workflows.
+So far, we only have concrete proof of the experimental research use case as shown in <a href="#usage-comunica">Subsubsection 5.2.4</a>.
+We hope to see examples of the other use cases making use of this functionality in future work.</p>
+
           <p>In future work, we do not foresee the need for any major changes or additions within the Components.js framework itself,
 aside from keeping up with new language features from JavaScript and TypeScript.
 However, all large projects that make use of Components.js have identified the need for better tooling to create and manage configuration files.
-For example, the Comunica project is developing a <a property="schema:citation http://purl.org/spar/cito/cites" href="https://github.com/comunica/comunica-packager">graphical user interface</a> <span class="references">[<a href="#ref-40">40</a>]</span>
+For example, the Comunica project is developing a <a property="schema:citation http://purl.org/spar/cito/cites" href="https://github.com/comunica/comunica-packager">graphical user interface</a> <span class="references">[<a href="#ref-52">52</a>]</span>
 to visually customize the wiring of the engine, which can then be exported into a reusable configuration file.
 Since Components.js configurations make use of the Linked Data principles,
 it is possible to create a generic user interface to create such configuration files for any project that makes use of Components.js.
@@ -1019,64 +1059,88 @@ Ruben Taelman is a postdoctoral fellow of the Research Foundation – Flanders (
   <dt id="ref-10">[10]</dt>
   <dd resource="https://linkedsoftwaredependencies.org/articles/describing-experiments/" typeof="schema:Article">Van Herwegen, J., Taelman, R., Capadisli, S., Verborgh, R.: Describing configurations of software experiments as Linked Data. In: Proceedings of the 1st SemSci Workshop (2017).</dd>
   <dt id="ref-11">[11]</dt>
-  <dd resource="#malone2014software" typeof="schema:Article">Malone, J., Brown, A., Lister, A.L., Ison, J., Hull, D., Parkinson, H., Stevens, R.: The Software Ontology (SWO): a resource for reproducibility in biomedical data analysis, curation and digital preservation. Journal of biomedical semantics. 5, 25 (2014).</dd>
-  <dt id="ref-12">[12]</dt>
-  <dd resource="http://usefulinc.com/ns/doap" typeof="schema:CreativeWork">Wilder-James, E.: Description of a Project. <a href="http://usefulinc.com/ns/doap">http:/​/​usefulinc.com/ns/doap</a> (2017).</dd>
-  <dt id="ref-13">[13]</dt>
-  <dd resource="https://dx.doi.org/10.1145/2814864.2814882" typeof="schema:Article">Rautenberg, S., Ermilov, I., Marx, E., Auer, S., Ngonga Ngomo, A.-C.: LODFlow: A Workflow Management System for Linked Data Processing. In: Proceedings of the 11th International Conference on Semantic Systems. pp. 137–144. ACM (2015).</dd>
-  <dt id="ref-14">[14]</dt>
-  <dd resource="https://dx.doi.org/10.1016/j.websem.2015.01.003" typeof="schema:Article">Belhajjame, K., Zhao, J., Garijo, D., Gamble, M., Hettne, K., Palma, R., Mina, E., Corcho, O., Gómez-Pérez, J.M., Bechhofer, S., Klyne, G., Goble, C.: Using a suite of ontologies for preserving workflow-centric research objects. Web Semantics: Science,  Services and Agents on the World Wide Web. 32, 16–42 (2015).</dd>
-  <dt id="ref-15">[15]</dt>
-  <dd resource="https://dx.doi.org/10.1109/escience.2014.47" typeof="schema:Article">Mayer, R., Miksa, T., Rauber, A.: Ontologies for Describing the Context of Scientific Experiment Processes. In: 10th International Conference on e-Science. IEEE (2014).</dd>
-  <dt id="ref-16">[16]</dt>
-  <dd resource="https://www.w3.org/TR/prov-o/" typeof="schema:CreativeWork">Lebo, T., Sahoo, S., McGuinness, D.: Prov-O: The PROV Ontology. W3C, <a href="https://www.w3.org/TR/prov-o/">https:/​/​www.w3.org/TR/prov-o/</a> (2013).</dd>
-  <dt id="ref-17">[17]</dt>
-  <dd resource="http://www.opmw.org/model/OPMW/" typeof="schema:CreativeWork">Garijo, D., Gil, Y.: OPMW-PROV Ontology. <a href="http://www.opmw.org/model/OPMW/">http:/​/​www.opmw.org/model/OPMW/</a> (2014).</dd>
-  <dt id="ref-18">[18]</dt>
-  <dd resource="http://rdf-vocabulary.ddialliance.org/discovery.html" typeof="schema:CreativeWork">Bosch, T., Cyganiak, R., Wackerow, J., Zapilko, B.: DDI-RDF Discovery Vocabulary. <a href="http://rdf-vocabulary.ddialliance.org/discovery.html">http:/​/​rdf-vocabulary.ddialliance.org/discovery.html</a> (2015).</dd>
-  <dt id="ref-19">[19]</dt>
-  <dd resource="#oberle2009ontology" typeof="schema:Chapter">Oberle, D., Grimm, S., Staab, S.: An ontology for software. In: Handbook on ontologies. pp. 383–402. Springer (2009).</dd>
-  <dt id="ref-20">[20]</dt>
-  <dd resource="#ruy2016seon" typeof="schema:Article">Ruy, F.B., de Almeida Falbo, R., Barcellos, M.P., Costa, S.D., Guizzardi, G.: SEON: A software engineering ontology network. In: European Knowledge Acquisition Workshop. pp. 527–542. Springer (2016).</dd>
-  <dt id="ref-21">[21]</dt>
-  <dd resource="https://nodejs.org/en/" typeof="schema:CreativeWork">Node.js. <a href="https://nodejs.org/en/">https:/​/​nodejs.org/en/</a> (2021).</dd>
-  <dt id="ref-22">[22]</dt>
-  <dd resource="https://deno.land/" typeof="schema:CreativeWork">V8 JavaScript engine. <a href="https://deno.land/">https:/​/​deno.land/</a> (2021).</dd>
-  <dt id="ref-23">[23]</dt>
-  <dd resource="https://www.npmjs.com/" typeof="schema:CreativeWork">npm. <a href="https://www.npmjs.com/">https:/​/​www.npmjs.com/</a> (2021).</dd>
-  <dt id="ref-24">[24]</dt>
-  <dd resource="https://deno.land/" typeof="schema:CreativeWork">Deno. <a href="https://deno.land/">https:/​/​deno.land/</a> (2021).</dd>
-  <dt id="ref-25">[25]</dt>
-  <dd resource="https://www.w3.org/TR/json-ld/" typeof="schema:CreativeWork">JSON-LD 1.1: a JSON-based serialization for linked data. <a href="https://www.w3.org/TR/json-ld/">https:/​/​www.w3.org/TR/json-ld/</a></dd>
-  <dt id="ref-26">[26]</dt>
-  <dd resource="https://github.com/ewilderj/doap/wiki" typeof="schema:CreativeWork">Wilder-James, E.: Description of a Project. <a href="https://github.com/ewilderj/doap/wiki">https:/​/​github.com/ewilderj/doap/wiki</a> (2017).</dd>
-  <dt id="ref-27">[27]</dt>
   <dd resource="https://linkedsoftwaredependencies.org/vocabularies/object-mapping" typeof="schema:CreativeWork">Taelman, R.: Object Mapping vocabulary. <a href="https://linkedsoftwaredependencies.org/vocabularies/object-mapping">https:/​/​linkedsoftwaredependencies.org/vocabularies/object-mapping</a> (2017).</dd>
+  <dt id="ref-12">[12]</dt>
+  <dd resource="https://nixos.org/" typeof="schema:CreativeWork">NixOS - NixOS Linux. <a href="https://nixos.org/">https:/​/​nixos.org/</a> (2021).</dd>
+  <dt id="ref-13">[13]</dt>
+  <dd resource="#malone2014software" typeof="schema:Article">Malone, J., Brown, A., Lister, A.L., Ison, J., Hull, D., Parkinson, H., Stevens, R.: The Software Ontology (SWO): a resource for reproducibility in biomedical data analysis, curation and digital preservation. Journal of biomedical semantics. 5, 25 (2014).</dd>
+  <dt id="ref-14">[14]</dt>
+  <dd resource="http://usefulinc.com/ns/doap" typeof="schema:CreativeWork">Wilder-James, E.: Description of a Project. <a href="http://usefulinc.com/ns/doap">http:/​/​usefulinc.com/ns/doap</a> (2017).</dd>
+  <dt id="ref-15">[15]</dt>
+  <dd resource="https://dx.doi.org/10.1145/2814864.2814882" typeof="schema:Article">Rautenberg, S., Ermilov, I., Marx, E., Auer, S., Ngonga Ngomo, A.-C.: LODFlow: A Workflow Management System for Linked Data Processing. In: Proceedings of the 11th International Conference on Semantic Systems. pp. 137–144. ACM (2015).</dd>
+  <dt id="ref-16">[16]</dt>
+  <dd resource="https://dx.doi.org/10.1016/j.websem.2015.01.003" typeof="schema:Article">Belhajjame, K., Zhao, J., Garijo, D., Gamble, M., Hettne, K., Palma, R., Mina, E., Corcho, O., Gómez-Pérez, J.M., Bechhofer, S., Klyne, G., Goble, C.: Using a suite of ontologies for preserving workflow-centric research objects. Web Semantics: Science,  Services and Agents on the World Wide Web. 32, 16–42 (2015).</dd>
+  <dt id="ref-17">[17]</dt>
+  <dd resource="https://dx.doi.org/10.1109/escience.2014.47" typeof="schema:Article">Mayer, R., Miksa, T., Rauber, A.: Ontologies for Describing the Context of Scientific Experiment Processes. In: 10th International Conference on e-Science. IEEE (2014).</dd>
+  <dt id="ref-18">[18]</dt>
+  <dd resource="https://www.w3.org/TR/prov-o/" typeof="schema:CreativeWork">Lebo, T., Sahoo, S., McGuinness, D.: Prov-O: The PROV Ontology. W3C, <a href="https://www.w3.org/TR/prov-o/">https:/​/​www.w3.org/TR/prov-o/</a> (2013).</dd>
+  <dt id="ref-19">[19]</dt>
+  <dd resource="https://dx.doi.org/10.1145/2110497.2110504" typeof="schema:Article">Garijo, D., Gil, Y.: A new approach for publishing workflows: abstractions, standards, and linked data. In: Proceedings of the 6th workshop on Workflows in support of large-scale science. pp. 47–56. ACM (2011).</dd>
+  <dt id="ref-20">[20]</dt>
+  <dd resource="http://rdf-vocabulary.ddialliance.org/discovery.html" typeof="schema:CreativeWork">Bosch, T., Cyganiak, R., Wackerow, J., Zapilko, B.: DDI-RDF Discovery Vocabulary. <a href="http://rdf-vocabulary.ddialliance.org/discovery.html">http:/​/​rdf-vocabulary.ddialliance.org/discovery.html</a> (2015).</dd>
+  <dt id="ref-21">[21]</dt>
+  <dd resource="#oberle2009ontology" typeof="schema:Chapter">Oberle, D., Grimm, S., Staab, S.: An ontology for software. In: Handbook on ontologies. pp. 383–402. Springer (2009).</dd>
+  <dt id="ref-22">[22]</dt>
+  <dd resource="#ruy2016seon" typeof="schema:Article">Ruy, F.B., de Almeida Falbo, R., Barcellos, M.P., Costa, S.D., Guizzardi, G.: SEON: A software engineering ontology network. In: European Knowledge Acquisition Workshop. pp. 527–542. Springer (2016).</dd>
+  <dt id="ref-23">[23]</dt>
+  <dd resource="#GraphGen4Code" typeof="schema:CreativeWork">Abdelaziz, I., Dolby, J., McCusker, J., Srinivas, K.: A Toolkit for Generating Code Knowledge Graphs (2021).</dd>
+  <dt id="ref-24">[24]</dt>
+  <dd resource="https://spring.io/" typeof="schema:CreativeWork">Spring. <a href="https://spring.io/">https:/​/​spring.io/</a> (2021).</dd>
+  <dt id="ref-25">[25]</dt>
+  <dd resource="https://github.com/google/guice" typeof="schema:CreativeWork">Guice. <a href="https://github.com/google/guice">https:/​/​github.com/google/guice</a> (2021).</dd>
+  <dt id="ref-26">[26]</dt>
+  <dd resource="https://github.com/google/dagger" typeof="schema:CreativeWork">Dagger. <a href="https://github.com/google/dagger">https:/​/​github.com/google/dagger</a> (2021).</dd>
+  <dt id="ref-27">[27]</dt>
+  <dd resource="https://github.com/young-steveo/bottlejs" typeof="schema:CreativeWork">BottleJS. <a href="https://github.com/young-steveo/bottlejs">https:/​/​github.com/young-steveo/bottlejs</a> (2021).</dd>
   <dt id="ref-28">[28]</dt>
-  <dd resource="https://linkedsoftwaredependencies.org/" typeof="schema:CreativeWork">Van Herwegen, J., Taelman, R.: Linked Software Dependencies. <a href="https://linkedsoftwaredependencies.org/">https:/​/​linkedsoftwaredependencies.org/</a> (2021).</dd>
+  <dd resource="https://github.com/cujojs/wire" typeof="schema:CreativeWork">Wire. <a href="https://github.com/cujojs/wire">https:/​/​github.com/cujojs/wire</a> (2021).</dd>
   <dt id="ref-29">[29]</dt>
-  <dd resource="https://github.com/LinkedSoftwareDependencies/Components-Generator.js/" typeof="schema:CreativeWork">Taelman, R.: Components.js Generator Source Code. <a href="https://github.com/LinkedSoftwareDependencies/Components-Generator.js/">https:/​/​github.com/LinkedSoftwareDependencies/Components-Generator.js/</a> (2021).</dd>
+  <dd resource="https://github.com/jaredhanson/electrolyte" typeof="schema:CreativeWork">Electrolyte. <a href="https://github.com/jaredhanson/electrolyte">https:/​/​github.com/jaredhanson/electrolyte</a> (2021).</dd>
   <dt id="ref-30">[30]</dt>
-  <dd resource="https://github.com/LinkedSoftwareDependencies/Components.js/wiki/Sustainability-Plan" typeof="schema:CreativeWork">Taelman, R.: Components.js Sustainability Plan. <a href="https://github.com/LinkedSoftwareDependencies/Components.js/wiki/Sustainability-Plan">https:/​/​github.com/LinkedSoftwareDependencies/Components.js/wiki/Sustainability-Plan</a> (2017).</dd>
+  <dd resource="https://github.com/inversify/InversifyJS" typeof="schema:CreativeWork">InversifyJS. <a href="https://github.com/inversify/InversifyJS">https:/​/​github.com/inversify/InversifyJS</a> (2021).</dd>
   <dt id="ref-31">[31]</dt>
-  <dd resource="https://webpack.js.org/" typeof="schema:CreativeWork">webpack. <a href="https://webpack.js.org/">https:/​/​webpack.js.org/</a> (2021).</dd>
+  <dd resource="https://nodejs.org/en/" typeof="schema:CreativeWork">Node.js. <a href="https://nodejs.org/en/">https:/​/​nodejs.org/en/</a> (2021).</dd>
   <dt id="ref-32">[32]</dt>
-  <dd resource="https://solid.github.io/specification/" typeof="schema:CreativeWork">Solid Technical Reports. <a href="https://solid.github.io/specification/">https:/​/​solid.github.io/specification/</a> (2021).</dd>
+  <dd resource="https://v8.dev/" typeof="schema:CreativeWork">V8 JavaScript engine. <a href="https://v8.dev/">https:/​/​v8.dev/</a> (2021).</dd>
   <dt id="ref-33">[33]</dt>
-  <dd resource="https://inrupt.com/" typeof="schema:CreativeWork">Inrupt. <a href="https://inrupt.com/">https:/​/​inrupt.com/</a> (2021).</dd>
+  <dd resource="https://www.npmjs.com/" typeof="schema:CreativeWork">npm. <a href="https://www.npmjs.com/">https:/​/​www.npmjs.com/</a> (2021).</dd>
   <dt id="ref-34">[34]</dt>
-  <dd resource="https://www.imec-int.com/en" typeof="schema:CreativeWork">imec R&amp;D. <a href="https://www.imec-int.com/en">https:/​/​www.imec-int.com/en</a> (2021).</dd>
+  <dd resource="https://deno.land/" typeof="schema:CreativeWork">Deno. <a href="https://deno.land/">https:/​/​deno.land/</a> (2021).</dd>
   <dt id="ref-35">[35]</dt>
-  <dd resource="https://github.com/digita-ai/handlersjs" typeof="schema:CreativeWork">Termont, W.: Handlers.js. <a href="https://github.com/digita-ai/handlersjs">https:/​/​github.com/digita-ai/handlersjs</a> (2021).</dd>
+  <dd resource="https://www.w3.org/TR/json-ld/" typeof="schema:CreativeWork">JSON-LD 1.1: a JSON-based serialization for linked data. <a href="https://www.w3.org/TR/json-ld/">https:/​/​www.w3.org/TR/json-ld/</a></dd>
   <dt id="ref-36">[36]</dt>
-  <dd resource="https://www.digita.ai/" typeof="schema:CreativeWork">Digita - Solid for Enterprises. <a href="https://www.digita.ai/">https:/​/​www.digita.ai/</a> (2021).</dd>
+  <dd resource="https://github.com/ewilderj/doap/wiki" typeof="schema:CreativeWork">Wilder-James, E.: Description of a Project. <a href="https://github.com/ewilderj/doap/wiki">https:/​/​github.com/ewilderj/doap/wiki</a> (2017).</dd>
   <dt id="ref-37">[37]</dt>
-  <dd resource="https://solid.github.io/authentication-panel/solid-oidc/" typeof="schema:CreativeWork">Coburn, A., Pavlik, elf, Zagidulin, D.: Solid-OIDC. <a href="https://solid.github.io/authentication-panel/solid-oidc/">https:/​/​solid.github.io/authentication-panel/solid-oidc/</a> (2021).</dd>
+  <dd resource="https://linkedsoftwaredependencies.org/" typeof="schema:CreativeWork">Van Herwegen, J., Taelman, R.: Linked Software Dependencies. <a href="https://linkedsoftwaredependencies.org/">https:/​/​linkedsoftwaredependencies.org/</a> (2021).</dd>
   <dt id="ref-38">[38]</dt>
-  <dd resource="https://openid.net/connect/" typeof="schema:CreativeWork">OpenID Connect. <a href="https://openid.net/connect/">https:/​/​openid.net/connect/</a> (2020).</dd>
+  <dd resource="https://github.com/LinkedSoftwareDependencies/Components-Generator.js/" typeof="schema:CreativeWork">Taelman, R.: Components.js Generator Source Code. <a href="https://github.com/LinkedSoftwareDependencies/Components-Generator.js/">https:/​/​github.com/LinkedSoftwareDependencies/Components-Generator.js/</a> (2021).</dd>
   <dt id="ref-39">[39]</dt>
-  <dd resource="https://git.its.aau.dk/CLAAUDIA/teach_reproducibility/raw/commit/dbea465c0d10bca50b0cca23fd93afd0ffea08dc/litt/Wavelab%20and%20reproducible%20research.pdf" typeof="schema:CreativeWork">Buckheit, J.B., Donoho, D.L.: WaveLab and Reproducible Research. Stanford University, <a href="https://git.its.aau.dk/CLAAUDIA/teach_reproducibility/raw/commit/dbea465c0d10bca50b0cca23fd93afd0ffea08dc/litt/Wavelab%20and%20reproducible%20research.pdf">https:/​/​git.its.aau.dk/CLAAUDIA/teach_reproducibility/raw/commit/dbea465c0d10bca50b0cca23fd93afd0ffea08dc/litt/Wavelab%20and%20reproducible%20research.pdf</a> (1995).</dd>
+  <dd resource="https://dx.doi.org/10.5281/zenodo.5644902" typeof="schema:CreativeWork">Taelman, R., Herwegen, J.V., Heyvaert, P.: LinkedSoftwareDependencies/Components-  Generator.js: 2.6.1. <a href="https://doi.org/10.5281/zenodo.5644902">https:/​/​doi.org/10.5281/zenodo.5644902</a> (2021).</dd>
   <dt id="ref-40">[40]</dt>
+  <dd resource="https://dx.doi.org/10.5281/zenodo.1243988" typeof="schema:CreativeWork">Taelman, R., Verborgh, R., Herwegen, J.V., Noterman, L.: LinkedSoftwareDependencies/Components.js 2.0.0. <a href="https://doi.org/10.5281/zenodo.1243988">https:/​/​doi.org/10.5281/zenodo.1243988</a> (2018).</dd>
+  <dt id="ref-41">[41]</dt>
+  <dd resource="https://comunica.dev/association/" typeof="schema:CreativeWork">Comunica Association. <a href="https://comunica.dev/association/">https:/​/​comunica.dev/association/</a> (2021).</dd>
+  <dt id="ref-42">[42]</dt>
+  <dd resource="https://github.com/LinkedSoftwareDependencies/Components.js/wiki/Sustainability-Plan" typeof="schema:CreativeWork">Taelman, R.: Components.js Sustainability Plan. <a href="https://github.com/LinkedSoftwareDependencies/Components.js/wiki/Sustainability-Plan">https:/​/​github.com/LinkedSoftwareDependencies/Components.js/wiki/Sustainability-Plan</a> (2017).</dd>
+  <dt id="ref-43">[43]</dt>
+  <dd resource="https://webpack.js.org/" typeof="schema:CreativeWork">webpack. <a href="https://webpack.js.org/">https:/​/​webpack.js.org/</a> (2021).</dd>
+  <dt id="ref-44">[44]</dt>
+  <dd resource="https://solid.github.io/specification/" typeof="schema:CreativeWork">Solid Technical Reports. <a href="https://solid.github.io/specification/">https:/​/​solid.github.io/specification/</a> (2021).</dd>
+  <dt id="ref-45">[45]</dt>
+  <dd resource="https://inrupt.com/" typeof="schema:CreativeWork">Inrupt. <a href="https://inrupt.com/">https:/​/​inrupt.com/</a> (2021).</dd>
+  <dt id="ref-46">[46]</dt>
+  <dd resource="https://www.imec-int.com/en" typeof="schema:CreativeWork">imec R&amp;D. <a href="https://www.imec-int.com/en">https:/​/​www.imec-int.com/en</a> (2021).</dd>
+  <dt id="ref-47">[47]</dt>
+  <dd resource="https://github.com/digita-ai/handlersjs" typeof="schema:CreativeWork">Termont, W.: Handlers.js. <a href="https://github.com/digita-ai/handlersjs">https:/​/​github.com/digita-ai/handlersjs</a> (2021).</dd>
+  <dt id="ref-48">[48]</dt>
+  <dd resource="https://www.digita.ai/" typeof="schema:CreativeWork">Digita - Solid for Enterprises. <a href="https://www.digita.ai/">https:/​/​www.digita.ai/</a> (2021).</dd>
+  <dt id="ref-49">[49]</dt>
+  <dd resource="https://solid.github.io/authentication-panel/solid-oidc/" typeof="schema:CreativeWork">Coburn, A., Pavlik, elf, Zagidulin, D.: Solid-OIDC. <a href="https://solid.github.io/authentication-panel/solid-oidc/">https:/​/​solid.github.io/authentication-panel/solid-oidc/</a> (2021).</dd>
+  <dt id="ref-50">[50]</dt>
+  <dd resource="https://openid.net/connect/" typeof="schema:CreativeWork">OpenID Connect. <a href="https://openid.net/connect/">https:/​/​openid.net/connect/</a> (2020).</dd>
+  <dt id="ref-51">[51]</dt>
+  <dd resource="https://git.its.aau.dk/CLAAUDIA/teach_reproducibility/raw/commit/dbea465c0d10bca50b0cca23fd93afd0ffea08dc/litt/Wavelab%20and%20reproducible%20research.pdf" typeof="schema:CreativeWork">Buckheit, J.B., Donoho, D.L.: WaveLab and Reproducible Research. Stanford University, <a href="https://git.its.aau.dk/CLAAUDIA/teach_reproducibility/raw/commit/dbea465c0d10bca50b0cca23fd93afd0ffea08dc/litt/Wavelab%20and%20reproducible%20research.pdf">https:/​/​git.its.aau.dk/CLAAUDIA/teach_reproducibility/raw/commit/dbea465c0d10bca50b0cca23fd93afd0ffea08dc/litt/Wavelab%20and%20reproducible%20research.pdf</a> (1995).</dd>
+  <dt id="ref-52">[52]</dt>
   <dd resource="https://github.com/comunica/comunica-packager" typeof="schema:CreativeWork">Comunica Packager Source Code. <a href="https://github.com/comunica/comunica-packager">https:/​/​github.com/comunica/comunica-packager</a> (2020).</dd>
 </dl>
 </section>
