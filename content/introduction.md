@@ -53,7 +53,7 @@ By publishing such descriptions,
 the composition of software (and parts thereof) can be _unambiguously identified_ by IRIs and 
 retrieved through _dereferencing_.
 Components.js automatically _instantiates_ such software configurations, including resolving the necessary dependencies.
-As such, this (de)referenceability of software configurations by IRI is beneficial in use cases such as:
+As such, this (de)referenceability of software configurations by IRI could be beneficial in use cases such as:
 
 Experimental research
 : Providing the full provenance trail of used software configurations to produce experimental results for improving reproducibility.

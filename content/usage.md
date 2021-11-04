@@ -82,6 +82,7 @@ which can be plugged into the proxy when the need exists.
 With Components.js, these components can be easily configured and plugged in via a configuration file.
 
 #### Comunica
+{:#usage-comunica}
 
 [Comunica](cite:cites comunica) is another project that makes use of Components.js at its core.
 Comunica is a highly modular SPARQL query engine
@@ -111,3 +112,5 @@ When using a Components.js configuration file,
 the necessary semantics for accurately replicating such experiments are available as Linked Data.
 The reproducibility of [experimental results is often considered to be even more important than the research article itself](cite:cites WaveLab),
 as the article can be considered to be merely _advertising of the scholarship_.
+For example, the [Comunica research article](cite:cites comunica) contains an [experiment workflow](https://comunica.github.io/Article-ISWC2018-Resource/#evaluation-workflow){:.mandatory}
+that is backed by the used Components.js configuration files.

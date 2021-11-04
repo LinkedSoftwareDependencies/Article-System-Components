@@ -30,6 +30,12 @@ In order to mitigate these risks, we recommend a structured management of config
 which may involve splitting up configuration files based on an architecture's primary subsystems,
 which is the approach followed by large projects such as Solid Community Server and Comunica.
 
+The dereferenceability of software configurations by IRI is also an important benefit of the Components.js framework.
+In the introduction, we mentioned that this dereferenceability could be beneficial for
+experimental research, static program analysis, and semantic workflows.
+So far, we only have concrete proof of the experimental research use case as shown in [](#usage-comunica).
+We hope to see examples of the other use cases making use of this functionality in future work.
+
 In future work, we do not foresee the need for any major changes or additions within the Components.js framework itself,
 aside from keeping up with new language features from JavaScript and TypeScript.
 However, all large projects that make use of Components.js have identified the need for better tooling to create and manage configuration files.
