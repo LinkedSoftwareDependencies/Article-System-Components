@@ -4,12 +4,17 @@
 Object-oriented (OO) programming is a highly popular paradigm within the domain of software engineering.
 Considering _objects_ containing data and logic as primary software elements
 makes it easy for developers to understand software,
+
+<div class="comment" data-author="miel">
+Next part of sentence is unclear.
+</div>
+
 as it makes software resemble real-world mechanisms with interacting physical objects.
 Most OO languages allow objects to be instantiated from _classes_ that determine the object's type,
 where _inheritance_ can be used to let classes extend from other classes,
 and thereby inheriting their fields, methods, and type(s).
-Unfortunately, [inheritance is often overused in places where _composition_ would be better suited](cite:cites designpatterns),
-where composition of objects (containment within each other) leads to more flexibility in terms of object relationships,
+Unfortunately, [inheritance is often overused in places where _composition_ would be better suited](cite:cites designpatterns)<del class="comment" data-author="miel">,
+where c</del>Composition of objects (containment within each other) leads to more flexibility in terms of object relationships,
 and thereby leads to more loosely coupled objects.
 
 A popular technique to manage the composition of objects is called [_Dependency Injection_ (DI)](cite:cites DependencyInjection).
@@ -20,7 +25,13 @@ In order to link these interfaces to concrete implementations,
 a generic DI framework can provide specific implementations where needed based on some external configuration.
 Since objects only communicate by strict interfaces,
 and specific implementations are derived from an external configuration,
-the specific wiring of a software application is not hard-coded anymore.
+the specific wiring of a software application is <del class="comment" data-author="miel"> not hard-coded anymore</del>
+
+<div class="comment" data-author="miel">
+no longer hard-coded
+</div>
+
+.
 Instead, this wiring can be altered afterwards by modifying the configuration file,
 which makes the application more flexible.
 
@@ -32,6 +43,12 @@ when the creators of these configuration files have no programming knowledge,
 or when configuration files are created automatically from an external tool –e.g., a visual drag-and-drop interface–.
 Such declarative configuration files typically have only local semantics,
 which means that they are usually only usable within the DI framework for which they were created, and for the current application only.
+
+<div class="comment" data-author="miel">
+The argument below should be a lot stronger, since it's the core of this paper. Why are global semantics good? What does interoperable_, _addressable_, and _discoverable_ mean to a software developer? Are there examples? What are the use cases?
+</div>
+
+
 With the power of [Linked Data](cite:cites linkeddata) and the [Semantic Web](cite:cites semanticweb) in mind,
 these configurations could move _beyond_ their local scope,
 and make them globally _interoperable_, _addressable_, and _discoverable_.
@@ -53,6 +70,11 @@ By publishing such descriptions,
 the composition of software (and parts thereof) can be _unambiguously identified_ by IRIs and 
 retrieved through _dereferencing_.
 Components.js automatically _instantiates_ such software configurations, including resolving the necessary dependencies.
+
+<div class="comment" data-author="miel">
+Maybe the benefits below should be moved up?
+</div>
+
 As such, this (de)referenceability of software configurations by IRI is beneficial in use cases such as:
 
 Experimental research
