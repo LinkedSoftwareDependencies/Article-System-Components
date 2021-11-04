@@ -101,6 +101,8 @@ It includes a higher Core and Foundational layer, as well as multiple domain-spe
 Of particular interest is their Software Ontology (SwO) that captures the different artifacts in software.
 In general, both ontologies (or suites) view software from a <q>network of communicating concepts</q> perspective.
 This allows for exhaustive descriptions of complex software systems, but is not suited for describing class instances or aspects of modular programming (e.g., package dependencies).
+As such, the vocabularies that we introduced do not make use of these existing ontologies,
+but they do make use of parts of them where possible.
 
 ### Dependency Injection Frameworks
 {:#related-work-di-frameworks}
