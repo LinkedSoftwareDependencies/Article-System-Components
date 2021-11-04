@@ -118,7 +118,7 @@ For instance, this allows the framework to be compatible with other upcoming Jav
 ### Implementation
 
 Components.js has been implemented in TypeScript,
-and is available on [GitHub](cite:cites link:github:componentsjs)
+and is available on [GitHub](cite:cites link:github:componentsjs) and [Zenodo](cite:cites link:zenodo:componentsjs)
 under the MIT license.
 At the time of writing, the latest release is at version 4.4.1,
 which is published via the [npm package manager](cite:cites link:npm:componentsjs).

@@ -171,7 +171,8 @@ because the Components.js framework does not rely directly on the dereferenceabi
 For larger projects, the manual creation of components files for all classes in the project can require significant manual effort, and can therefore become error-prone.
 For projects that make use of a strongly-typed language, such as TypeScript,
 all required information to create such components files is in fact already available implicitly via the source code files.
-In order to minimize manual effort for such projects, we provide the open-source tool [_Components-Generator.js_](cite:cites link:docs:componentsjsgenerator) for TypeScript projects.
+In order to minimize manual effort for such projects, we provide the open-source tool [_Components-Generator.js_](cite:cites link:docs:componentsjsgenerator)
+([Zenodo](cite:cites link:zenodo:componentsjsgenerator)) for TypeScript projects.
 
 Concretely, this tool can be installed into any TypeScript project.
 When its command-line script is invoked, it scans all exported TypeScript classes within this project,
