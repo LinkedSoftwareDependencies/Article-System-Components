@@ -115,7 +115,7 @@ Much of this stems from the strict typing,
 which makes it difficult to create mock objects when required for testing
 if the dependencies are nested in the implementation.
 
-One of the biggest Java frameworks is [Spring](https://spring.io/),
+One of the biggest Java frameworks is [Spring](cite:cites link:web:spring),
 which amongst many things, also provides dependency injection.
 That is one of its advantages though:
 many projects already use Spring for other reasons,
@@ -125,15 +125,15 @@ The first one is through an external XML configuration file
 which defines all the classes and how they are linked together.
 The other one is with annotations in the actual code
 that define how the interlinking of classes should work.
-Google's [Guice](https://github.com/google/guice) is a more lightweight alternative to Spring;
-[Dagger](https://github.com/google/dagger) was created to be even more lightweight than Guice.
+Google's [Guice](cite:cites link:web:guice) is a more lightweight alternative to Spring;
+[Dagger](cite:cites link:web:dagger) was created to be even more lightweight than Guice.
 
 In JavaScript, 
 dependency injection frameworks tend to be less common because of its flexible nature.
 However, with the increasing popularity of TypeScript –which provides strict typings for JavaScript–,
 the need for dependency injection is increasing.
-Still, multiple frameworks are available, such as [BottleJS](https://github.com/young-steveo/bottlejs), [Wire](https://github.com/cujojs/wire), and [Electrolyte](https://github.com/jaredhanson/electrolyte), all backed by rather small communities.
-One of the biggest ones, [InversifyJS](https://github.com/inversify/InversifyJS),
+Still, multiple frameworks are available, such as [BottleJS](cite:cites link:web:bottlejs), [Wire](cite:cites link:web:wire), and [Electrolyte](cite:cites link:web:electrolyte), all backed by rather small communities.
+One of the biggest ones, [InversifyJS](cite:cites link:web:inversifyjs),
 uses annotations similar to Java frameworks to define possible injections.
 Unlike standard JavaScript,
 it requires the developer to define interfaces and types via TypeScript,
