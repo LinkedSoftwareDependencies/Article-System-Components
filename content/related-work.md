@@ -99,7 +99,9 @@ Its extension, the Core Ontology of Software Components (COSC), moves closer to 
 Similar in scope is the [Software Engineering Ontology Network (SEON)](cite:cites ruy2016seon), which consolidates multiple ontologies for the Software Engineering field.
 It includes a higher Core and Foundational layer, as well as multiple domain-specific ontologies.
 Of particular interest is their Software Ontology (SwO) that captures the different artifacts in software.
-In general, both ontologies (or suites) view software from a <q>network of communicating concepts</q> perspective.
+More recently, the [GraphGen4Code toolkit](cite:cites GraphGen4Code) has been introduced,
+which provides an ontology to capture code semantics to represent classes, functions and methods.
+In general, these ontologies (or suites) view software from a <q>network of communicating concepts</q> perspective.
 This allows for exhaustive descriptions of complex software systems, but is not suited for describing class instances or aspects of modular programming (e.g., package dependencies).
 As such, the vocabularies that we introduced do not make use of these existing ontologies,
 but they do make use of parts of them where possible.
