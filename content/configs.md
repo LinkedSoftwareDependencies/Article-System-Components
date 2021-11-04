@@ -152,6 +152,11 @@ which will automatically become dereferenceable as soon as these packages are pu
 The LSD service thereby removes the dereferenceability responsibility from package developers that want to use dependency injection via Components.js,
 but do not have the will or ability to make their component files dereferenceable themselves.
 
+This dereferenceability is beneficial for enabling querying execution within and across component files.
+For example, it enables using the follow-your-nose principle to analyze class inheritance chains of certain modules.
+Another example in the domain of reproducibility is the ability to analyze which config parameters had the largest influence on the performance of a system,
+assuming that the experimental results have also been linked to the semantic configuration.
+
 The long-term sustainability of the LSD service and its minted URLs is guaranteed by Ghent University,
 [which places a strong emphasis](https://www.ugent.be/en/research/datamanagement) on ensuring that data is preserved in the long term.
 In the unlikely event that the LSD service would experience downtime,
