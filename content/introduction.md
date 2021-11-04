@@ -48,7 +48,7 @@ the [Solid Community Server](cite:cites link:github:css) and [Comunica](cite:cit
 Within Components.js,
 software configurations and modules are described as Linked Data using
 the [_Object-Oriented Components vocabulary_](cite:citesAsAuthority van2017describing)
-and the [_Object Mapping vocabulary_](cite:citesAsAuthority van2017describing).
+and the [_Object Mapping vocabulary_](cite:cites link:web:om).
 By publishing such descriptions,
 the composition of software (and parts thereof) can be _unambiguously identified_ by IRIs and 
 retrieved through _dereferencing_.
@@ -63,6 +63,14 @@ Static program analysis
 
 Semantic workflows
 : Automatic wiring of software using RDF tools to optimally address a specific need.
+
+We consider this article an extension of our previous work involving [describing software as Linked Data](cite:citesAsAuthority van2017describing).
+Concretely, the contributions of this work are:
+
+* the Components.js dependency injection framework and its architecture;
+* the Components-Generator.js tool for generating component descriptions for TypeScript projects;
+* the Object-Oriented Components and Object Mapping vocabularies; and
+* the Linked Software Dependencies (LSD) service that makes npm packages dereferenceable.
 
 In this article, we introduce the Components.js framework as follows.
 In the next section ([](#related-work)), we discuss the related work.
