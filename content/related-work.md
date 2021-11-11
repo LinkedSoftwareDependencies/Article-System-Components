@@ -175,5 +175,5 @@ instead of being tightly linked to package names <span class="rephrase" data-aut
 For the remainder of this article, we will assume the usage of the Node.js runtime.
 This is because Components.js <del class="comment" data-author="RV">precedes the introduction of Deno</del>,
 and Node.js is still predominantly used at the time of writing.
-Nevertheless, since Deno's philosophy regarding dereferenceable modules is compatible with the dereferencebility of Components.js configurations,
+Nevertheless, since Deno's philosophy regarding dereferenceable modules is compatible with the dereferenceability of Components.js configurations,
 we will consider support for it in the future.

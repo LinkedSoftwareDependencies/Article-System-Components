@@ -49,7 +49,7 @@ Another venue that deserves investigation is the task of automatically letting t
 execute the Components-Generator.js on all TypeScript projects that do not provide component files yet,
 which could open up a huge domain on injectable components.
 
-In general, Components.js gives us the necessary foundation for building next-level applications that depend on high flexiblity, such as smart agents.
+In general, Components.js gives us the necessary foundation for building next-level applications that depend on high flexibility, such as smart agents.
 These applications are crucial for environments such as Linked Data and the Semantic Web,
 which require and benefit from this level of flexibility.
 Therefore, DI frameworks such as Components.js pave the road towards a world with more flexible applications.
