@@ -204,7 +204,9 @@ and allows custom code –that is supplied by the developer–
 to be invoked when the frameworks deems it necessary.
 This concept is typically referred to as <em>“The Hollywood Principle: Don’t call us, we’ll call you”</em>.</p>
 
-          <p>A specific technique to achieve IoC is <a property="schema:citation http://purl.org/spar/cito/cites" href="https://martinfowler.com/articles/injection.html"><em>Dependency Injection</em> (DI)</a> <span class="references">[<a href="#ref-2">2</a>]</span>.
+          <p>A specific technique to achieve IoC is <a property="schema:citation http://purl.org/spar/cito/cites" href="https://martinfowler.com/articles/injection.html"><em>Dependency Injection</em> (DI)</a> <span class="references">[<a href="#ref-2">2</a>]</span>,
+where the framework calls constructors and methods with the right parameters.
+<span class="comment" data-author="RV">So I disagree with the next sentence</span>
 As mentioned before, DI is based on the <em>composition</em> of objects to enable relationships between them (as opposed to <em>inheritance</em>).
 These composed objects are tied to each other only by a lightweight interface,
 where different implementations may be possible for each interface.
@@ -223,7 +225,7 @@ as this can become too complex to define in declarative configuration files.</p>
 
           <p><strong>Forms of Injection</strong></p>
 
-          <p>In practise, three main forms of DI exist through which dependencies can be injected into a an object:</p>
+          <p>In practice, three main forms of DI exist through which dependencies can be injected into an object:</p>
 
           <dl>
             <dt>Constructor injection</dt>
@@ -231,7 +233,7 @@ as this can become too complex to define in declarative configuration files.</p>
             <dt>Setter injection</dt>
             <dd>Dependencies are passed to an object by invoking setter methods.</dd>
             <dt>Interface injection</dt>
-            <dd>The interface of dependencies expose a method that –when invoked– injects this dependency into an object that is passed to it. Such passed objects will typically be a setter method for this.</dd>
+            <dd>The interface of dependencies expose a method that, when invoked, injects this dependency into an object that is passed to it. Such passed objects will typically be a setter method for this.</dd>
           </dl>
 
           <p>Constructor injection is the simplest and most popular form.
@@ -355,12 +357,15 @@ Using a <code>package.json</code> file, all dependencies of a module can be defi
 
           <p><a property="schema:citation http://purl.org/spar/cito/cites" href="https://deno.land/">Deno</a> <span class="references">[<a href="#ref-34">34</a>]</span> is a relatively new runtime environment for JavaScript that aims to become a modern replacement for Node.js.
 It is also based on the V8 engine, but it allows both JavaScript <em>and</em> TypeScript to be executed without prior transpilation.
-Furthermore, it allows external modules to be fetched based on URLs that can include version ranges, instead of being tightly linked to package names within the npm registry.</p>
+Furthermore, it allows external modules to be fetched based on URLs that can include version ranges,
+<span class="comment" data-author="RV">I would actually argue the opposite of the next statement: Node has a decoupling point, where the code only contains a name, which <em>some</em> package manager then binds to a concrete package and version. Deno binds to a concrete package and version.</span>
+instead of being tightly linked to package names <span class="rephrase" data-author="RV">within the npm registry</span>.
+<span class="comment" data-author="RV">Not correct, as Node is tied to node_modules, not npm. (Even though npm is now bundled with Node, it was not at the start)</span></p>
 
           <p>For the remainder of this article, we will assume the usage of the Node.js runtime.
-This is because Components.js precedes the introduction of Deno,
+This is because Components.js <del class="comment" data-author="RV">precedes the introduction of Deno</del>,
 and Node.js is still predominantly used at the time of writing.
-Nevertheless, since Deno’s philosophy regarding dereferenceable modules is very compatible with the dereferencebility of Components.js configurations,
+Nevertheless, since Deno’s philosophy regarding dereferenceable modules is compatible with the dereferencebility of Components.js configurations,
 we will consider support for it in the future.</p>
 
         </div>
