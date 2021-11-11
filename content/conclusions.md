@@ -11,7 +11,7 @@ which allows software configurations to be shared easily with others,
 which is for example beneficial for improving the reproducibility of software experiments.
 
 The previous section has shown that Components.js provides significant value in real-world applications.
-On the one hand, tools such as Solid Community Server and Comunica allow developers and researchers to rewire these applications based on their specific needs.
+On the one hand, tools such as the Community Solid Server and Comunica allow developers and researchers to rewire these applications based on their specific needs.
 On the other hand, applications by companies such as Digita depend on this flexibility for making logic changes via configuration files,
 as they want to enable their clients to make changes by only modifying the configuration files,
 since their clients are sometimes non-technical people that have limited programming knowledge.
@@ -28,7 +28,7 @@ As with all DI frameworks, Components.js comes with the downside that for large 
 configurations can become complex and logic flow may be harder to follow.
 In order to mitigate these risks, we recommend a structured management of configuration files,
 which may involve splitting up configuration files based on an architecture's primary subsystems,
-which is the approach followed by large projects such as Solid Community Server and Comunica.
+which is the approach followed by large projects such as Community Solid Server and Comunica.
 
 The dereferenceability of software configurations by IRI is also an important benefit of the Components.js framework.
 In the introduction, we mentioned that this dereferenceability could be beneficial for
