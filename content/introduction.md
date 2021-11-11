@@ -5,17 +5,21 @@ Object-oriented (OO) programming is a highly popular paradigm within the domain 
 Considering _objects_ containing data and logic as primary software elements
 makes it easy for developers to understand software,
 as it makes software resemble real-world mechanisms with interacting physical objects.
+<span class="comment" data-author="RV">Is it necessary here too make the inheritance versus composition argument? It might make it seem as if we are suggesting developers to write in a different way, whereas that is not really the case. Even code with inheritance will still have objects that require dependencies. I'd propose to just explain composition.</span>
 Most OO languages allow objects to be instantiated from _classes_ that determine the object's type,
 where _inheritance_ can be used to let classes extend from other classes,
 and thereby inheriting their fields, methods, and type(s).
 Unfortunately, [inheritance is often overused in places where _composition_ would be better suited](cite:cites designpatterns),
-where composition of objects (containment within each other) leads to more flexibility in terms of object relationships,
+because composition of objects (containment within each other) leads to more flexibility in terms of object relationships,
 and thereby leads to more loosely coupled objects.
 
+<span class="comment" data-author="RV">Interestingly, I'm actually missing here what DI really is. DI, as I understand it, is the idea that an object _asks_ for components it will use, rather than _getting_ or _creating_ them itself. This, IMHO, is the more important point over inheritance versus composition, namely that the composition happens not by the component itself but by another instantiating it.</span>
+<span class="comment" data-author="RV">Here is a Wikipedia copy/paste: <q>In software engineering, dependency injection is a technique in which an object receives other objects that it depends on, called dependencies. Typically, the receiving object is called a client and the passed-in ('injected') object is called a service. The code that passes the service to the client is called the injector. Instead of the client specifying which service it will use, the injector tells the client what service to use. The 'injection' refers to the passing of a dependency (a service) into the client that uses it.</q></span>
 A popular technique to manage the composition of objects is called [_Dependency Injection_ (DI)](cite:cites DependencyInjection).
 It assumes that objects are loosely coupled,
 and that they only depend on each other via a minimal and generic interface,
 without depending on concrete implementations of such interfaces.
+<span class="comment" data-author="RV">So nearly the same, but not quite; it eliminates objects instantiating their own dependencies, but not objects that actively (know how to) retrieve their dependencies from somewhere else. [Breaking the Law of Demeter is Like Looking for a Needle in the Haystack](http://misko.hevery.com/2008/07/18/breaking-the-law-of-demeter-is-like-looking-for-a-needle-in-the-haystack/)</span>
 In order to link these interfaces to concrete implementations,
 a generic DI framework can provide specific implementations where needed based on some external configuration.
 Since objects only communicate by strict interfaces,
@@ -26,11 +30,14 @@ which makes the application more flexible.
 
 Configurations for existing DI frameworks
 are either defined directly within a programming language,
+<span class="comment" data-author="RV">contradicts the <q>hard-coded</q> above; I understand, but could be confusing</span>
 or are defined declaratively within text files with a domain-specific language using syntaxes such as JSON and XML.
-The latter type of configuration files is better suited for use cases where no changes can be made to existing code –e.g., in the case of pre-compiled languages–,
+The latter type of configuration files is better suited for use cases where no changes can be made to existing code
+(e.g., in the case of pre-compiled languages),
 when the creators of these configuration files have no programming knowledge,
-or when configuration files are created automatically from an external tool –e.g., a visual drag-and-drop interface–.
-Such declarative configuration files typically have only local semantics,
+or when configuration files are created automatically from an external tool
+(e.g., a visual drag-and-drop interface).
+Such declarative configuration files typically have only <em>local</em> semantics,
 which means that they are usually only usable within the DI framework for which they were created, and for the current application only.
 With the power of [Linked Data](cite:cites linkeddata) and the [Semantic Web](cite:cites semanticweb) in mind,
 these configurations could move _beyond_ their local scope,
