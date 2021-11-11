@@ -141,7 +141,7 @@ The framework is <a property="schema:citation http://purl.org/spar/cito/cites" h
 is available on <a property="schema:citation http://purl.org/spar/cito/cites" href="https://www.npmjs.com/package/componentsjs">npm</a> <span class="references">[<a href="#ref-6">6</a>]</span>,
 and has extensive <a property="schema:citation http://purl.org/spar/cito/cites" href="https://componentsjs.readthedocs.io/">documentation</a> <span class="references">[<a href="#ref-7">7</a>]</span>.
 Furthermore, it is being actively used as core technology within popular tools such as
-the <a property="schema:citation http://purl.org/spar/cito/cites" href="https://github.com/solid/community-server/">Solid Community Server</a> <span class="references">[<a href="#ref-8">8</a>]</span> and <a property="schema:citation http://purl.org/spar/cito/cites" href="https://comunica.github.io/Article-ISWC2018-Resource/">Comunica</a> <span class="references">[<a href="#ref-9">9</a>]</span>.
+the <a property="schema:citation http://purl.org/spar/cito/cites" href="https://github.com/solid/community-server/">Community Solid Server</a> <span class="references">[<a href="#ref-8">8</a>]</span> and <a property="schema:citation http://purl.org/spar/cito/cites" href="https://comunica.github.io/Article-ISWC2018-Resource/">Comunica</a> <span class="references">[<a href="#ref-9">9</a>]</span>.
 Within Components.js,
 software configurations and modules are described as Linked Data using
 the <a property="schema:citation http://purl.org/spar/cito/citesAsAuthority" href="https://linkedsoftwaredependencies.org/articles/describing-experiments/"><em>Object-Oriented Components vocabulary</em></a> <span class="references">[<a href="#ref-10">10</a>]</span>
@@ -709,7 +709,7 @@ Components-Generator.js will generate the components file in <a href="#generator
             </figcaption>
 </figure>
 
-          <p>A real-world example of such conversion can be seen in the <a property="schema:citation http://purl.org/spar/cito/cites" href="https://github.com/solid/community-server/">Solid Community Server</a> <span class="references">[<a href="#ref-8">8</a>]</span> project.
+          <p>A real-world example of such conversion can be seen in the <a property="schema:citation http://purl.org/spar/cito/cites" href="https://github.com/solid/community-server/">Community Solid Server</a> <span class="references">[<a href="#ref-8">8</a>]</span> project.
 For example, the <code>CorsHandler</code> TypeScript class <br /> (<a href="https://github.com/solid/community-server/blob/9b6eab27bc4e5ee25d1d3c6ce5972e83db90c650/src/server/middleware/CorsHandler.ts#L31">https:/​/​github.com/solid/community-server/blob/9b6eab27bc4e5ee25d1d3c6ce5972e83db90c650/src/server/middleware/CorsHandler.ts#L31</a>) is converted to the components file at <a href="https://linkedsoftwaredependencies.org/bundles/npm/%40solid%2Fcommunity-server/2.0.0/dist/server/middleware/CorsHandler.jsonld">https:/​/​linkedsoftwaredependencies.org/bundles/npm/%40solid%2Fcommunity-server/2.0.0/dist/server/middleware/CorsHandler.jsonld</a>.</p>
 
         </div>
@@ -892,11 +892,11 @@ Therefore, we conclude that the metrics reported here are merely an estimate.</p
 
           <p>In the previous section, we provided an informed estimate as to <em>how much</em> Components.js is being used.
 In this section, we provide an analysis of <em>in what way</em> Components.js is being used in four real-world projects:
-Solid Community Server, Handlers.js, Digita Identity Proxy, and Comunica.</p>
+Community Solid Server, Handlers.js, Digita Identity Proxy, and Comunica.</p>
 
-          <h4 id="solid-community-server">Solid Community Server</h4>
+          <h4 id="community-solid-server">Community Solid Server</h4>
 
-          <p>The <a property="schema:citation http://purl.org/spar/cito/cites" href="https://github.com/solid/community-server/">Solid Community Server</a> <span class="references">[<a href="#ref-8">8</a>]</span>
+          <p>The <a property="schema:citation http://purl.org/spar/cito/cites" href="https://github.com/solid/community-server/">Community Solid Server</a> <span class="references">[<a href="#ref-8">8</a>]</span>
 is a server-side implementation of the <a property="schema:citation http://purl.org/spar/cito/cites" href="https://solid.github.io/specification/">Solid specifications</a> <span class="references">[<a href="#ref-44">44</a>]</span>,
 which provides a basis for the Solid decentralization effort.
 When such a server is hosted, it allows users to create their own personal storage space (pod) and identity,
@@ -911,7 +911,7 @@ before they are standardized and become a part of the Solid specifications.
 To enable this level of flexibility, all components within this server are loosely coupled,
 and are wired via customizable Components.js configuration files.</p>
 
-          <p>Since the Solid Community Server makes use of TypeScript, it is able to make use of the Components-Generator.js tool as explained before in <a href="#configs">Section 3</a>,
+          <p>Since the Community Solid Server makes use of TypeScript, it is able to make use of the Components-Generator.js tool as explained before in <a href="#configs">Section 3</a>,
 which avoids the need to manually create components files, and thereby significantly simplifies the usage of Components.js within this project.
 At the time of writing, this server contains 246 components that can be customized via specific parameters, and wired together to form a server instance with specific capabilities.</p>
 
@@ -923,7 +923,7 @@ While this project is still under development, it already provides numerous hand
 data flows, storage, logging, error handling, as well as logic about serving data over HTTP (routing, CORS, content negotiation …).
 This project is written in TypeScript, and is being developed by <a property="schema:citation http://purl.org/spar/cito/cites" href="https://www.digita.ai/">Digita</a> <span class="references">[<a href="#ref-48">48</a>]</span>.</p>
 
-          <p>In contrast to the Solid Community Server, Handlers.js is not meant to be usable by itself as standalone tool.
+          <p>In contrast to the Community Solid Server, Handlers.js is not meant to be usable by itself as standalone tool.
 Instead, it is an accompanying library that can be used by other tools.
 The components within Handlers.js are meant to capture common patterns within projects that depend on composition-based components,
 so that they can be reused by other projects that make use of DI frameworks such as Components.js.
@@ -995,7 +995,7 @@ which allows software configurations to be shared easily with others,
 which is for example beneficial for improving the reproducibility of software experiments.</p>
 
           <p>The previous section has shown that Components.js provides significant value in real-world applications.
-On the one hand, tools such as Solid Community Server and Comunica allow developers and researchers to rewire these applications based on their specific needs.
+On the one hand, tools such as the Community Solid Server and Comunica allow developers and researchers to rewire these applications based on their specific needs.
 On the other hand, applications by companies such as Digita depend on this flexibility for making logic changes via configuration files,
 as they want to enable their clients to make changes by only modifying the configuration files,
 since their clients are sometimes non-technical people that have limited programming knowledge.</p>
@@ -1014,7 +1014,7 @@ since their clients are sometimes non-technical people that have limited program
 configurations can become complex and logic flow may be harder to follow.
 In order to mitigate these risks, we recommend a structured management of configuration files,
 which may involve splitting up configuration files based on an architecture’s primary subsystems,
-which is the approach followed by large projects such as Solid Community Server and Comunica.</p>
+which is the approach followed by large projects such as Community Solid Server and Comunica.</p>
 
           <p>The dereferenceability of software configurations by IRI is also an important benefit of the Components.js framework.
 In the introduction, we mentioned that this dereferenceability could be beneficial for
@@ -1076,7 +1076,7 @@ Ruben Taelman is a postdoctoral fellow of the Research Foundation – Flanders (
   <dt id="ref-7">[7]</dt>
   <dd resource="https://componentsjs.readthedocs.io/" typeof="schema:CreativeWork">Taelman, R.: Components.js Documentation. <a href="https://componentsjs.readthedocs.io/">https:/​/​componentsjs.readthedocs.io/</a> (2021).</dd>
   <dt id="ref-8">[8]</dt>
-  <dd resource="https://github.com/solid/community-server/" typeof="schema:CreativeWork">Van Herwegen, J., Verborgh, R., Taelman, R.: Solid Community Server Source Code. <a href="https://github.com/solid/community-server/">https:/​/​github.com/solid/community-server/</a> (2021).</dd>
+  <dd resource="https://github.com/solid/community-server/" typeof="schema:CreativeWork">Van Herwegen, J., Verborgh, R., Taelman, R.: Community Solid Server Source Code. <a href="https://github.com/solid/community-server/">https:/​/​github.com/solid/community-server/</a> (2021).</dd>
   <dt id="ref-9">[9]</dt>
   <dd resource="https://comunica.github.io/Article-ISWC2018-Resource/" typeof="schema:Article">Taelman, R., Van Herwegen, J., Vander Sande, M., Verborgh, R.: Comunica: a Modular SPARQL Query Engine for the Web. In: Proceedings of the 17th International Semantic Web Conference (2018).</dd>
   <dt id="ref-10">[10]</dt>
