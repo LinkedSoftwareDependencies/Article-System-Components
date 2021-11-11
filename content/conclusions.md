@@ -3,7 +3,7 @@
 
 After more than four years of development, Components.js has become a stable Dependency Injection framework for TypeScript and JavaScript projects,
 and has seen a significant uptake by popular tools that make use of it as core technology.
-It has been shown to be useful for enabling the primary tasks of a DI framework,
+It enables the primary tasks of a DI framework,
 but thanks to its semantic configuration files,
 it also brings with it the power of Linked Data and the Semantic Web for enabling globally interoperable and discoverable configurations.
 Using the Linked Software Dependencies service, components and configurations become dereferenceable and citable,
