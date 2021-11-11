@@ -15,7 +15,9 @@ and allows custom code –that is supplied by the developer–
 to be invoked when the frameworks deems it necessary.
 This concept is typically referred to as _"The Hollywood Principle: Don't call us, we'll call you"_.
 
-A specific technique to achieve IoC is [_Dependency Injection_ (DI)](cite:cites DependencyInjection).
+A specific technique to achieve IoC is [_Dependency Injection_ (DI)](cite:cites DependencyInjection),
+where the framework calls constructors and methods with the right parameters.
+<span class="comment" data-author="RV">So I disagree with the next sentence</span>
 As mentioned before, DI is based on the _composition_ of objects to enable relationships between them (as opposed to _inheritance_).
 These composed objects are tied to each other only by a lightweight interface,
 where different implementations may be possible for each interface.
@@ -34,7 +36,7 @@ as this can become too complex to define in declarative configuration files.
 
 **Forms of Injection**
 
-In practise, three main forms of DI exist through which dependencies can be injected into a an object:
+In practice, three main forms of DI exist through which dependencies can be injected into an object:
 
 Constructor injection
 : Dependency objects are passed via a class constructor.
@@ -43,7 +45,7 @@ Setter injection
 : Dependencies are passed to an object by invoking setter methods.
 
 Interface injection
-: The interface of dependencies expose a method that –when invoked– injects this dependency into an object that is passed to it. Such passed objects will typically be a setter method for this.
+: The interface of dependencies expose a method that, when invoked, injects this dependency into an object that is passed to it. Such passed objects will typically be a setter method for this.
 
 Constructor injection is the simplest and most popular form.
 It requires all dependencies to be wired at construction time,
@@ -165,10 +167,13 @@ Using a `package.json` file, all dependencies of a module can be defined togethe
 
 [Deno](cite:cites link:web:deno) is a relatively new runtime environment for JavaScript that aims to become a modern replacement for Node.js.
 It is also based on the V8 engine, but it allows both JavaScript _and_ TypeScript to be executed without prior transpilation.
-Furthermore, it allows external modules to be fetched based on URLs that can include version ranges, instead of being tightly linked to package names within the npm registry.
+Furthermore, it allows external modules to be fetched based on URLs that can include version ranges,
+<span class="comment" data-author="RV">I would actually argue the opposite of the next statement: Node has a decoupling point, where the code only contains a name, which _some_ package manager then binds to a concrete package and version. Deno binds to a concrete package and version.</span>
+instead of being tightly linked to package names <span class="rephrase" data-author="RV">within the npm registry</span>.
+<span class="comment" data-author="RV">Not correct, as Node is tied to node_modules, not npm. (Even though npm is now bundled with Node, it was not at the start)</span>
 
 For the remainder of this article, we will assume the usage of the Node.js runtime.
-This is because Components.js precedes the introduction of Deno,
+This is because Components.js <del class="comment" data-author="RV">precedes the introduction of Deno</del>,
 and Node.js is still predominantly used at the time of writing.
-Nevertheless, since Deno's philosophy regarding dereferenceable modules is very compatible with the dereferencebility of Components.js configurations,
+Nevertheless, since Deno's philosophy regarding dereferenceable modules is compatible with the dereferencebility of Components.js configurations,
 we will consider support for it in the future.
