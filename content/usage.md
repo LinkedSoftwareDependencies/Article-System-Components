@@ -28,11 +28,11 @@ Therefore, we conclude that the metrics reported here are merely an estimate.
 
 In the previous section, we provided an informed estimate as to _how much_ Components.js is being used.
 In this section, we provide an analysis of _in what way_ Components.js is being used in four real-world projects:
-Solid Community Server, Handlers.js, Digita Identity Proxy, and Comunica.
+Community Solid Server, Handlers.js, Digita Identity Proxy, and Comunica.
 
-#### Solid Community Server
+#### Community Solid Server
 
-The [Solid Community Server](cite:cites link:github:css)
+The [Community Solid Server](cite:cites link:github:css)
 is a server-side implementation of the [Solid specifications](cite:cites solidspec),
 which provides a basis for the Solid decentralization effort.
 When such a server is hosted, it allows users to create their own personal storage space (pod) and identity,
@@ -47,7 +47,7 @@ before they are standardized and become a part of the Solid specifications.
 To enable this level of flexibility, all components within this server are loosely coupled,
 and are wired via customizable Components.js configuration files.
 
-Since the Solid Community Server makes use of TypeScript, it is able to make use of the Components-Generator.js tool as explained before in [](#configs),
+Since the Community Solid Server makes use of TypeScript, it is able to make use of the Components-Generator.js tool as explained before in [](#configs),
 which avoids the need to manually create components files, and thereby significantly simplifies the usage of Components.js within this project.
 At the time of writing, this server contains 246 components that can be customized via specific parameters, and wired together to form a server instance with specific capabilities.
 
@@ -59,7 +59,7 @@ While this project is still under development, it already provides numerous hand
 data flows, storage, logging, error handling, as well as logic about serving data over HTTP (routing, CORS, content negotiation ...).
 This project is written in TypeScript, and is being developed by [Digita](cite:cites link:web:digita).
 
-In contrast to the Solid Community Server, Handlers.js is not meant to be usable by itself as standalone tool.
+In contrast to the Community Solid Server, Handlers.js is not meant to be usable by itself as standalone tool.
 Instead, it is an accompanying library that can be used by other tools.
 The components within Handlers.js are meant to capture common patterns within projects that depend on composition-based components,
 so that they can be reused by other projects that make use of DI frameworks such as Components.js.
