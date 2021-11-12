@@ -17,8 +17,7 @@ This concept is typically referred to as _"The Hollywood Principle: Don't call u
 
 A specific technique to achieve IoC is [_Dependency Injection_ (DI)](cite:cites DependencyInjection),
 where the framework calls constructors and methods with the right parameters.
-<span class="comment" data-author="RV">So I disagree with the next sentence</span>
-As mentioned before, DI is based on the _composition_ of objects to enable relationships between them (as opposed to _inheritance_).
+As mentioned before, DI enables relationships between objects by allowing objects to _ask_ for other objects, rather than actively getting them itself.
 These composed objects are tied to each other only by a lightweight interface,
 where different implementations may be possible for each interface.
 Using a DI framework, specific implementations for such interfaces can be configured,
