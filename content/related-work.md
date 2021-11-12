@@ -167,13 +167,11 @@ Using a `package.json` file, all dependencies of a module can be defined togethe
 
 [Deno](cite:cites link:web:deno) is a relatively new runtime environment for JavaScript that aims to become a modern replacement for Node.js.
 It is also based on the V8 engine, but it allows both JavaScript _and_ TypeScript to be executed without prior transpilation.
-Furthermore, it allows external modules to be fetched based on URLs that can include version ranges,
-<span class="comment" data-author="RV">I would actually argue the opposite of the next statement: Node has a decoupling point, where the code only contains a name, which _some_ package manager then binds to a concrete package and version. Deno binds to a concrete package and version.</span>
-instead of being tightly linked to package names <span class="rephrase" data-author="RV">within the npm registry</span>.
-<span class="comment" data-author="RV">Not correct, as Node is tied to node_modules, not npm. (Even though npm is now bundled with Node, it was not at the start)</span>
+Furthermore, there is a significant difference in the way Deno handles dependencies compared to Node.js.
+Code written for Node.js can only refer to dependencies by a name, and requires a package manager such as npm to bind it to a concrete package and version.
+Deno avoids this decoupling by allowing code to directly refer to dependencies based on URLs that can include version ranges.
 
 For the remainder of this article, we will assume the usage of the Node.js runtime.
-This is because Components.js <del class="comment" data-author="RV">precedes the introduction of Deno</del>,
-and Node.js is still predominantly used at the time of writing.
+This is because Components.js Node.js is still predominantly used at the time of writing.
 Nevertheless, since Deno's philosophy regarding dereferenceable modules is compatible with the dereferenceability of Components.js configurations,
 we will consider support for it in the future.
