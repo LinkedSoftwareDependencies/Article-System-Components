@@ -96,7 +96,7 @@ Considering <em>objects</em> containing data and logic as primary software eleme
 makes it easy for developers to understand software,
 as it makes software resemble real-world mechanisms with interacting physical objects.
 Most OO languages enable object composition <span class="references">[<a href="#ref-1">1</a>]</span>,
-a flexible pattern for managing object object relationships,
+a flexible pattern for managing object relationships,
 where objects can be contained within other objects.</p>
 
           <p>A popular technique to manage the composition of objects is called <a property="schema:citation http://purl.org/spar/cito/cites" href="https://martinfowler.com/articles/injection.html"><em>Dependency Injection</em> (DI)</a> <span class="references">[<a href="#ref-2">2</a>]</span>.
@@ -181,9 +181,11 @@ Finally, we conclude in <a href="#conclusions">Section 6</a>.</p>
         </div>
 </section>
 
-  <section id="related-work" inlist="" rel="schema:hasPart" resource="#related-work">
+  <section>
 <div datatype="rdf:HTML" property="schema:description">
-          <h2 property="schema:name">Related Work</h2>
+          <div class="printonly" style="height: 100px;">&nbsp;</div>
+
+          <h2 id="related-work">Related Work</h2>
 
           <h3 id="related-work-di">Dependency Injection</h3>
 
@@ -259,6 +261,8 @@ and <a href="https://www.professionalqa.com/dependency-injection">disadvantages<
             <li>Logic <strong>flow is harder to follow</strong> when debugging, which leads to the need of good documentation.</li>
             <li>DI frameworks can lead to <strong>overhead</strong> in terms of understandability, execution time and software size.</li>
           </ul>
+
+          <div class="printonly" style="height: 50px;">&nbsp;</div>
 
           <h3 id="related-work-software-description">Semantic Software Description</h3>
 
@@ -416,6 +420,15 @@ and it can exist in TypeScript code but, only before transpilation to JavaScript
 Instead, we only define <code>oo:AbstractClass</code>,
 as both abstract classes and interfaces can be considered equivalent at the level of dependency injection.</p>
 
+          <p>We illustrate the usage of this vocabulary with an example in <a href="#module-oo">Listing 1</a> using the <a property="schema:citation http://purl.org/spar/cito/cites" href="https://www.w3.org/TR/json-ld/">JSON-LD</a> <span class="references">[<a href="#ref-35">35</a>]</span> serialization.
+This listing shows the definition of a new module (<code>oo:Module</code>) with compact IRI <code>ex:MyModule</code>.
+The name of the module is set with the compact IRI <code>requireName</code>, which expands to <code>doap:name</code> from the <a property="schema:citation http://purl.org/spar/cito/cites" href="https://github.com/ewilderj/doap/wiki">Description of a Project (DOAP) vocabulary</a> <span class="references">[<a href="#ref-36">36</a>]</span>.
+Furthermore, our module contains a single class component (<code>oo:Class</code>) with compact IRI <code>ex:MyModule/MyComponent</code>.
+Since this is a class component (subclass of <code>oo:Component</code>), this means that this component is instantiatable based on parameters.
+Each component can refer to its path within a module using the <code>oo:componentPath</code> predicate (compacted as <code>requireElement</code>).
+Finally, our single component has a parameter (<code>oo:Parameter</code>) with compact IRI <code>ex:MyModule/MyComponent#name</code>
+that can be set when instantiating this component.</p>
+
           <figure id="module-oo" class="listing">
 <pre><code>{
 </code><code>  &quot;@context&quot;: [
@@ -447,15 +460,6 @@ compacted with the <code>https:/​/​linkedsoftwaredependencies.org/bundles/np
             </figcaption>
 </figure>
 
-          <p>We illustrate the usage of this vocabulary with an example in <a href="#module-oo">Listing 1</a> using the <a property="schema:citation http://purl.org/spar/cito/cites" href="https://www.w3.org/TR/json-ld/">JSON-LD</a> <span class="references">[<a href="#ref-35">35</a>]</span> serialization.
-This listing shows the definition of a new module (<code>oo:Module</code>) with compact IRI <code>ex:MyModule</code>.
-The name of the module is set with the compact IRI <code>requireName</code>, which expands to <code>doap:name</code> from the <a property="schema:citation http://purl.org/spar/cito/cites" href="https://github.com/ewilderj/doap/wiki">Description of a Project (DOAP) vocabulary</a> <span class="references">[<a href="#ref-36">36</a>]</span>.
-Furthermore, our module contains a single class component (<code>oo:Class</code>) with compact IRI <code>ex:MyModule/MyComponent</code>.
-Since this is a class component (subclass of <code>oo:Component</code>), this means that this component is instantiatable based on parameters.
-Each component can refer to its path within a module using the <code>oo:componentPath</code> predicate (compacted as <code>requireElement</code>).
-Finally, our single component has a parameter (<code>oo:Parameter</code>) with compact IRI <code>ex:MyModule/MyComponent#name</code>
-that can be set when instantiating this component.</p>
-
           <p>Since components and parameters are defined as RDFS vocabulary,
 we can instantiate components easily using the <code>rdf:type</code> predicate,
 and by using parameters as predicates on such new instances, as shown in <a href="#instance-oo">Listing 2</a>.
@@ -476,6 +480,8 @@ thereby allowing nested component instantiations to be defined.</p>
               <p><span class="label">Listing 2:</span> Instantiation of <code>ex:MyModule/MyComponent</code> using a value for the parameter <code>ex:MyModule/MyComponent#name</code>.</p>
             </figcaption>
 </figure>
+
+          <div class="printonly" style="height: 50px;">&nbsp;</div>
 
           <h3 id="object-mapping-vocabulary">Object Mapping Vocabulary</h3>
 
@@ -501,6 +507,15 @@ and the raw objects that are passed into the constructor during instantiation.</
           <p>In essence, this vocabulary enables an (RDF) list of <code>om:ObjectMapping</code>’s to be passed to the <code>oo:constructorArguments</code> of an <code>oo:Class</code>.
 An <code>om:ObjectMapping</code> represents an object containing zero or more key-value pairs, which are represented by <code>om:ObjectMappingEntry</code>.
 <code>om:ArrayMapping</code> is a special type of <code>om:ObjectMapping</code> that represents an array, where its elements can be other <code>om:ObjectMapping</code>’s.</p>
+
+          <p>Building upon the OO example from <a href="#module-oo">Listing 1</a>, we illustrate the usage of this vocabulary with an example in <a href="#module-om">Listing 3</a>, again using the JSON-LD serialization.
+The only difference with the previous example, is the addition of the <code>constructorArguments</code> block,
+which expands to <code>oo:constructorArguments</code> that is configured to always contain an RDF list.
+The constructor arguments contain a single <code>om:ObjectMapping</code>, which is implied by the presence of <code>field</code>, which expands to <code>om:field</code>.
+Since the field array contains just a single element (<code>om:ObjectMappingEntry</code>),
+it represents an object with a single key and value.
+The key is defined by <code>keyRaw</code> (expands to <code>om:fieldName</code>), which contains the constant <code>name</code>.
+The value is defined by <code>value</code> (expands to <code>om:fieldValue</code>), which refers to the <code>ex:MyModule/MyComponent#name</code> parameter.</p>
 
           <figure id="module-om" class="listing">
 <pre><code>{
@@ -542,15 +557,6 @@ An <code>om:ObjectMapping</code> represents an object containing zero or more ke
 compacted with the <code>https:/​/​linkedsoftwaredependencies.org/bundles/npm/componentsjs/^4.0.0/components/context.jsonld</code> context.</p>
             </figcaption>
 </figure>
-
-          <p>Building upon the OO example from <a href="#module-oo">Listing 1</a>, we illustrate the usage of this vocabulary with an example in <a href="#module-om">Listing 3</a>, again using the JSON-LD serialization.
-The only difference with the previous example, is the addition of the <code>constructorArguments</code> block,
-which expands to <code>oo:constructorArguments</code> that is configured to always contain an RDF list.
-The constructor arguments contain a single <code>om:ObjectMapping</code>, which is implied by the presence of <code>field</code>, which expands to <code>om:field</code>.
-Since the field array contains just a single element (<code>om:ObjectMappingEntry</code>),
-it represents an object with a single key and value.
-The key is defined by <code>keyRaw</code> (expands to <code>om:fieldName</code>), which contains the constant <code>name</code>.
-The value is defined by <code>value</code> (expands to <code>om:fieldValue</code>), which refers to the <code>ex:MyModule/MyComponent#name</code> parameter.</p>
 
           <p>The addition of an object mapping to a component requires no changes as to how a component is instantiated,
 which means that our component from <a href="#module-om">Listing 3</a> can still be instantiated in the exact same way as the one from <a href="#module-oo">Listing 1</a>.
@@ -701,7 +707,7 @@ Components-Generator.js will generate the components file in <a href="#generator
 </figure>
 
           <p>A real-world example of such conversion can be seen in the <a property="schema:citation http://purl.org/spar/cito/cites" href="https://github.com/solid/community-server/">Community Solid Server</a> <span class="references">[<a href="#ref-8">8</a>]</span> project.
-For example, the <code>CorsHandler</code> TypeScript class <br /> (<a href="https://github.com/solid/community-server/blob/9b6eab27bc4e5ee25d1d3c6ce5972e83db90c650/src/server/middleware/CorsHandler.ts#L31">https:/​/​github.com/solid/community-server/blob/9b6eab27bc4e5ee25d1d3c6ce5972e83db90c650/src/server/middleware/CorsHandler.ts#L31</a>) is converted to the components file at <a href="https://linkedsoftwaredependencies.org/bundles/npm/%40solid%2Fcommunity-server/2.0.0/dist/server/middleware/CorsHandler.jsonld">https:/​/​linkedsoftwaredependencies.org/bundles/npm/%40solid%2Fcommunity-server/2.0.0/dist/server/middleware/CorsHandler.jsonld</a>.</p>
+For example, the <code>CorsHandler</code> TypeScript class <br /> (<a href="https://github.com/solid/community-server/blob/9b6eab27bc4e5ee25d1d3c6ce5972e83db90c650/src/server/middleware/CorsHandler.ts#L31">https:/​/​github.com/solid/community-server/blob/9b6eab27bc4e5ee25d1d3c6ce5972e83db90c650/src/server/middleware/CorsHandler.ts#L31</a>) is converted to the components file at <br /> <a href="https://linkedsoftwaredependencies.org/bundles/npm/%40solid%2Fcommunity-server/2.0.0/dist/server/middleware/CorsHandler.jsonld">https:/​/​linkedsoftwaredependencies.org/bundles/npm/%40solid%2Fcommunity-server/2.0.0/dist/server/middleware/CorsHandler.jsonld</a>.</p>
 
         </div>
 </section>
@@ -885,6 +891,8 @@ Therefore, we conclude that the metrics reported here are merely an estimate.</p
 In this section, we provide an analysis of <em>in what way</em> Components.js is being used in four real-world projects:
 Community Solid Server, Handlers.js, Digita Identity Proxy, and Comunica.</p>
 
+          <div class="printonly" style="height: 50px;">&nbsp;</div>
+
           <h4 id="community-solid-server">Community Solid Server</h4>
 
           <p>The <a property="schema:citation http://purl.org/spar/cito/cites" href="https://github.com/solid/community-server/">Community Solid Server</a> <span class="references">[<a href="#ref-8">8</a>]</span>
@@ -1048,7 +1056,6 @@ Ruben Taelman is a postdoctoral fellow of the Research Foundation – Flanders (
         </div>
 </section>
 
-  <div class="printonly" style="height: 30px">&nbsp;</div>
 <section>
 <h2 id="references">References</h2>
 <dl class="references">
