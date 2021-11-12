@@ -1,3 +1,5 @@
+<div class="printonly" style="height: 100px;">&nbsp;</div>
+
 ## Related Work
 {:#related-work}
 
@@ -72,6 +74,8 @@ Disadvantages:
 * Defining the wiring of an application via **configurations can be complex**, so good defaults must be available.
 * Logic **flow is harder to follow** when debugging, which leads to the need of good documentation.
 * DI frameworks can lead to **overhead** in terms of understandability, execution time and software size.
+
+<div class="printonly" style="height: 50px;">&nbsp;</div>
 
 ### Semantic Software Description
 {:#related-work-software-description}

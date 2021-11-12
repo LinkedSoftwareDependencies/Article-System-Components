@@ -6,7 +6,7 @@ Considering _objects_ containing data and logic as primary software elements
 makes it easy for developers to understand software,
 as it makes software resemble real-world mechanisms with interacting physical objects.
 Most OO languages enable [object composition](cite:cites designpatterns),
-a flexible pattern for managing object object relationships,
+a flexible pattern for managing object relationships,
 where objects can be contained within other objects.
 
 A popular technique to manage the composition of objects is called [_Dependency Injection_ (DI)](cite:cites DependencyInjection).

@@ -30,6 +30,8 @@ In the previous section, we provided an informed estimate as to _how much_ Compo
 In this section, we provide an analysis of _in what way_ Components.js is being used in four real-world projects:
 Community Solid Server, Handlers.js, Digita Identity Proxy, and Comunica.
 
+<div class="printonly" style="height: 50px;">&nbsp;</div>
+
 #### Community Solid Server
 
 The [Community Solid Server](cite:cites link:github:css)
