@@ -68,12 +68,6 @@ compacted with the `https://linkedsoftwaredependencies.org/bundles/npm/component
 </figcaption>
 </figure>
 
-Since components and parameters are defined as RDFS vocabulary,
-we can instantiate components easily using the `rdf:type` predicate,
-and by using parameters as predicates on such new instances, as shown in [](#instance-oo).
-Instead of passing literals as values to parameters, it is also possible to pass _other component instances_ as values,
-thereby allowing nested component instantiations to be defined.
-
 <figure id="instance-oo" class="listing">
 ````/code/instance-oo.txt````
 <figcaption markdown="block">
@@ -81,7 +75,11 @@ Instantiation of `ex:MyModule/MyComponent` using a value for the parameter `ex:M
 </figcaption>
 </figure>
 
-<div class="printonly" style="height: 50px;">&nbsp;</div>
+Since components and parameters are defined as RDFS vocabulary,
+we can instantiate components easily using the `rdf:type` predicate,
+and by using parameters as predicates on such new instances, as shown in [](#instance-oo).
+Instead of passing literals as values to parameters, it is also possible to pass _other component instances_ as values,
+thereby allowing nested component instantiations to be defined.
 
 ### Object Mapping Vocabulary
 

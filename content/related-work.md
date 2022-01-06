@@ -1,5 +1,3 @@
-<div class="printonly" style="height: 100px;">&nbsp;</div>
-
 ## Related Work
 {:#related-work}
 
@@ -34,6 +32,8 @@ and taking away the need to recompile the code for pre-compiled languages.
 However, when dependencies are defined based on some logic such as external conditions,
 configuration via code may be better suited,
 as this can become too complex to define in declarative configuration files.
+
+<div class="printonly" style="height: 40px;">&nbsp;</div>
 
 **Forms of Injection**
 
@@ -74,8 +74,6 @@ Disadvantages:
 * Defining the wiring of an application via **configurations can be complex**, so good defaults must be available.
 * Logic **flow is harder to follow** when debugging, which leads to the need of good documentation.
 * DI frameworks can lead to **overhead** in terms of understandability, execution time and software size.
-
-<div class="printonly" style="height: 50px;">&nbsp;</div>
 
 ### Semantic Software Description
 {:#related-work-software-description}
