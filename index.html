@@ -13,7 +13,7 @@
   <meta name="citation_author" content="Miel Vander Sande" />
   <meta name="citation_author" content="Ruben Verborgh" />
   
-  <meta name="citation_publication_date" content="2021/11/13" />
+  <meta name="citation_publication_date" content="2022/01/06" />
 </head>
 
 <body prefix="dctypes: http://purl.org/dc/dcmitype/ pimspace: http://www.w3.org/ns/pim/space# rsa: http://www.w3.org/ns/auth/rsa# cert: http://www.w3.org/ns/auth/cert# wgs: http://www.w3.org/2003/01/geo/wgs84_pos# biblio: http://purl.org/net/biblio# bibo: http://purl.org/ontology/bibo/ book: http://purl.org/NET/book/vocab# ov: http://open.vocab.org/terms/ doap: http://usefulinc.com/ns/doap# dbr: http://dbpedia.org/resource/ dbp: http://dbpedia.org/property/ sio: http://semanticscience.org/resource/ opmw: http://www.opmw.org/ontology/ deo: http://purl.org/spar/deo/ doco: http://purl.org/spar/doco/ cito: http://purl.org/spar/cito/ fabio: http://purl.org/spar/fabio/ solid: http://www.w3.org/ns/solid/terms# acl: http://www.w3.org/ns/auth/acl# dio: https://w3id.org/dio# lsc: http://linkedscience.org/lsc/ns#" typeof="schema:CreativeWork sioc:Post prov:Entity lsc:Research">
@@ -34,6 +34,12 @@
           <br />E-mail: ruben.taelman@ugent.be</li>
     <li id="meemoo"><sup>2</sup>meemoo, Flemish Institute for Archives</li>
   </ul>
+
+  <div class="reviewers">
+<strong>Editor(s):</strong> Aidan Hogan, Universidad de Chile, Chile
+<br />
+<strong>Solicited reviews:</strong> Pierre-Antoine Champin, Université de Lyon, France; Esko Ikkala, Aalto University, Finland; Daniel Garijo, Ontology Engineering Group, Spain
+</div>
 
 </header>
 
@@ -135,7 +141,7 @@ The framework is <a property="schema:citation http://purl.org/spar/cito/cites" h
 is available on <a property="schema:citation http://purl.org/spar/cito/cites" href="https://www.npmjs.com/package/componentsjs">npm</a> <span class="references">[<a href="#ref-6">6</a>]</span>,
 and has extensive <a property="schema:citation http://purl.org/spar/cito/cites" href="https://componentsjs.readthedocs.io/">documentation</a> <span class="references">[<a href="#ref-7">7</a>]</span>.
 Furthermore, it is being actively used as core technology within popular tools such as
-the <a property="schema:citation http://purl.org/spar/cito/cites" href="https://github.com/solid/community-server/">Community Solid Server</a> <span class="references">[<a href="#ref-8">8</a>]</span> and <a property="schema:citation http://purl.org/spar/cito/cites" href="https://comunica.github.io/Article-ISWC2018-Resource/">Comunica</a> <span class="references">[<a href="#ref-9">9</a>]</span>.
+the <a property="schema:citation http://purl.org/spar/cito/cites" href="https://github.com/solid/community-server/">Community Solid Server</a> <span class="references">[<a href="#ref-8">8</a>]</span> and <span property="schema:citation http://purl.org/spar/cito/cites" resource="https://dx.doi.org/10.1007/978-3-030-00668-6_15"><a href="https://comunica.github.io/Article-ISWC2018-Resource/">Comunica</a></span> <span class="references">[<a href="#ref-9">9</a>]</span>.
 Within Components.js,
 software configurations and modules are described as Linked Data using
 the <a property="schema:citation http://purl.org/spar/cito/citesAsAuthority" href="https://linkedsoftwaredependencies.org/articles/describing-experiments/"><em>Object-Oriented Components vocabulary</em></a> <span class="references">[<a href="#ref-10">10</a>]</span>
@@ -181,11 +187,9 @@ Finally, we conclude in <a href="#conclusions">Section 6</a>.</p>
         </div>
 </section>
 
-  <section>
+  <section id="related-work" inlist="" rel="schema:hasPart" resource="#related-work">
 <div datatype="rdf:HTML" property="schema:description">
-          <div class="printonly" style="height: 100px;">&nbsp;</div>
-
-          <h2 id="related-work">Related Work</h2>
+          <h2 property="schema:name">Related Work</h2>
 
           <h3 id="related-work-di">Dependency Injection</h3>
 
@@ -217,6 +221,8 @@ and taking away the need to recompile the code for pre-compiled languages.
 However, when dependencies are defined based on some logic such as external conditions,
 configuration via code may be better suited,
 as this can become too complex to define in declarative configuration files.</p>
+
+          <div class="printonly" style="height: 40px;">&nbsp;</div>
 
           <p><strong>Forms of Injection</strong></p>
 
@@ -261,8 +267,6 @@ and <a href="https://www.professionalqa.com/dependency-injection">disadvantages<
             <li>Logic <strong>flow is harder to follow</strong> when debugging, which leads to the need of good documentation.</li>
             <li>DI frameworks can lead to <strong>overhead</strong> in terms of understandability, execution time and software size.</li>
           </ul>
-
-          <div class="printonly" style="height: 50px;">&nbsp;</div>
 
           <h3 id="related-work-software-description">Semantic Software Description</h3>
 
@@ -460,12 +464,6 @@ compacted with the <code>https:/​/​linkedsoftwaredependencies.org/bundles/np
             </figcaption>
 </figure>
 
-          <p>Since components and parameters are defined as RDFS vocabulary,
-we can instantiate components easily using the <code>rdf:type</code> predicate,
-and by using parameters as predicates on such new instances, as shown in <a href="#instance-oo">Listing 2</a>.
-Instead of passing literals as values to parameters, it is also possible to pass <em>other component instances</em> as values,
-thereby allowing nested component instantiations to be defined.</p>
-
           <figure id="instance-oo" class="listing">
 <pre><code>{
 </code><code>  &quot;@context&quot;: [
@@ -481,7 +479,11 @@ thereby allowing nested component instantiations to be defined.</p>
             </figcaption>
 </figure>
 
-          <div class="printonly" style="height: 50px;">&nbsp;</div>
+          <p>Since components and parameters are defined as RDFS vocabulary,
+we can instantiate components easily using the <code>rdf:type</code> predicate,
+and by using parameters as predicates on such new instances, as shown in <a href="#instance-oo">Listing 2</a>.
+Instead of passing literals as values to parameters, it is also possible to pass <em>other component instances</em> as values,
+thereby allowing nested component instantiations to be defined.</p>
 
           <h3 id="object-mapping-vocabulary">Object Mapping Vocabulary</h3>
 
@@ -858,9 +860,11 @@ and how to invoke the DI tool.</p>
         </div>
 </section>
 
-  <section id="usage" inlist="" rel="schema:hasPart" resource="#usage">
+  <section>
 <div datatype="rdf:HTML" property="schema:description">
-          <h2 property="schema:name">Usage</h2>
+          <div class="printonly" style="height: 50px;">&nbsp;</div>
+
+          <h2 id="usage">Usage</h2>
 
           <p>A measure of the usage of an open-source project without the use of any tracking software is a picture that is always incomplete.
 Nevertheless, we analyze the usage of Components.js in this section on two aspects:
@@ -890,8 +894,6 @@ Therefore, we conclude that the metrics reported here are merely an estimate.</p
           <p>In the previous section, we provided an informed estimate as to <em>how much</em> Components.js is being used.
 In this section, we provide an analysis of <em>in what way</em> Components.js is being used in four real-world projects:
 Community Solid Server, Handlers.js, Digita Identity Proxy, and Comunica.</p>
-
-          <div class="printonly" style="height: 50px;">&nbsp;</div>
 
           <h4 id="community-solid-server">Community Solid Server</h4>
 
@@ -946,7 +948,7 @@ With Components.js, these components can be easily configured and plugged in via
 
           <h4 id="usage-comunica">Comunica</h4>
 
-          <p><a property="schema:citation http://purl.org/spar/cito/cites" href="https://comunica.github.io/Article-ISWC2018-Resource/">Comunica</a> <span class="references">[<a href="#ref-9">9</a>]</span> is another project that makes use of Components.js at its core.
+          <p><span property="schema:citation http://purl.org/spar/cito/cites" resource="https://dx.doi.org/10.1007/978-3-030-00668-6_15"><a href="https://comunica.github.io/Article-ISWC2018-Resource/">Comunica</a></span> <span class="references">[<a href="#ref-9">9</a>]</span> is another project that makes use of Components.js at its core.
 Comunica is a highly modular SPARQL query engine
 that has been designed to be a flexible research platform for SPARQL query execution.
 It has been written in TypeScript, and is developed by Ghent University, by authors of this article.</p>
@@ -974,7 +976,7 @@ When using a Components.js configuration file,
 the necessary semantics for accurately replicating such experiments are available as Linked Data.
 The reproducibility of <a property="schema:citation http://purl.org/spar/cito/cites" href="https://git.its.aau.dk/CLAAUDIA/teach_reproducibility/raw/commit/dbea465c0d10bca50b0cca23fd93afd0ffea08dc/litt/Wavelab%20and%20reproducible%20research.pdf">experimental results is often considered to be even more important than the research article itself</a> <span class="references">[<a href="#ref-51">51</a>]</span>,
 as the article can be considered to be merely <em>advertising of the scholarship</em>.
-For example, the <a property="schema:citation http://purl.org/spar/cito/cites" href="https://comunica.github.io/Article-ISWC2018-Resource/">Comunica research article</a> <span class="references">[<a href="#ref-9">9</a>]</span> contains an <a href="https://comunica.github.io/Article-ISWC2018-Resource/#evaluation-workflow" class="mandatory" data-link-text="https:/​/​comunica.github.io/​Article-​ISWC2018-​Resource/​#evaluation-​workflow">experiment workflow</a>
+For example, the <span property="schema:citation http://purl.org/spar/cito/cites" resource="https://dx.doi.org/10.1007/978-3-030-00668-6_15"><a href="https://comunica.github.io/Article-ISWC2018-Resource/">Comunica research article</a></span> <span class="references">[<a href="#ref-9">9</a>]</span> contains an <a href="https://comunica.github.io/Article-ISWC2018-Resource/#evaluation-workflow" class="mandatory" data-link-text="https:/​/​comunica.github.io/​Article-​ISWC2018-​Resource/​#evaluation-​workflow">experiment workflow</a>
 that is backed by the used Components.js configuration files.</p>
 
         </div>
@@ -1076,7 +1078,7 @@ Ruben Taelman is a postdoctoral fellow of the Research Foundation – Flanders (
   <dt id="ref-8">[8]</dt>
   <dd resource="https://github.com/solid/community-server/" typeof="schema:CreativeWork">Van Herwegen, J., Verborgh, R., Taelman, R.: Community Solid Server Source Code. <a href="https://github.com/solid/community-server/">https:/​/​github.com/solid/community-server/</a> (2021).</dd>
   <dt id="ref-9">[9]</dt>
-  <dd resource="https://comunica.github.io/Article-ISWC2018-Resource/" typeof="schema:Article">Taelman, R., Van Herwegen, J., Vander Sande, M., Verborgh, R.: Comunica: a Modular SPARQL Query Engine for the Web. In: Proceedings of the 17th International Semantic Web Conference (2018).</dd>
+  <dd resource="https://dx.doi.org/10.1007/978-3-030-00668-6_15" typeof="schema:Article">Taelman, R., Van Herwegen, J., Vander Sande, M., Verborgh, R.: Comunica: a Modular SPARQL Query Engine for the Web. In: Proceedings of the 17th International Semantic Web Conference (2018). doi:10.1007/978-3-030-00668-6_15</dd>
   <dt id="ref-10">[10]</dt>
   <dd resource="https://linkedsoftwaredependencies.org/articles/describing-experiments/" typeof="schema:Article">Van Herwegen, J., Taelman, R., Capadisli, S., Verborgh, R.: Describing configurations of software experiments as Linked Data. In: Proceedings of the 1st SemSci Workshop (2017).</dd>
   <dt id="ref-11">[11]</dt>
@@ -1084,27 +1086,27 @@ Ruben Taelman is a postdoctoral fellow of the Research Foundation – Flanders (
   <dt id="ref-12">[12]</dt>
   <dd resource="https://nixos.org/" typeof="schema:CreativeWork">NixOS - NixOS Linux. <a href="https://nixos.org/">https:/​/​nixos.org/</a> (2021).</dd>
   <dt id="ref-13">[13]</dt>
-  <dd resource="#malone2014software" typeof="schema:Article">Malone, J., Brown, A., Lister, A.L., Ison, J., Hull, D., Parkinson, H., Stevens, R.: The Software Ontology (SWO): a resource for reproducibility in biomedical data analysis, curation and digital preservation. Journal of biomedical semantics. 5, 25 (2014).</dd>
+  <dd resource="https://dx.doi.org/10.1186/2041-1480-5-25" typeof="schema:Article">Malone, J., Brown, A., Lister, A.L., Ison, J., Hull, D., Parkinson, H., Stevens, R.: The Software Ontology (SWO): a resource for reproducibility in biomedical data analysis, curation and digital preservation. Journal of biomedical semantics. 5, 25 (2014). doi:10.1186/2041-1480-5-25</dd>
   <dt id="ref-14">[14]</dt>
   <dd resource="http://usefulinc.com/ns/doap" typeof="schema:CreativeWork">Wilder-James, E.: Description of a Project. <a href="http://usefulinc.com/ns/doap">http:/​/​usefulinc.com/ns/doap</a> (2017).</dd>
   <dt id="ref-15">[15]</dt>
-  <dd resource="https://dx.doi.org/10.1145/2814864.2814882" typeof="schema:Article">Rautenberg, S., Ermilov, I., Marx, E., Auer, S., Ngonga Ngomo, A.-C.: LODFlow: A Workflow Management System for Linked Data Processing. In: Proceedings of the 11th International Conference on Semantic Systems. pp. 137–144. ACM (2015).</dd>
+  <dd resource="https://dx.doi.org/10.1145/2814864.2814882" typeof="schema:Article">Rautenberg, S., Ermilov, I., Marx, E., Auer, S., Ngonga Ngomo, A.-C.: LODFlow: A Workflow Management System for Linked Data Processing. In: Proceedings of the 11th International Conference on Semantic Systems. pp. 137–144. ACM (2015). doi:10.1145/2814864.2814882</dd>
   <dt id="ref-16">[16]</dt>
-  <dd resource="https://dx.doi.org/10.1016/j.websem.2015.01.003" typeof="schema:Article">Belhajjame, K., Zhao, J., Garijo, D., Gamble, M., Hettne, K., Palma, R., Mina, E., Corcho, O., Gómez-Pérez, J.M., Bechhofer, S., Klyne, G., Goble, C.: Using a suite of ontologies for preserving workflow-centric research objects. Web Semantics: Science,  Services and Agents on the World Wide Web. 32, 16–42 (2015).</dd>
+  <dd resource="https://dx.doi.org/10.1016/j.websem.2015.01.003" typeof="schema:Article">Belhajjame, K., Zhao, J., Garijo, D., Gamble, M., Hettne, K., Palma, R., Mina, E., Corcho, O., Gómez-Pérez, J.M., Bechhofer, S., Klyne, G., Goble, C.: Using a suite of ontologies for preserving workflow-centric research objects. Web Semantics: Science,  Services and Agents on the World Wide Web. 32, 16–42 (2015). doi:10.1016/j.websem.2015.01.003</dd>
   <dt id="ref-17">[17]</dt>
-  <dd resource="https://dx.doi.org/10.1109/escience.2014.47" typeof="schema:Article">Mayer, R., Miksa, T., Rauber, A.: Ontologies for Describing the Context of Scientific Experiment Processes. In: 10th International Conference on e-Science. IEEE (2014).</dd>
+  <dd resource="https://dx.doi.org/10.1109/escience.2014.47" typeof="schema:Article">Mayer, R., Miksa, T., Rauber, A.: Ontologies for Describing the Context of Scientific Experiment Processes. In: 10th International Conference on e-Science. IEEE (2014). doi:10.1109/escience.2014.47</dd>
   <dt id="ref-18">[18]</dt>
   <dd resource="https://www.w3.org/TR/prov-o/" typeof="schema:CreativeWork">Lebo, T., Sahoo, S., McGuinness, D.: Prov-O: The PROV Ontology. W3C, <a href="https://www.w3.org/TR/prov-o/">https:/​/​www.w3.org/TR/prov-o/</a> (2013).</dd>
   <dt id="ref-19">[19]</dt>
-  <dd resource="https://dx.doi.org/10.1145/2110497.2110504" typeof="schema:Article">Garijo, D., Gil, Y.: A new approach for publishing workflows: abstractions, standards, and linked data. In: Proceedings of the 6th workshop on Workflows in support of large-scale science. pp. 47–56. ACM (2011).</dd>
+  <dd resource="https://dx.doi.org/10.1145/2110497.2110504" typeof="schema:Article">Garijo, D., Gil, Y.: A new approach for publishing workflows: abstractions, standards, and linked data. In: Proceedings of the 6th workshop on Workflows in support of large-scale science. pp. 47–56. ACM (2011). doi:10.1145/2110497.2110504</dd>
   <dt id="ref-20">[20]</dt>
   <dd resource="http://rdf-vocabulary.ddialliance.org/discovery.html" typeof="schema:CreativeWork">Bosch, T., Cyganiak, R., Wackerow, J., Zapilko, B.: DDI-RDF Discovery Vocabulary. <a href="http://rdf-vocabulary.ddialliance.org/discovery.html">http:/​/​rdf-vocabulary.ddialliance.org/discovery.html</a> (2015).</dd>
   <dt id="ref-21">[21]</dt>
-  <dd resource="#oberle2009ontology" typeof="schema:Chapter">Oberle, D., Grimm, S., Staab, S.: An ontology for software. In: Handbook on ontologies. pp. 383–402. Springer (2009).</dd>
+  <dd resource="https://dx.doi.org/10.1007/978-3-540-92673-3_17" typeof="schema:Chapter">Oberle, D., Grimm, S., Staab, S.: An ontology for software. In: Handbook on ontologies. pp. 383–402. Springer (2009). doi:10.1007/978-3-540-92673-3_17</dd>
   <dt id="ref-22">[22]</dt>
-  <dd resource="#ruy2016seon" typeof="schema:Article">Ruy, F.B., de Almeida Falbo, R., Barcellos, M.P., Costa, S.D., Guizzardi, G.: SEON: A software engineering ontology network. In: European Knowledge Acquisition Workshop. pp. 527–542. Springer (2016).</dd>
+  <dd resource="https://dx.doi.org/10.1007/978-3-319-49004-5_34" typeof="schema:Article">Ruy, F.B., de Almeida Falbo, R., Barcellos, M.P., Costa, S.D., Guizzardi, G.: SEON: A software engineering ontology network. In: European Knowledge Acquisition Workshop. pp. 527–542. Springer (2016). doi:10.1007/978-3-319-49004-5_34</dd>
   <dt id="ref-23">[23]</dt>
-  <dd resource="#GraphGen4Code" typeof="schema:CreativeWork">Abdelaziz, I., Dolby, J., McCusker, J., Srinivas, K.: A Toolkit for Generating Code Knowledge Graphs (2021).</dd>
+  <dd resource="https://dx.doi.org/10.1145/3460210" typeof="schema:CreativeWork">Abdelaziz, I., Dolby, J., McCusker, J., Srinivas, K.: A Toolkit for Generating Code Knowledge Graphs (2021). doi:10.1145/3460210</dd>
   <dt id="ref-24">[24]</dt>
   <dd resource="https://spring.io/" typeof="schema:CreativeWork">Spring. <a href="https://spring.io/">https:/​/​spring.io/</a> (2021).</dd>
   <dt id="ref-25">[25]</dt>
@@ -1136,9 +1138,9 @@ Ruben Taelman is a postdoctoral fellow of the Research Foundation – Flanders (
   <dt id="ref-38">[38]</dt>
   <dd resource="https://github.com/LinkedSoftwareDependencies/Components-Generator.js/" typeof="schema:CreativeWork">Taelman, R.: Components.js Generator Source Code. <a href="https://github.com/LinkedSoftwareDependencies/Components-Generator.js/">https:/​/​github.com/LinkedSoftwareDependencies/Components-Generator.js/</a> (2021).</dd>
   <dt id="ref-39">[39]</dt>
-  <dd resource="https://dx.doi.org/10.5281/zenodo.5644902" typeof="schema:CreativeWork">Taelman, R., Herwegen, J.V., Heyvaert, P.: LinkedSoftwareDependencies/Components-  Generator.js: 2.6.1. <a href="https://doi.org/10.5281/zenodo.5644902">https:/​/​doi.org/10.5281/zenodo.5644902</a> (2021).</dd>
+  <dd resource="https://dx.doi.org/10.5281/zenodo.5644902" typeof="schema:CreativeWork">Taelman, R., Herwegen, J.V., Heyvaert, P.: LinkedSoftwareDependencies/Components-  Generator.js: 2.6.1. <a href="https://doi.org/10.5281/zenodo.5644902">https:/​/​doi.org/10.5281/zenodo.5644902</a> (2021). doi:10.5281/zenodo.5644902</dd>
   <dt id="ref-40">[40]</dt>
-  <dd resource="https://dx.doi.org/10.5281/zenodo.1243988" typeof="schema:CreativeWork">Taelman, R., Verborgh, R., Herwegen, J.V., Noterman, L.: LinkedSoftwareDependencies/Components.js 2.0.0. <a href="https://doi.org/10.5281/zenodo.1243988">https:/​/​doi.org/10.5281/zenodo.1243988</a> (2018).</dd>
+  <dd resource="https://dx.doi.org/10.5281/zenodo.1243988" typeof="schema:CreativeWork">Taelman, R., Verborgh, R., Herwegen, J.V., Noterman, L.: LinkedSoftwareDependencies/Components.js 2.0.0. <a href="https://doi.org/10.5281/zenodo.1243988">https:/​/​doi.org/10.5281/zenodo.1243988</a> (2018). doi:10.5281/zenodo.1243988</dd>
   <dt id="ref-41">[41]</dt>
   <dd resource="https://comunica.dev/association/" typeof="schema:CreativeWork">Comunica Association. <a href="https://comunica.dev/association/">https:/​/​comunica.dev/association/</a> (2021).</dd>
   <dt id="ref-42">[42]</dt>
